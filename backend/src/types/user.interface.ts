@@ -1,7 +1,7 @@
 import { UserRole } from './user-role.enum';
 
 export interface User {
-  id?: number;
+  userId?: number;
   userName: string;
   userMail: string;
   userAvatar: string;
@@ -20,6 +20,7 @@ export interface User {
 }
 
 export interface UserBody {
+  id?: number;
   timeOfTraining: string;
   caloryLosingPlanTotal: string;
   caloryLosingPlanDiurnal: string;
@@ -27,6 +28,7 @@ export interface UserBody {
 }
 
 export interface TrainerBody {
+  id?: number;
   sertificate: string;
   merit: string;
   readinessForPrivate: boolean;
