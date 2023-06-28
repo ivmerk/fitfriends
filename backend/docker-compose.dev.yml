@@ -1,8 +1,9 @@
-version: '3.5'
+version: '3.8'
 services:
   fitfriends.postgres:
     image: postgres:14-alpine
     container_name: fitfriends.postgres
+    restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -22,7 +23,7 @@ services:
       - fitfriends
 
   fitfriends.pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:7.3
     container_name: fitfriends.pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: "keks@htmlacademy.local"

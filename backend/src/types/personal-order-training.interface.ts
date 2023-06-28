@@ -1,10 +1,10 @@
 import { User } from './user.interface';
 
 export interface PersonalOrderTraining {
-  personalOrderTraining?: number;
+  personalOrderTrainingId?: number;
   user: User;
   trainer: User;
   createdAt?: Date;
-  publishAt?: Date;
+  updateAt?: Date;
   orderCondition: string;
 }

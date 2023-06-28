@@ -1,8 +1,9 @@
 import { Training } from './training.interface';
+import { User } from './user.interface';
 
 export interface Feedback {
   feedbackId?: number;
-  author: string;
+  user: User;
   training: Training;
   rating: number;
   text: string;
