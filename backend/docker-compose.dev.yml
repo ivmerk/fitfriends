@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-  readme.blog.postgres:
+  fitfriends.postgres:
     image: postgres:14-alpine
     container_name: fitfriends.postgres
     environment:
@@ -21,7 +21,7 @@ services:
     networks:
       - fitfriends
 
-  readme.blog.pgadmin:
+  fitfriends.pgadmin:
     image: dpage/pgadmin4
     container_name: fitfriends.pgadmin
     environment:

@@ -4,12 +4,12 @@ export interface User {
   userId?: number;
   userName: string;
   userMail: string;
-  userAvatar: string;
+  userAvatar?: string;
   password: string;
   userGender: string;
   birthDate?: Date;
   userRole: UserRole;
-  description: string;
+  description?: string;
   location: string;
   backgraundPicture: string;
   createdAt?: Date;
