@@ -4,7 +4,7 @@ import { User } from './user.interface';
 export interface OrderTraining {
   orderTrainingId?: number;
   user: User;
-  typeOrder: string;
+  typeOfOrder: string;
   training: Training;
   price: number;
   qtt: number;
