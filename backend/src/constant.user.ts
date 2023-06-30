@@ -37,3 +37,13 @@ export enum TrainerMeritLength {
   Min = 10,
   Max = 140,
 }
+export const levelsOfExperience: string[] = [
+  'новичок',
+  'любитель',
+  'профессионал',
+];
+
+export enum CaloriesQtt {
+  Min = 1000,
+  Max = 5000,
+}

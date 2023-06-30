@@ -12,10 +12,10 @@ enum UserRole {
   client
 }
 
-model User {
+model UserEntity {
   userId            Int                     @id @default(autoincrement()) @map("user_id")
   userName          String                  @default("") @map("user_name")
-  userMail          String                  @default("") @map("user_mail")
+  userMail          String                  @unique @default("") @map("user_mail")
   userAvatar        String?                 @default("") @map("user_avatar")
   passwordHash      String                  @default("")
   userGender        String                  @default("") @map("user_gender")
@@ -25,111 +25,115 @@ model User {
   location          String                  @default("")
   backgraundPicture String                  @default("") @map("backgraund_picture")
   createdAt         DateTime                @default(now()) @map("created_at")
-  userBody          ClientBody?
+  clientBody        ClientBody?
   trainerBody       TrainerBody?
   levelOfExperience String                  @default("") @map("level_of_experience")
   typesOfTraning    String[]                @map("types_of_traning")
-  feedbacks         Feedback[]
   orders            OrderTraining[]
   personalOrders    PersonalOrderTraining[]
-  userbalance       UserBalance[]
+  userBalance       UserBalance[]
+  friends           Friend[]
 
   @@map("users")
 }
 
 model ClientBody {
-  clientBodyId            Int     @id @default(autoincrement()) @map("user_body_id")
-  user                    User    @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
-  userId                  Int     @unique @map("user_id")
-  timeOfTraining          String  @default("") @map("time_of_training")
-  caloryLosingPlanTotal   String  @default("") @map("calory_losing_plan_total")
-  caloryLosingPlanDiurnal String  @default("") @map("calory_losing_plan_diurnal")
-  readinessForTraining    Boolean @default(false) @map("readiness_for_training")
+  clientBodyId          Int        @id @default(autoincrement()) @map("user_body_id")
+  user                  UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+  userId                Int        @unique @map("user_id")
+  timeOfTraining        String     @default("") @map("time_of_training")
+  caloryLosingPlanTotal Int        @default(0) @map("calory_losing_plan_total")
+  caloryLosingPlanDaily Int        @default(0) @map("calory_losing_plan_daily")
+  readinessForTraining  Boolean    @default(false) @map("readiness_for_training")
 
-  orders         OrderTraining[]
-  personalOrders PersonalOrderTraining[]
-
-  @@map("user_body")
+  @@map("client_body")
 }
 
 model TrainerBody {
-  trainerBodyId       Int     @id @default(autoincrement()) @map("trainer_body_id")
-  user                User    @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
-  userId              Int     @unique @map("user_id")
-  sertificate         String  @default("")
-  merit               String  @default("")
-  readinessForPrivate Boolean @default(false) @map("readiness_for_private")
+  trainerBodyId       Int        @id @default(autoincrement()) @map("trainer_body_id")
+  user                UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+  userId              Int        @unique @map("user_id")
+  sertificate         String     @default("")
+  merit               String     @default("")
+  readinessForPrivate Boolean    @default(false) @map("readiness_for_private")
 
   @@map("trainer_body")
 }
 
-model Training {
-  trainingId        Int             @id @default(autoincrement()) @map("training_id")
-  title             String          @default("")
-  backgroundPicture String          @default("") @map("backgraund_picture")
-  levelOfUser       String          @default("") @map("level_of_user")
-  typeOfTraining    String          @default("") @map("type_of_training")
-  duration          String          @default("")
-  price             Int             @default(0)
-  caloriesQtt       Int             @default(0) @map("calories_qtt")
-  description       String          @default("")
-  trainingGender    String          @default("") @map("training_gender")
-  video             String          @default("")
-  rating            Int             @default(0)
-  trainer           Int             @default(0)
-  isPromo           Boolean         @default(false) @map("is_promo")
+model TrainingEntity {
+  trainingId        Int        @id @default(autoincrement()) @map("training_id")
+  title             String     @default("")
+  backgroundPicture String     @default("") @map("backgraund_picture")
+  levelOfUser       String     @default("") @map("level_of_user")
+  typeOfTraining    String     @default("") @map("type_of_training")
+  duration          String     @default("")
+  price             Int        @default(0)
+  caloriesQtt       Int        @default(0) @map("calories_qtt")
+  description       String     @default("")
+  trainingGender    String     @default("") @map("training_gender")
+  video             String     @default("")
+  rating            Int        @default(0)
+  trainer           Int        @default(0)
+  isPromo           Boolean    @default(false) @map("is_promo")
   feedbacks         Feedback[]
-  orders            OrderTraining[]
-  userbalance       UserBalance[]
 
   @@map("training")
 }
 
 model UserBalance {
-  userBalanceId Int      @id @default(autoincrement()) @map("user_balance_id")
-  user          User     @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
-  userId        Int      @unique @map("user_id")
-  training      Training @relation(fields: [trainingId], references: [trainingId], onDelete: Cascade, onUpdate: Cascade)
-  trainingId    Int      @unique @map("training_id")
-  trainingQtt   Int      @map("training_qtt")
+  userBalanceId Int        @id @default(autoincrement()) @map("user_balance_id")
+  user          UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+  userId        Int        @map("user_id")
+  trainingId    Int        @map("training_id")
+  trainingQtt   Int        @map("training_qtt")
 
   @@map("user_balance")
 }
 
 model Feedback {
-  feedbackId Int      @id @default(autoincrement()) @map("feedback_id")
-  user       User     @relation(fields: [userId], references: [userId])
-  userId     Int      @unique @map("user_id")
-  training   Training @relation(fields: [trainingId], references: [trainingId])
-  trainingId Int      @unique @map("training_id")
-  rating     Int      @default(0)
-  text       String   @default("")
-  createdAt  DateTime @default(now()) @map("created_at")
+  feedbackId Int            @id @default(autoincrement()) @map("feedback_id")
+  userId     Int            @map("user_id")
+  training   TrainingEntity @relation(fields: [trainingId], references: [trainingId], onDelete: Cascade, onUpdate: Cascade)
+  trainingId Int            @map("training_id")
+  rating     Int            @default(0)
+  text       String         @default("")
+  createdAt  DateTime       @default(now()) @map("created_at")
+
+  @@map("feed_back")
 }
 
 model OrderTraining {
-  orderTrainingId Int         @id @default(autoincrement()) @map("order_traiding_id")
-  typeOrder       String      @default("")
-  user            User        @relation(fields: [userId], references: [userId])
-  userId          Int         @unique @map("user_id")
-  training        Training    @relation(fields: [trainingId], references: [trainingId])
-  trainingId      Int         @unique @map("training_id")
-  price           Int         @default(0)
-  qtt             Int         @default(0)
-  typeOfPayment   String      @default("")
-  createdAt       DateTime    @default(now()) @map("created_at")
-  ClientBody      ClientBody? @relation(fields: [clientBodyId], references: [clientBodyId])
-  clientBodyId    Int?
+  orderTrainingId Int        @id @default(autoincrement()) @map("order_traiding_id")
+  typeOrder       String     @default("")
+  user            UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+  userId          Int        @map("user_id")
+  trainingId      Int        @map("training_id")
+  price           Int        @default(0)
+  qtt             Int        @default(0)
+  typeOfPayment   String     @default("")
+  createdAt       DateTime   @default(now()) @map("created_at")
+
+  @@map("order_training")
 }
 
 model PersonalOrderTraining {
   personalOrderTrainingId Int        @id @default(autoincrement()) @map("personal_order_training_id")
-  userBody                ClientBody @relation(fields: [clientBodyId], references: [clientBodyId])
-  clientBodyId            Int        @unique @map("user_id")
-  user                    User       @relation(fields: [userId], references: [userId])
-  userId                  Int        @unique @map("trainer_id")
+  user                    UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+  userId                  Int        @map("user_id")
+  trainerId               Int        @map("trainer_id")
   createdAt               DateTime   @default(now()) @map("created_at")
   updateAt                DateTime   @default(now()) @map("update_at")
   orderCondition          String
   userUserId              Int
+
+  @@map("personal_order_training")
+}
+
+model Friend {
+  friendId     Int        @id @default(autoincrement()) @map("friend_id")
+  user         UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+  userId       Int        @map("user_id")
+  friendUserId Int        @map("friend_user_id")
+
+  @@map("friend")
 }

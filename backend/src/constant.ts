@@ -1,14 +1,3 @@
-export const levelsOfExperience: string[] = [
-  'новичок',
-  'любитель',
-  'профессионал',
-];
-
-export enum CaloriesQtt {
-  Min = 1000,
-  Max = 5000,
-}
-
 export enum Rating {
   Min = 1,
   Max = 5,
