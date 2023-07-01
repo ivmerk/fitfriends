@@ -3,4 +3,4 @@ frontend/node_modules
 markup
 backend/node_modules
 backend/.env
-backend/src/prisma/migrations
+backend/src/app/prisma/migrations

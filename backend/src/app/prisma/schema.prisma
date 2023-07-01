@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../../../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -16,12 +17,12 @@ model UserEntity {
   userId            Int                     @id @default(autoincrement()) @map("user_id")
   userName          String                  @default("") @map("user_name")
   userMail          String                  @unique @default("") @map("user_mail")
-  userAvatar        String?                 @default("") @map("user_avatar")
+  userAvatar        String                  @default("") @map("user_avatar")
   passwordHash      String                  @default("")
   userGender        String                  @default("") @map("user_gender")
-  birthDate         DateTime?               @map("birth_date")
+  birthDate         String                  @default("") @map("birth_date")
   userRole          UserRole                @map("user_role")
-  description       String?                 @default("")
+  description       String                  @default("")
   location          String                  @default("")
   backgraundPicture String                  @default("") @map("backgraund_picture")
   createdAt         DateTime                @default(now()) @map("created_at")
@@ -32,7 +33,7 @@ model UserEntity {
   orders            OrderTraining[]
   personalOrders    PersonalOrderTraining[]
   userBalance       UserBalance[]
-  friends           Friend[]
+  friends           Int[]
 
   @@map("users")
 }
@@ -104,9 +105,9 @@ model Feedback {
 
 model OrderTraining {
   orderTrainingId Int        @id @default(autoincrement()) @map("order_traiding_id")
-  typeOrder       String     @default("")
   user            UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
   userId          Int        @map("user_id")
+  typeOfOrder     String     @default("")
   trainingId      Int        @map("training_id")
   price           Int        @default(0)
   qtt             Int        @default(0)
@@ -127,13 +128,4 @@ model PersonalOrderTraining {
   userUserId              Int
 
   @@map("personal_order_training")
-}
-
-model Friend {
-  friendId     Int        @id @default(autoincrement()) @map("friend_id")
-  user         UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
-  userId       Int        @map("user_id")
-  friendUserId Int        @map("friend_user_id")
-
-  @@map("friend")
 }

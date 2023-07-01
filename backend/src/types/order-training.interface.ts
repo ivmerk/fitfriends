@@ -1,11 +1,8 @@
-import { Training } from './training.interface';
-import { User } from './user.interface';
-
 export interface OrderTraining {
   orderTrainingId?: number;
-  user: User;
+  userId: number;
   typeOfOrder: string;
-  training: Training;
+  trainingId: number;
   price: number;
   qtt: number;
   typeOfPayment: string;

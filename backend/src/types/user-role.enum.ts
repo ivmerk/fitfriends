@@ -1,4 +1,6 @@
 export enum UserRole {
-  Trainer = 'Trainer',
-  User = 'User',
+  Trainer = 'trainer',
+  Client = 'client',
 }
+
+export type UserRoleType = 'trainer' | 'client';
