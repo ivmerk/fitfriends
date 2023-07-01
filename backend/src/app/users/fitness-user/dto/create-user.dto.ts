@@ -18,7 +18,6 @@ class TrainerBodyDto implements TrainerBody {
 }
 
 export class CreateUserDto implements User {
-  public userId!: number;
   public userName!: string;
   public userMail!: string;
   public userAvatar?: string;
@@ -29,10 +28,8 @@ export class CreateUserDto implements User {
   public description!: string;
   public location!: string;
   public backgraundPicture!: string;
-  public createdAt!: Date;
   public clientBody?: ClientBodyDto;
   public trainerBody?: TrainerBodyDto;
   public levelOfExperience!: string;
   public typesOfTraning!: string[];
-  public friends!: number[];
 }

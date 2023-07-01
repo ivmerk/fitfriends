@@ -1,0 +1,23 @@
+# Create a new user
+POST http://localhost:3333/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "userName": "Степанов Василий",
+  "userMail": "stepanov@gmail.com",
+  "userAvatar": "",
+  "passwordHash": "adsfaasdfadf",
+  "userGender": "мужской",
+  "birthDate": "11-06-1956",
+  "userRole": "trainer",
+  "description": "trainertrainertrainertrainertrainer",
+  "location": "Пионерская",
+  "backgraundPicture": "asdf.jpg",
+  "trainerBody": {
+    "sertificate": "sert.pdf",
+    "merit": "чтото напишем",
+    "readinessForPrivate": true
+  },
+  "levelOfExperience": "профессионал",
+  "typesOfTraning": ["стрейчинг", "кроссфит"]
+}
