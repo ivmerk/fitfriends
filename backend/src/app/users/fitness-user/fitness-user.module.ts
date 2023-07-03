@@ -7,5 +7,6 @@ import { FitnessUserService } from './fitness-user.service.js';
   imports: [],
   controllers: [FitnessUserController],
   providers: [FitnessUserRepository, FitnessUserService],
+  exports: [FitnessUserRepository],
 })
 export class FitnessUserModule {}

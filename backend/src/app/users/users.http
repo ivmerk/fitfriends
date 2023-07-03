@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "userName": "Степанов Василий",
-  "userMail": "stepanov@gmail.com",
+  "userMail": "step31anwwov@gmail.com",
   "userAvatar": "",
   "passwordHash": "adsfaasdfadf",
   "userGender": "мужской",
