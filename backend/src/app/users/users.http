@@ -4,9 +4,9 @@ Content-Type: application/json
 
 {
   "userName": "Василий",
-  "userMail": "step31anww2123ov@gmail.com",
+  "userMail": "step31anwwqq2123ov@gmail.com",
   "userAvatar": "",
-  "passwordHash": "adsfaasdfadf",
+  "password": "adsfaasdfadf",
   "userGender": "мужской",
   "birthDate": "1955-11-06",
   "userRole": "trainer",
@@ -33,7 +33,7 @@ POST http://localhost:3333/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "stepanov@gmail.com",
+  "email": "step31anwwqq2123ov@gmail.com",
   "password": "adsfaasdfadf"
 }
 ###

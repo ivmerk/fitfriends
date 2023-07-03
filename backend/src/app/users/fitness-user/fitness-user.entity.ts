@@ -1,9 +1,11 @@
+import { compare, genSalt, hash } from 'bcrypt';
 import { Entity } from '../../../types/entity.interface';
 import { OrderTraining } from '../../../types/order-training.interface';
 import { PersonalOrderTraining } from '../../../types/personal-order-training.interface';
 import { UserBalance } from '../../../types/user-balance.interface';
 import { UserRoleType } from '../../../types/user-role.enum';
 import { TrainerBody, User, ClientBody } from '../../../types/user.interface';
+import { SALT_ROUNDS } from '../../../constant.js';
 
 export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
   public userId!: number;
@@ -55,5 +57,14 @@ export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
 
   public toObject(): FitnessUserEntity {
     return { ...this };
+  }
+  public async setPassword(password: string): Promise<FitnessUserEntity> {
+    const salt = await genSalt(SALT_ROUNDS);
+    this.passwordHash = await hash(password, salt);
+    return this;
+  }
+
+  public async comparePassword(password: string): Promise<boolean> {
+    return compare(password, this.passwordHash);
   }
 }

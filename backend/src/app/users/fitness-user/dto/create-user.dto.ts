@@ -18,11 +18,7 @@ import {
   UserRoleType,
   userRoleTypes,
 } from '../../../../types/user-role.enum.js';
-import {
-  ClientBody,
-  TrainerBody,
-  User,
-} from '../../../../types/user.interface.js';
+import { ClientBody, TrainerBody } from '../../../../types/user.interface.js';
 import {
   AUTH_USER_DATE_BIRTH_NOT_VALID,
   AUTH_USER_EMAIL_NOT_VALID,
@@ -34,6 +30,7 @@ import {
   MAXIMUM_TRAINING_TYPES_CHOICE,
   TrainerMeritLength,
   UserDescriptionLength,
+  UserPasswordLength,
   UserTitleLength,
   levelsOfExperience,
   trainerSertificateTypes,
@@ -75,7 +72,7 @@ class TrainerBodyDto implements TrainerBody {
   public readinessForPrivate!: boolean;
 }
 
-export class CreateUserDto implements User {
+export class CreateUserDto {
   @ApiProperty({
     description: 'User  name',
     example: 'Keks',
@@ -95,7 +92,10 @@ export class CreateUserDto implements User {
   @IsString()
   public userAvatar?: string;
 
-  public passwordHash!: string;
+  @IsString()
+  @MinLength(UserPasswordLength.Min)
+  @MaxLength(UserPasswordLength.Max)
+  public password!: string;
 
   @IsString()
   @IsIn(userGenders)
