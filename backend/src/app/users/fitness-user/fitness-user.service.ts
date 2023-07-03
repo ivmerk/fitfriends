@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -16,12 +17,16 @@ import {
 } from './fitness-user.constant.js';
 import { LoginUserDto } from './dto/loging-user.dto.js';
 import { TokenPayload } from '../../../types/token-payload.interface.js';
+import jwtConfig from '../config/jwt.config.js';
+import { ConfigType } from '@nestjs/config';
 
 @Injectable()
 export class FitnessUserService {
   constructor(
     private readonly fitnessUserRepository: FitnessUserRepository,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    @Inject(jwtConfig.KEY)
+    private readonly jwtOptions: ConfigType<typeof jwtConfig>
   ) {}
 
   public async createUser(dto: CreateUserDto): Promise<User> {
@@ -69,7 +74,7 @@ export class FitnessUserService {
 
   public async createUserToken(user: User) {
     const payload: TokenPayload = {
-      sub: user.userId,
+      sub: user.userId!,
       email: user.userMail,
       userRole: user.userRole,
       name: user.userName,
@@ -77,6 +82,10 @@ export class FitnessUserService {
 
     return {
       accessToken: await this.jwtService.signAsync(payload),
+      refreshToken: await this.jwtService.signAsync(payload, {
+        secret: this.jwtOptions.refreshTokenSecret,
+        expiresIn: this.jwtOptions.refreshTokenExpiresIn,
+      }),
     };
   }
 }

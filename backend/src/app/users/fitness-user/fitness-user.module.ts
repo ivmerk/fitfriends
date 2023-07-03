@@ -5,6 +5,7 @@ import { FitnessUserRepository } from './fitness-user.repository.js';
 import { FitnessUserService } from './fitness-user.service.js';
 import { JwtModule } from '@nestjs/jwt';
 import { getJwtOptions } from '../../../common/get-jwt-options.js';
+import { JwtRefreshStrategy } from '../strategies/jwt-refresh.strategy.js';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { getJwtOptions } from '../../../common/get-jwt-options.js';
     }),
   ],
   controllers: [FitnessUserController],
-  providers: [FitnessUserRepository, FitnessUserService],
+  providers: [FitnessUserRepository, FitnessUserService, JwtRefreshStrategy],
   exports: [FitnessUserRepository],
 })
 export class FitnessUserModule {}

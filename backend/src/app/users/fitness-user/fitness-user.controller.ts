@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { FitnessUserService } from './fitness-user.service.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { fillObject } from '../../../common/helpers.js';
@@ -6,6 +14,8 @@ import { UserRdo } from './rdo/user-rdo.js';
 import { LoginUserDto } from './dto/loging-user.dto.js';
 import { ApiResponse } from '@nestjs/swagger';
 import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
+import { JwtRefreshGuard } from './guards/jwt-refresh.guard.js';
+import { RequestWithUser } from '../../../types/request-with-user.js';
 
 @Controller('auth')
 export class FitnessUserController {
@@ -35,5 +45,16 @@ export class FitnessUserController {
       verifiedUser
     );
     return fillObject(LoggedUserRdo, Object.assign(verifiedUser, loggedUser));
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Get a new access/refresh tokens',
+  })
+  public async refreshToken(@Req() { user }: RequestWithUser) {
+    return this.fitnessUserService.createUserToken(user!);
   }
 }
