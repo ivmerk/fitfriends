@@ -1,4 +1,4 @@
-export enum TitleTrainingLength {
+export enum TrainingTitleLength {
   Min = 1,
   Max = 15,
 }

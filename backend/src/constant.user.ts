@@ -4,6 +4,11 @@ export const userAvatarTypes: string[] = ['.jpg', '.png'];
 
 export const MAXIMUM_USER_AVATAR_FILE_SIZE = 1000000;
 
+export enum UserTitleLength {
+  Min = 1,
+  Max = 15,
+}
+
 export enum UserPasswordLength {
   Min = 6,
   Max = 12,

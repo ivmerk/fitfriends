@@ -4,7 +4,6 @@ import { FitnessUserRepository } from './fitness-user.repository.js';
 import { FitnessUserService } from './fitness-user.service.js';
 
 @Module({
-  imports: [],
   controllers: [FitnessUserController],
   providers: [FitnessUserRepository, FitnessUserService],
   exports: [FitnessUserRepository],

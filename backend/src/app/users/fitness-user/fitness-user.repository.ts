@@ -69,7 +69,13 @@ export class FitnessUserRepository
       },
     });
   }
-
+  public async findByEmail(userMail: string): Promise<User | null> {
+    return this.prisma.userEntity.findFirst({
+      where: {
+        userMail,
+      },
+    });
+  }
   // public async find(
   //   { limit, page }: CommentQuery,
   //   postId: number

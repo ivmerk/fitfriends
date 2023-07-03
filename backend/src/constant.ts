@@ -1,3 +1,5 @@
+export const SALT_ROUNDS = 10;
+
 export enum Rating {
   Min = 1,
   Max = 5,
