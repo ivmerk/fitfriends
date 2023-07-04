@@ -1,10 +1,13 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Post,
   Req,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { FitnessUserService } from './fitness-user.service.js';
@@ -16,13 +19,27 @@ import { ApiResponse } from '@nestjs/swagger';
 import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard.js';
 import { RequestWithUser } from '../../../types/request-with-user.js';
+import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
+import { RequestWithTokenPayload } from '../../../types/request-with-token-payloads.js';
+import { AUTH_NOT_FOR_AUTH_USER } from './fitness-user.constant.js';
 
 @Controller('auth')
 export class FitnessUserController {
   constructor(private readonly fitnessUserService: FitnessUserService) {}
 
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'The new user has been successfully created.',
+  })
   @Post('/register')
-  async create(@Body() dto: CreateUserDto) {
+  async create(
+    @Request() { user: payload }: RequestWithTokenPayload,
+    @Body() dto: CreateUserDto
+  ) {
+    console.log(payload?.email);
+    if (payload?.email) {
+      throw new NotFoundException(AUTH_NOT_FOR_AUTH_USER);
+    }
     const newUser = await this.fitnessUserService.createUser(dto);
     return fillObject(UserRdo, newUser);
   }
@@ -55,5 +72,12 @@ export class FitnessUserController {
   })
   public async refreshToken(@Req() { user }: RequestWithUser) {
     return this.fitnessUserService.createUserToken(user!);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('check')
+  public async checkToken(@Req() { user: payload }: RequestWithTokenPayload) {
+    console.log(payload?.email);
+    return payload;
   }
 }

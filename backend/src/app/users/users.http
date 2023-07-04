@@ -1,10 +1,11 @@
 # Create a new user
 POST http://localhost:3333/api/auth/register HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0ZXAzMWFud3dxcTIxMjNvdkBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InRyYWluZXIiLCJuYW1lIjoi0JLQsNGB0LjQu9C40LkiLCJpYXQiOjE2ODg0NTc3NTAsImV4cCI6MTY4ODQ1ODY1MH0.CrXuN3KU25h0mNyG54BhByc2_G7DrtQ3N2pHgDXvb2E
 Content-Type: application/json
 
 {
   "userName": "Василий",
-  "userMail": "step31anwwqq2123ov@gmail.com",
+  "userMail": "step31oooanwwqq2123ov@gmail.com",
   "userAvatar": "",
   "password": "adsfaasdfadf",
   "userGender": "мужской",
@@ -46,8 +47,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzM
 ###
 
 # Check user token
-POST http://localhost:3000/api/auth/check HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTI2NTMsImV4cCI6MTY4MzI5MzI1M30.cqYZZxJKLpUt55XrhHVSa3dTL09x32p7kaBa02UxqaI
+GET http://localhost:3333/api/auth/check HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0ZXAzMWFud3dxcTIxMjNvdkBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InRyYWluZXIiLCJuYW1lIjoi0JLQsNGB0LjQu9C40LkiLCJpYXQiOjE2ODg0NTc3NTAsImV4cCI6MTY4ODQ1ODY1MH0.CrXuN3KU25h0mNyG54BhByc2_G7DrtQ3N2pHgDXvb2E
 
 
 ###
