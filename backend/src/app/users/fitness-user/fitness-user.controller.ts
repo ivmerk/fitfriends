@@ -2,12 +2,13 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   HttpCode,
+  HttpException,
   HttpStatus,
   NotFoundException,
   Post,
   Req,
-  Request,
   UseGuards,
 } from '@nestjs/common';
 import { FitnessUserService } from './fitness-user.service.js';
@@ -33,12 +34,14 @@ export class FitnessUserController {
   })
   @Post('/register')
   async create(
-    @Request() { user: payload }: RequestWithTokenPayload,
+    @Headers() headers: Record<string, string>,
     @Body() dto: CreateUserDto
   ) {
-    console.log(payload?.email);
-    if (payload?.email) {
-      throw new NotFoundException(AUTH_NOT_FOR_AUTH_USER);
+    if (headers.authorization) {
+      throw new HttpException(
+        { status: HttpStatus.FORBIDDEN, error: AUTH_NOT_FOR_AUTH_USER },
+        HttpStatus.FORBIDDEN
+      );
     }
     const newUser = await this.fitnessUserService.createUser(dto);
     return fillObject(UserRdo, newUser);
