@@ -39,8 +39,8 @@ export class FitnessUserController {
   ) {
     if (headers.authorization) {
       throw new HttpException(
-        { status: HttpStatus.FORBIDDEN, error: AUTH_NOT_FOR_AUTH_USER },
-        HttpStatus.FORBIDDEN
+        { status: HttpStatus.BAD_REQUEST, error: AUTH_NOT_FOR_AUTH_USER },
+        HttpStatus.BAD_REQUEST
       );
     }
     const newUser = await this.fitnessUserService.createUser(dto);

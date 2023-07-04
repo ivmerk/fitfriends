@@ -129,3 +129,13 @@ model PersonalOrderTraining {
 
   @@map("personal_order_training")
 }
+
+model RefreshToken {
+  refreshTokenId Int      @id @default(autoincrement()) @map("refresh_token_id")
+  tokenId        String   @map("token_id")
+  userId         String   @map("user_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+  expiresIn      DateTime @default(now()) @map("expires_in")
+
+  @@map("refresh_token")
+}
