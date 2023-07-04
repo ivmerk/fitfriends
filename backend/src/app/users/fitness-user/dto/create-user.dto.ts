@@ -36,8 +36,8 @@ import {
   trainerSertificateTypes,
   userGenders,
   userLocations,
-} from '../../../../constant.user.js';
-import { durationOfTraining } from '../../../../constant.training.js';
+} from '../../../../common/constant.user.js';
+import { durationOfTraining } from '../../../../common/constant.training.js';
 import { Type } from 'class-transformer';
 
 class ClientBodyDto implements ClientBody {

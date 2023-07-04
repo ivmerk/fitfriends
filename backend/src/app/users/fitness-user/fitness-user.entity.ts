@@ -5,7 +5,7 @@ import { PersonalOrderTraining } from '../../../types/personal-order-training.in
 import { UserBalance } from '../../../types/user-balance.interface';
 import { UserRoleType } from '../../../types/user-role.enum';
 import { TrainerBody, User, ClientBody } from '../../../types/user.interface';
-import { SALT_ROUNDS } from '../../../constant.js';
+import { SALT_ROUNDS } from '../../../common/constant.js';
 
 export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
   public userId!: number;
