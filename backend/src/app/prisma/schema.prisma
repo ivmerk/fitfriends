@@ -137,5 +137,5 @@ model RefreshToken {
   createdAt      DateTime @default(now()) @map("created_at")
   expiresIn      DateTime @default(now()) @map("expires_in")
 
-  @@map("refresh_token")
+  @@map("refresh_token_store")
 }

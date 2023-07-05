@@ -60,6 +60,7 @@ export class FitnessUserController {
   @HttpCode(HttpStatus.OK)
   public async login(@Body() dto: LoginUserDto) {
     const verifiedUser = await this.fitnessUserService.verifyUser(dto);
+    console.log({ verifiedUser });
     const loggedUser = await this.fitnessUserService.createUserToken(
       verifiedUser
     );

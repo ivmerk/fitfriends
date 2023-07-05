@@ -16,15 +16,19 @@ import {
   AUTH_USER_PASSWORD_WRONG,
 } from './fitness-user.constant.js';
 import { LoginUserDto } from './dto/loging-user.dto.js';
-import { TokenPayload } from '../../../types/token-payload.interface.js';
 import jwtConfig from '../config/jwt.config.js';
 import { ConfigType } from '@nestjs/config';
+import { createJWTPayload } from '../../../common/jwt.js';
+import { RefreshTokenService } from '../refresh-token/refresh-token.service.js';
+import crypto from 'node:crypto';
+// import { TokenPayload } from '../../../types/token-payload.interface.js';
 
 @Injectable()
 export class FitnessUserService {
   constructor(
     private readonly fitnessUserRepository: FitnessUserRepository,
     private readonly jwtService: JwtService,
+    private readonly refreshTokenService: RefreshTokenService,
     @Inject(jwtConfig.KEY)
     private readonly jwtOptions: ConfigType<typeof jwtConfig>
   ) {}
@@ -65,24 +69,40 @@ export class FitnessUserService {
       throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
     }
 
-    return fitnessUserEntity.toObject();
+    return existUser;
   }
 
   public async getUser(id: number) {
     return this.fitnessUserRepository.findById(id);
   }
 
-  public async createUserToken(user: User) {
-    const payload: TokenPayload = {
-      sub: user.userId!,
-      email: user.userMail,
-      userRole: user.userRole,
-      name: user.userName,
-    };
+  // public async createUserToken(user: User) {
+  //   const payload: TokenPayload = {
+  //     sub: user.userId!,
+  //     email: user.userMail,
+  //     userRole: user.userRole,
+  //     name: user.userName,
+  //   };
 
+  //   return {
+  //     accessToken: await this.jwtService.signAsync(payload),
+  //     refreshToken: await this.jwtService.signAsync(payload, {
+  //       secret: this.jwtOptions.refreshTokenSecret,
+  //       expiresIn: this.jwtOptions.refreshTokenExpiresIn,
+  //     }),
+  //   };
+  // }
+  public async createUserToken(user: User) {
+    console.log({ user });
+    const accessTokenPayload = createJWTPayload(user);
+    const refreshTokenPayload = {
+      ...accessTokenPayload,
+      tokenId: crypto.randomUUID(),
+    };
+    await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
     return {
-      accessToken: await this.jwtService.signAsync(payload),
-      refreshToken: await this.jwtService.signAsync(payload, {
+      accessToken: await this.jwtService.signAsync(accessTokenPayload),
+      refreshToken: await this.jwtService.signAsync(refreshTokenPayload, {
         secret: this.jwtOptions.refreshTokenSecret,
         expiresIn: this.jwtOptions.refreshTokenExpiresIn,
       }),

@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { getJwtOptions } from '../../../common/get-jwt-options.js';
 import { JwtRefreshStrategy } from '../strategies/jwt-refresh.strategy.js';
 import { JwtAccessStrategy } from '../strategies/jwt-accass.strtegy.js';
+import { RefreshTokenModule } from '../refresh-token/refresh-token.module.js';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { JwtAccessStrategy } from '../strategies/jwt-accass.strtegy.js';
       inject: [ConfigService],
       useFactory: getJwtOptions,
     }),
+    RefreshTokenModule,
   ],
   controllers: [FitnessUserController],
   providers: [
