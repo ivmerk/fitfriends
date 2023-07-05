@@ -21,7 +21,6 @@ import { ConfigType } from '@nestjs/config';
 import { createJWTPayload } from '../../../common/jwt.js';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service.js';
 import crypto from 'node:crypto';
-// import { TokenPayload } from '../../../types/token-payload.interface.js';
 
 @Injectable()
 export class FitnessUserService {
@@ -76,22 +75,6 @@ export class FitnessUserService {
     return this.fitnessUserRepository.findById(id);
   }
 
-  // public async createUserToken(user: User) {
-  //   const payload: TokenPayload = {
-  //     sub: user.userId!,
-  //     email: user.userMail,
-  //     userRole: user.userRole,
-  //     name: user.userName,
-  //   };
-
-  //   return {
-  //     accessToken: await this.jwtService.signAsync(payload),
-  //     refreshToken: await this.jwtService.signAsync(payload, {
-  //       secret: this.jwtOptions.refreshTokenSecret,
-  //       expiresIn: this.jwtOptions.refreshTokenExpiresIn,
-  //     }),
-  //   };
-  // }
   public async createUserToken(user: User) {
     console.log({ user });
     const accessTokenPayload = createJWTPayload(user);
@@ -99,6 +82,7 @@ export class FitnessUserService {
       ...accessTokenPayload,
       tokenId: crypto.randomUUID(),
     };
+    //тут возникает задержка
     await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
     return {
       accessToken: await this.jwtService.signAsync(accessTokenPayload),
