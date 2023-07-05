@@ -24,8 +24,8 @@ Content-Type: application/json
 ###
 
 # Get user by ID
-GET http://localhost:3333/api/auth/6448cb3df69083362a2ab699 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMxMDI3NzAsImV4cCI6MTY4MzEwMzM3MH0.UgA2FGYnQH4FxOlmpog4m9BqC0rGMgwNf254dggWE_o
+GET http://localhost:3333/api/auth/5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE4LCJlbWFpbCI6InN0ZXAzMWFud3dxcTIxMjNvdkBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InRyYWluZXIiLCJuYW1lIjoi0JLQsNGB0LjQu9C40LkiLCJpYXQiOjE2ODg1NDY1MTMsImV4cCI6MTY4ODU0NzQxM30.aGzDT3tQluZ8USgm1tdCgSUcKZYlQhueSPbEe5rVRvs
 ###
 
 # Login user by email and password

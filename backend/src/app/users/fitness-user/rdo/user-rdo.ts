@@ -15,8 +15,6 @@ export class UserRdo {
   @Expose()
   public userAvatar?: string;
   @Expose()
-  public passwordHash!: string;
-  @Expose()
   public userGender!: string;
   @Expose()
   public birthDate!: string;
@@ -45,5 +43,5 @@ export class UserRdo {
   @Expose()
   public userBalance?: UserBalance[];
   @Expose()
-  public friends?: number[];
+  public sertificate?: string;
 }

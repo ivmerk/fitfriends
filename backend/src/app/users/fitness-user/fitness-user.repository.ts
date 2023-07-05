@@ -67,6 +67,10 @@ export class FitnessUserRepository
       where: {
         userId,
       },
+      include: {
+        clientBody: true,
+        trainerBody: true,
+      },
     });
   }
   public async findByEmail(userMail: string): Promise<User | null> {

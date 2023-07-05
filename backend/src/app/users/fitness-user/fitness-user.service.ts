@@ -83,7 +83,7 @@ export class FitnessUserService {
       tokenId: crypto.randomUUID(),
     };
     //тут возникает задержка
-    await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
+    // await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
     return {
       accessToken: await this.jwtService.signAsync(accessTokenPayload),
       refreshToken: await this.jwtService.signAsync(refreshTokenPayload, {

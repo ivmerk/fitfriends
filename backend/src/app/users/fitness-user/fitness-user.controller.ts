@@ -7,6 +7,8 @@ import {
   HttpException,
   HttpStatus,
   NotFoundException,
+  Param,
+  ParseIntPipe,
   Post,
   Req,
   UseGuards,
@@ -33,7 +35,7 @@ export class FitnessUserController {
     description: 'The new user has been successfully created.',
   })
   @Post('/register')
-  async create(
+  public async create(
     @Headers() headers: Record<string, string>,
     @Body() dto: CreateUserDto
   ) {
@@ -45,6 +47,15 @@ export class FitnessUserController {
     }
     const newUser = await this.fitnessUserService.createUser(dto);
     return fillObject(UserRdo, newUser);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  public async show(@Param('id', ParseIntPipe) id: number) {
+    const user = await this.fitnessUserService.getUser(id);
+    return {
+      ...fillObject(UserRdo, user),
+    };
   }
 
   @ApiResponse({
