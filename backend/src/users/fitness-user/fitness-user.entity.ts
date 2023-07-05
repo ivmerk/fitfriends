@@ -1,11 +1,11 @@
 import { compare, genSalt, hash } from 'bcrypt';
-import { Entity } from '../../../types/entity.interface';
-import { OrderTraining } from '../../../types/order-training.interface';
-import { PersonalOrderTraining } from '../../../types/personal-order-training.interface';
-import { UserBalance } from '../../../types/user-balance.interface';
-import { UserRoleType } from '../../../types/user-role.enum';
-import { TrainerBody, User, ClientBody } from '../../../types/user.interface';
-import { SALT_ROUNDS } from '../../../common/constant.js';
+import { Entity } from '../../types/entity.interface';
+import { OrderTraining } from '../../types/order-training.interface';
+import { PersonalOrderTraining } from '../../types/personal-order-training.interface';
+import { UserBalance } from '../../types/user-balance.interface';
+import { UserRoleType } from '../../types/user-role.enum';
+import { TrainerBody, User, ClientBody } from '../../types/user.interface';
+import { SALT_ROUNDS } from '../../common/constant.js';
 
 export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
   public userId!: number;

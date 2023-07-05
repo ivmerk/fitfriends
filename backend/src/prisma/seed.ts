@@ -31,7 +31,7 @@ async function fillDb() {
       orders: {
         create: [
           {
-            typeOrder: 'абонемент',
+            typeOfOrder: 'абонемент',
             trainingId: 2,
             price: 100,
             qtt: 1000,

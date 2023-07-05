@@ -4,3 +4,5 @@ markup
 backend/node_modules
 backend/.env
 backend/src/app/prisma/migrations
+backend_old
+backend/src/prisma/migrations

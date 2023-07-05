@@ -1,9 +1,9 @@
 import { Expose } from 'class-transformer';
-import { OrderTraining } from '../../../../types/order-training.interface';
-import { PersonalOrderTraining } from '../../../../types/personal-order-training.interface';
-import { UserBalance } from '../../../../types/user-balance.interface';
-import { UserRoleType } from '../../../../types/user-role.enum';
-import { ClientBody, TrainerBody } from '../../../../types/user.interface';
+import { OrderTraining } from '../../../types/order-training.interface';
+import { PersonalOrderTraining } from '../../../types/personal-order-training.interface';
+import { UserBalance } from '../../../types/user-balance.interface';
+import { UserRoleType } from '../../../types/user-role.enum';
+import { ClientBody, TrainerBody } from '../../../types/user.interface';
 
 export class UserRdo {
   @Expose()

@@ -14,11 +14,8 @@ import {
   MinLength,
   ValidateNested,
 } from 'class-validator';
-import {
-  UserRoleType,
-  userRoleTypes,
-} from '../../../../types/user-role.enum.js';
-import { ClientBody, TrainerBody } from '../../../../types/user.interface.js';
+import { UserRoleType, userRoleTypes } from '../../../types/user-role.enum.js';
+import { ClientBody, TrainerBody } from '../../../types/user.interface.js';
 import {
   AUTH_USER_DATE_BIRTH_NOT_VALID,
   AUTH_USER_EMAIL_NOT_VALID,
@@ -36,8 +33,8 @@ import {
   trainerSertificateTypes,
   userGenders,
   userLocations,
-} from '../../../../common/constant.user.js';
-import { durationOfTraining } from '../../../../common/constant.training.js';
+} from '../../../common/constant.user.js';
+import { durationOfTraining } from '../../../common/constant.training.js';
 import { Type } from 'class-transformer';
 
 class ClientBodyDto implements ClientBody {

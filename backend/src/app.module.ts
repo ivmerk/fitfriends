@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { PrismaModule } from './prisma/prisma.module.js';
-import { UsersModule } from './users/users.module.js';
+import { PrismaModule } from './prisma/prisma.module';
+import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import jwtConfig from './users/config/jwt.config.js';
+import jwtConfig from './users/config/jwt.config';
 
 const ENV_USERS_FILE_PATH = '../.env';
+
 @Module({
   imports: [
     PrismaModule,

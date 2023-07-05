@@ -1,5 +1,5 @@
-import { Entity } from '../../../types/entity.interface';
-import { Token } from '../../../types/token.interface';
+import { Entity } from '../../types/entity.interface';
+import { Token } from '../../types/token.interface';
 
 export class RefreshTokenEntity implements Entity<RefreshTokenEntity>, Token {
   public createdAt: Date;

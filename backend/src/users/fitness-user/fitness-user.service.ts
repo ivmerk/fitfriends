@@ -9,7 +9,7 @@ import { FitnessUserRepository } from './fitness-user.repository.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { FitnessUserEntity } from './fitness-user.entity.js';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../../../types/user.interface.js';
+import { User } from '../../types/user.interface.js';
 import {
   AUTH_USER_EXISTS,
   AUTH_USER_NOT_FOUND,
@@ -18,9 +18,9 @@ import {
 import { LoginUserDto } from './dto/loging-user.dto.js';
 import jwtConfig from '../config/jwt.config.js';
 import { ConfigType } from '@nestjs/config';
-import { createJWTPayload } from '../../../common/jwt.js';
+import { createJWTPayload } from '../../common/jwt.js';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service.js';
-import crypto from 'node:crypto';
+import * as crypto from 'node:crypto';
 
 @Injectable()
 export class FitnessUserService {
@@ -29,7 +29,7 @@ export class FitnessUserService {
     private readonly jwtService: JwtService,
     private readonly refreshTokenService: RefreshTokenService,
     @Inject(jwtConfig.KEY)
-    private readonly jwtOptions: ConfigType<typeof jwtConfig>
+    private readonly jwtOptions: ConfigType<typeof jwtConfig>,
   ) {}
 
   public async createUser(dto: CreateUserDto): Promise<User> {
@@ -42,7 +42,7 @@ export class FitnessUserService {
     };
 
     const existUser = await this.fitnessUserRepository.findByEmail(
-      dto.userMail
+      dto.userMail,
     );
 
     if (existUser) {
@@ -50,7 +50,7 @@ export class FitnessUserService {
     }
 
     const userEntity = await new FitnessUserEntity(fitnessUser).setPassword(
-      dto.password
+      dto.password,
     );
     return await this.fitnessUserRepository.create(userEntity);
   }

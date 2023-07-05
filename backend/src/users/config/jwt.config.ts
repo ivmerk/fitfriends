@@ -1,11 +1,11 @@
 import { registerAs } from '@nestjs/config';
-import Joi from 'joi';
+import * as Joi from 'joi';
 
 export interface JWTConfig {
-  accessTokenSecret?: string;
-  accessTokenExpiresIn?: string;
-  refreshTokenSecret?: string;
-  refreshTokenExpiresIn?: string;
+  accessTokenSecret: string;
+  accessTokenExpiresIn: string;
+  refreshTokenSecret: string;
+  refreshTokenExpiresIn: string;
 }
 
 export default registerAs('jwt', (): JWTConfig => {
@@ -28,7 +28,7 @@ export default registerAs('jwt', (): JWTConfig => {
   if (error) {
     throw new Error(
       `[JWT Config]: Environments validation failed. Please check .env file.
-      Error message: ${error.message}`
+      Error message: ${error.message}`,
     );
   }
 

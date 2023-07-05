@@ -6,7 +6,6 @@ import {
   HttpCode,
   HttpException,
   HttpStatus,
-  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -15,15 +14,15 @@ import {
 } from '@nestjs/common';
 import { FitnessUserService } from './fitness-user.service.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
-import { fillObject } from '../../../common/helpers.js';
+import { fillObject } from '../../common/helpers.js';
 import { UserRdo } from './rdo/user-rdo.js';
 import { LoginUserDto } from './dto/loging-user.dto.js';
 import { ApiResponse } from '@nestjs/swagger';
 import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard.js';
-import { RequestWithUser } from '../../../types/request-with-user.js';
+import { RequestWithUser } from '../../types/request-with-user.js';
 import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
-import { RequestWithTokenPayload } from '../../../types/request-with-token-payloads.js';
+import { RequestWithTokenPayload } from '../../types/request-with-token-payloads.js';
 import { AUTH_NOT_FOR_AUTH_USER } from './fitness-user.constant.js';
 
 @Controller('auth')
@@ -37,12 +36,12 @@ export class FitnessUserController {
   @Post('/register')
   public async create(
     @Headers() headers: Record<string, string>,
-    @Body() dto: CreateUserDto
+    @Body() dto: CreateUserDto,
   ) {
     if (headers.authorization) {
       throw new HttpException(
         { status: HttpStatus.BAD_REQUEST, error: AUTH_NOT_FOR_AUTH_USER },
-        HttpStatus.BAD_REQUEST
+        HttpStatus.BAD_REQUEST,
       );
     }
     const newUser = await this.fitnessUserService.createUser(dto);
@@ -73,7 +72,7 @@ export class FitnessUserController {
     const verifiedUser = await this.fitnessUserService.verifyUser(dto);
     console.log({ verifiedUser });
     const loggedUser = await this.fitnessUserService.createUserToken(
-      verifiedUser
+      verifiedUser,
     );
     return fillObject(LoggedUserRdo, Object.assign(verifiedUser, loggedUser));
   }

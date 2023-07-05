@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CRUDRepository } from '../../../types/crud-repository.js';
-import { User } from '../../../types/user.interface.js';
+import { CRUDRepository } from '../../types/crud-repository.js';
+import { User } from '../../types/user.interface.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { FitnessUserEntity } from './fitness-user.entity.js';
 
