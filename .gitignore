@@ -6,3 +6,4 @@ backend/.env
 backend/src/app/prisma/migrations
 backend_old
 backend/src/prisma/migrations
+backend/dist

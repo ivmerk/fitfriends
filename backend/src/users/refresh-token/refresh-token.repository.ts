@@ -9,7 +9,6 @@ export class RefreshTokenRepository {
 
   public async create(item: RefreshTokenEntity): Promise<RefreshToken> {
     const entityData = item.toObject();
-    console.log({ entityData }, this.prisma);
     return this.prisma.refreshToken.create({
       data: {
         ...entityData,

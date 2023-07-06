@@ -33,7 +33,7 @@ POST http://localhost:3333/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "step31anwwqq2123ov@gmail.com",
+  "email": "sep3ooaddwwqq2342123ov@gmail.cwm",
   "password": "adsfaasdfadf"
 }
 ###

@@ -76,14 +76,13 @@ export class FitnessUserService {
   }
 
   public async createUserToken(user: User) {
-    console.log({ user });
     const accessTokenPayload = createJWTPayload(user);
     const refreshTokenPayload = {
       ...accessTokenPayload,
       tokenId: crypto.randomUUID(),
     };
     //тут возникает задержка
-    // await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
+    await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
     return {
       accessToken: await this.jwtService.signAsync(accessTokenPayload),
       refreshToken: await this.jwtService.signAsync(refreshTokenPayload, {

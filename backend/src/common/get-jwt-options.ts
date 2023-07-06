@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { JwtModuleOptions } from '@nestjs/jwt';
+import { JwtModuleOptions } from '@nestjs/jwt/dist/interfaces/jwt-module-options.interface';
 
 export async function getJwtOptions(
   configService: ConfigService,

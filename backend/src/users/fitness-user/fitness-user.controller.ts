@@ -70,7 +70,6 @@ export class FitnessUserController {
   @HttpCode(HttpStatus.OK)
   public async login(@Body() dto: LoginUserDto) {
     const verifiedUser = await this.fitnessUserService.verifyUser(dto);
-    console.log({ verifiedUser });
     const loggedUser = await this.fitnessUserService.createUserToken(
       verifiedUser,
     );
@@ -85,13 +84,12 @@ export class FitnessUserController {
     description: 'Get a new access/refresh tokens',
   })
   public async refreshToken(@Req() { user }: RequestWithUser) {
-    return this.fitnessUserService.createUserToken(user!);
+    return this.fitnessUserService.createUserToken(user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('check')
   public async checkToken(@Req() { user: payload }: RequestWithTokenPayload) {
-    console.log(payload?.email);
     return payload;
   }
 }
