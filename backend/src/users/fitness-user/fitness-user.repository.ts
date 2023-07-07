@@ -3,6 +3,7 @@ import { CRUDRepository } from '../../types/crud-repository.js';
 import { User } from '../../types/user.interface.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { FitnessUserEntity } from './fitness-user.entity.js';
+import { Filter } from 'src/types/filter.interface.js';
 
 @Injectable()
 export class FitnessUserRepository
@@ -80,16 +81,107 @@ export class FitnessUserRepository
       },
     });
   }
-  // public async find(
-  //   { limit, page }: CommentQuery,
-  //   postId: number
-  // ): Promise<Comment[]> | null {
-  //   return this.prisma.comment.findMany({
-  //     where: {
-  //       postId: +postId,
-  //     },
-  //     take: limit,
-  //     skip: page > 0 ? limit * (page - 1) : undefined,
-  //   });
-  // }
+  public async update(
+    userId: number,
+    userEntity: FitnessUserEntity,
+  ): Promise<User> {
+    const entityData = userEntity.toObject();
+    return this.prisma.userEntity.update({
+      where: {
+        userId,
+      },
+      data: {
+        ...entityData,
+        clientBody:
+          userEntity.clientBody != null
+            ? {
+                update: {
+                  timeOfTraining:
+                    userEntity.clientBody.timeOfTraining != null
+                      ? userEntity.clientBody.timeOfTraining
+                      : undefined,
+                  caloryLosingPlanTotal:
+                    userEntity.clientBody.caloryLosingPlanTotal != null
+                      ? userEntity.clientBody.caloryLosingPlanTotal
+                      : undefined,
+                  caloryLosingPlanDaily:
+                    userEntity.clientBody.caloryLosingPlanDaily != null
+                      ? userEntity.clientBody.caloryLosingPlanDaily
+                      : undefined,
+                  readinessForTraining:
+                    userEntity.clientBody.readinessForTraining != null
+                      ? userEntity.clientBody.readinessForTraining
+                      : undefined,
+                },
+              }
+            : undefined,
+        trainerBody:
+          userEntity.trainerBody != null
+            ? {
+                update: {
+                  sertificate:
+                    userEntity.trainerBody.sertificate != null
+                      ? userEntity.trainerBody.sertificate
+                      : undefined,
+                  merit:
+                    userEntity.trainerBody.merit != null
+                      ? userEntity.trainerBody.merit
+                      : undefined,
+                },
+              }
+            : undefined,
+        orders: {
+          connect: userEntity.orders.map(({ orderTrainingId }) => ({
+            orderTrainingId,
+          })),
+        },
+        personalOrders: {
+          connect: userEntity.personalOrders.map(
+            ({ personalOrderTrainingId }) => ({ personalOrderTrainingId }),
+          ),
+        },
+        userBalance: {
+          connect: userEntity.userBalance.map(({ userBalanceId }) => ({
+            userBalanceId,
+          })),
+        },
+      },
+      include: {
+        clientBody: true,
+        trainerBody: true,
+        orders: true,
+        personalOrders: true,
+        userBalance: true,
+      },
+    });
+  }
+  public async find(
+    limit: number,
+    filter: Filter,
+    page: number,
+  ): Promise<User[]> | null {
+    console.log({ filter });
+    return this.prisma.userEntity.findMany({
+      where: {
+        location: { contains: filter.location },
+
+        levelOfExperience: { contains: filter.levelOfExperience },
+
+        // typesOfTraning: { hasSome: filter.typesOfTraning },
+
+        userRole: filter.userRole !== null ? filter.userRole : { not: null },
+      },
+
+      take: limit,
+      include: {
+        clientBody: true,
+        trainerBody: true,
+        orders: true,
+        personalOrders: true,
+        userBalance: true,
+      },
+      orderBy: [{ userRole: 'asc' }],
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+  }
 }

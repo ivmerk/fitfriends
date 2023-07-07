@@ -8,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum UserRole {
+enum UserRoleType {
   trainer
   client
 }
@@ -21,7 +21,7 @@ model UserEntity {
   passwordHash      String                  @default("")
   userGender        String                  @default("") @map("user_gender")
   birthDate         String                  @default("") @map("birth_date")
-  userRole          UserRole                @map("user_role")
+  userRole          UserRoleType            @map("user_role")
   description       String                  @default("")
   location          String                  @default("")
   backgraundPicture String                  @default("") @map("backgraund_picture")

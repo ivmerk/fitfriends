@@ -38,15 +38,27 @@ import { durationOfTraining } from '../../../common/constant.training.js';
 import { Type } from 'class-transformer';
 
 class ClientBodyDto implements ClientBody {
+  @ApiProperty({
+    description: 'User  time of training',
+    example: '30-40 минут',
+  })
   @IsString()
   @IsIn(durationOfTraining)
   public timeOfTraining!: string;
 
+  @ApiProperty({
+    description: 'User  calory losing plan total',
+    example: '1000',
+  })
   @IsNumber()
   @Min(CaloriesQtt.Min)
   @Max(CaloriesQtt.Max)
   public caloryLosingPlanTotal!: number;
 
+  @ApiProperty({
+    description: 'User  calory losing plan daily',
+    example: '1000',
+  })
   @IsNumber()
   @Min(CaloriesQttDaily.Min)
   @Max(CaloriesQttDaily.Max)
@@ -86,14 +98,26 @@ export class CreateUserDto {
   @IsEmail({}, { message: AUTH_USER_EMAIL_NOT_VALID })
   public userMail!: string;
 
+  @ApiProperty({
+    description: 'User avatar filename',
+    example: 'myface.jpg',
+  })
   @IsString()
   public userAvatar?: string;
 
+  @ApiProperty({
+    description: 'User password',
+    example: '123456',
+  })
   @IsString()
   @MinLength(UserPasswordLength.Min)
   @MaxLength(UserPasswordLength.Max)
   public password!: string;
 
+  @ApiProperty({
+    description: 'User gender',
+    example: 'мужской',
+  })
   @IsString()
   @IsIn(userGenders)
   public userGender!: string;
@@ -105,17 +129,35 @@ export class CreateUserDto {
   @IsISO8601({}, { message: AUTH_USER_DATE_BIRTH_NOT_VALID })
   public birthDate!: string;
 
+  @ApiProperty({
+    description: 'User gender',
+    example: 'мужской',
+  })
   @IsIn(userRoleTypes)
   public userRole!: UserRoleType;
 
+  @ApiProperty({
+    description: 'User description',
+    example: 'I like jump too much',
+  })
   @IsString()
   @MinLength(UserDescriptionLength.Min)
   @MaxLength(UserDescriptionLength.Max)
   public description!: string;
 
+  @ApiProperty({
+    description: 'User location',
+    example: 'пионерская',
+  })
   @IsString()
   @IsIn(userLocations)
   public location!: string;
+
+  @ApiProperty({
+    description: 'Usercard backgraund filename',
+    example: 'myforrest.jpg',
+  })
+  @IsString()
   public backgraundPicture!: string;
 
   @ValidateNested()
@@ -126,10 +168,18 @@ export class CreateUserDto {
   @Type(() => TrainerBodyDto)
   public trainerBody?: TrainerBodyDto;
 
+  @ApiProperty({
+    description: 'User level of experience',
+    example: 'любитель',
+  })
   @IsString()
   @IsIn(levelsOfExperience)
   public levelOfExperience!: string;
 
+  @ApiProperty({
+    description: 'User types of traning',
+    example: 'бокс',
+  })
   @IsArray()
   @ArrayMaxSize(MAXIMUM_TRAINING_TYPES_CHOICE)
   public typesOfTraning!: string[];

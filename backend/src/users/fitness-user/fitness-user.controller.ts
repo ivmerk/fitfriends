@@ -8,7 +8,9 @@ import {
   HttpStatus,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -23,7 +25,13 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard.js';
 import { RequestWithUser } from '../../types/request-with-user.js';
 import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
 import { RequestWithTokenPayload } from '../../types/request-with-token-payloads.js';
-import { AUTH_NOT_FOR_AUTH_USER } from './fitness-user.constant.js';
+import {
+  AUTH_NOT_FOR_AUTH_USER,
+  AUTH_USER_ONLY_CLIENT_PERMIT,
+} from './fitness-user.constant.js';
+import { UpdateUserDto } from './dto/update-user.dto.js';
+import { UserQuery } from './query/user.query.js';
+import { UserRole } from '../../types/user-role.enum.js';
 
 @Controller('auth')
 export class FitnessUserController {
@@ -46,15 +54,6 @@ export class FitnessUserController {
     }
     const newUser = await this.fitnessUserService.createUser(dto);
     return fillObject(UserRdo, newUser);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  public async show(@Param('id', ParseIntPipe) id: number) {
-    const user = await this.fitnessUserService.getUser(id);
-    return {
-      ...fillObject(UserRdo, user),
-    };
   }
 
   @ApiResponse({
@@ -85,6 +84,42 @@ export class FitnessUserController {
   })
   public async refreshToken(@Req() { user }: RequestWithUser) {
     return this.fitnessUserService.createUserToken(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/feed')
+  public async feedLine(
+    @Req() { user: payload }: RequestWithTokenPayload,
+    @Query() query: UserQuery,
+  ) {
+    console.log(payload.userRole);
+    if (payload.userRole !== UserRole.Client) {
+      throw new HttpException(
+        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    return await this.fitnessUserService.getUsers(query);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch()
+  public async update(
+    @Req() { user: payload }: RequestWithTokenPayload,
+    @Body() dto: UpdateUserDto,
+  ) {
+    const id = payload.sub;
+    const updatedUser = await this.fitnessUserService.updateUser(id, dto);
+    return fillObject(UserRdo, updatedUser);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  public async show(@Param('id', ParseIntPipe) id: number) {
+    const user = await this.fitnessUserService.getUser(id);
+    return {
+      ...fillObject(UserRdo, user),
+    };
   }
 
   @UseGuards(JwtAuthGuard)

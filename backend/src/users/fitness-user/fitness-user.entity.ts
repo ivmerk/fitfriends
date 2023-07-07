@@ -8,7 +8,6 @@ import { TrainerBody, User, ClientBody } from '../../types/user.interface';
 import { SALT_ROUNDS } from '../../common/constant.js';
 
 export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
-  public userId!: number;
   public userName!: string;
   public userMail!: string;
   public userAvatar?: string;

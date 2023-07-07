@@ -21,6 +21,9 @@ import { ConfigType } from '@nestjs/config';
 import { createJWTPayload } from '../../common/jwt.js';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service.js';
 import * as crypto from 'node:crypto';
+import { UpdateUserDto } from './dto/update-user.dto.js';
+import { UserQuery } from './query/user.query.js';
+import { Filter } from 'src/types/filter.interface.js';
 
 @Injectable()
 export class FitnessUserService {
@@ -81,7 +84,6 @@ export class FitnessUserService {
       ...accessTokenPayload,
       tokenId: crypto.randomUUID(),
     };
-    //тут возникает задержка
     await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
     return {
       accessToken: await this.jwtService.signAsync(accessTokenPayload),
@@ -90,5 +92,23 @@ export class FitnessUserService {
         expiresIn: this.jwtOptions.refreshTokenExpiresIn,
       }),
     };
+  }
+
+  public async getUsers(query: UserQuery): Promise<User[] | null> {
+    const { limit, page } = query;
+    const filter: Filter = { ...query };
+    return await this.fitnessUserRepository.find(limit, filter, page);
+  }
+
+  public async updateUser(id: number, dto: UpdateUserDto) {
+    const oldUser = await this.fitnessUserRepository.findById(id);
+    if (oldUser) {
+      const userEntity = new FitnessUserEntity({
+        ...oldUser,
+        ...dto,
+      });
+      userEntity.createdAt = await oldUser.createdAt;
+      return await this.fitnessUserRepository.update(id, userEntity);
+    }
   }
 }
