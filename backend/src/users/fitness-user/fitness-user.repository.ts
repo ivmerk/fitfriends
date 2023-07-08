@@ -163,11 +163,11 @@ export class FitnessUserRepository
     console.log({ filter });
     return this.prisma.userEntity.findMany({
       where: {
-        location: { contains: filter.location },
+        location: { in: filter.locations },
 
         levelOfExperience: { contains: filter.levelOfExperience },
 
-        // typesOfTraning: { hasSome: filter.typesOfTraning },
+        typesOfTraining: { hasSome: filter.typesOfTraining },
 
         userRole: filter.userRole !== null ? filter.userRole : { not: null },
       },

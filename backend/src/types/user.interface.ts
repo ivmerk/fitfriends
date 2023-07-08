@@ -19,7 +19,7 @@ export interface User {
   clientBody?: ClientBody | null;
   trainerBody?: TrainerBody | null;
   levelOfExperience: string;
-  typesOfTraning: string[];
+  typesOfTraining: string[];
   orders?: OrderTraining[];
   personalOrders?: PersonalOrderTraining[];
   userBalance?: UserBalance[];

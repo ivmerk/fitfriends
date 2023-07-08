@@ -29,7 +29,7 @@ model UserEntity {
   clientBody        ClientBody?
   trainerBody       TrainerBody?
   levelOfExperience String                  @default("") @map("level_of_experience")
-  typesOfTraning    String[]                @map("types_of_traning")
+  typesOfTraining   String[]                @map("types_of_traning")
   orders            OrderTraining[]
   personalOrders    PersonalOrderTraining[]
   userBalance       UserBalance[]

@@ -27,7 +27,7 @@ async function fillDb() {
       },
       backgraundPicture: 'backgraundPicture.jpg',
       levelOfExperience: 'новичок',
-      typesOfTraning: ['бокс'],
+      typesOfTraining: ['бокс'],
       orders: {
         create: [
           {
@@ -65,7 +65,7 @@ async function fillDb() {
       },
       backgraundPicture: 'backgraundPicture1.jpg',
       levelOfExperience: 'профессионал',
-      typesOfTraning: ['кроссфит'],
+      typesOfTraining: ['кроссфит'],
     },
   });
   await prisma.userEntity.upsert({
@@ -91,7 +91,7 @@ async function fillDb() {
       },
       backgraundPicture: 'backgraunure1.jpg',
       levelOfExperience: 'профессионал',
-      typesOfTraning: ['стрейчинг', 'бокс'],
+      typesOfTraining: ['стрейчинг', 'бокс'],
     },
   });
   await prisma.userEntity.upsert({
@@ -118,7 +118,7 @@ async function fillDb() {
       },
       backgraundPicture: 'backgraundPi333cture.jpg',
       levelOfExperience: 'профессионал',
-      typesOfTraning: ['бокс'],
+      typesOfTraining: ['бокс'],
     },
   });
   await prisma.userEntity.upsert({
@@ -145,7 +145,7 @@ async function fillDb() {
       },
       backgraundPicture: '11backgraundPi333cture.jpg',
       levelOfExperience: 'любитель',
-      typesOfTraning: ['бокс', 'стрейчинг', 'аэробика'],
+      typesOfTraining: ['бокс', 'стрейчинг', 'аэробика'],
     },
   });
   await prisma.trainingEntity.upsert({

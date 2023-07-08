@@ -18,7 +18,7 @@ export class UserQuery {
 
   @IsIn(userLocations)
   @IsOptional()
-  location: string;
+  locations: string[];
 
   @IsIn(levelsOfExperience)
   @IsOptional()
@@ -26,7 +26,7 @@ export class UserQuery {
 
   @IsIn(typesOfTraning)
   @IsOptional()
-  public typesOfTraning: string;
+  public typesOfTraining: string[];
 
   @IsIn(userRoleTypes)
   @IsOptional()

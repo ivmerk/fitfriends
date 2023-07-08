@@ -4,12 +4,12 @@ Content-Type: application/json
 
 {
   "userName": "Василий",
-  "userMail": "sep3ooclientaddclienqq2342123ov@gmail.cwm",
+  "userMail": "sep3ooclientalienqq2342123ov@gmail.cwm",
   "userAvatar": "",
   "password": "adsfaasdfadf",
   "userGender": "мужской",
   "birthDate": "1955-11-06",
-  "userRole": "client",
+  "userRole": "trainer",
   "description": "trainertrainertrainertrainertrainer",
   "location": "Пионерская",
   "backgraundPicture": "asdf.jpg",
@@ -19,7 +19,7 @@ Content-Type: application/json
     "readinessForPrivate": true
   },
   "levelOfExperience": "профессионал",
-  "typesOfTraning": ["стрейчинг", "кроссфит"]
+  "typesOfTraining": ["стрейчинг", "кроссфит"]
 }
 ###
 
@@ -50,8 +50,7 @@ Content-Type: application/json
 }
 ###
 # Get user posts feed
-GET http://localhost:3333/api/auth/feed?limit=4&page=1&userRole=trainer HTTP/1.1
-Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoic2VwM29vY2xpZW50YWRkY2xpZW5xcTIzNDIxMjNvdkBnbWFpbC5jd20iLCJ1c2VyUm9sZSI6ImNsaWVudCIsIm5hbWUiOiLQktCw0YHQuNC70LjQuSIsImlhdCI6MTY4ODc1MDQxNCwiZXhwIjoxNjg4NzUxMzE0fQ.9awnJBUgTdFnmUCml88ObW1blF7YiCHKgc6Z28A6TfU
+GET http://localhost:3333/api/auth/feed?limit=4&page=1&userRole=trainer&locations=Пионерская,Петроградская&typesOfTraining=йога,кроссфит HTTP/1.1
 ###
 # Get new JWT pair
 POST http://localhost:3000/api/auth/refresh HTTP/1.1

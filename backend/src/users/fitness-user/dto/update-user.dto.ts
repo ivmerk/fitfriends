@@ -122,5 +122,5 @@ export class UpdateUserDto {
   @IsArray()
   @ArrayMaxSize(MAXIMUM_TRAINING_TYPES_CHOICE)
   @IsOptional()
-  public typesOfTraning?: string[];
+  public typesOfTraining?: string[];
 }

@@ -182,5 +182,5 @@ export class CreateUserDto {
   })
   @IsArray()
   @ArrayMaxSize(MAXIMUM_TRAINING_TYPES_CHOICE)
-  public typesOfTraning!: string[];
+  public typesOfTraining!: string[];
 }

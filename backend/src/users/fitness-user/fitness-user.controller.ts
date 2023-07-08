@@ -7,6 +7,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseArrayPipe,
   ParseIntPipe,
   Patch,
   Post,
@@ -31,7 +32,7 @@ import {
 } from './fitness-user.constant.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { UserQuery } from './query/user.query.js';
-import { UserRole } from '../../types/user-role.enum.js';
+import { UserRole, UserRoleType } from '../../types/user-role.enum.js';
 
 @Controller('auth')
 export class FitnessUserController {
@@ -86,19 +87,40 @@ export class FitnessUserController {
     return this.fitnessUserService.createUserToken(user);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('/feed')
   public async feedLine(
-    @Req() { user: payload }: RequestWithTokenPayload,
-    @Query() query: UserQuery,
+    // @Req() { user: payload }: RequestWithTokenPayload,
+    // @Query() query: UserQuery,
+    @Query('locations', new ParseArrayPipe({ items: String, separator: ',' }))
+    locations: string[],
+    @Query(
+      'typesOfTraining',
+      new ParseArrayPipe({ items: String, separator: ',' }),
+    )
+    typesOfTraining: string[],
+    @Query('limit', ParseIntPipe) limit: number,
+    @Query('userRole') userRole: UserRoleType,
+    @Query('levelOfExperience') levelOfExperience: string,
+    @Query('page', ParseIntPipe) page: number,
+    // query: UserQuery,
   ) {
-    console.log(payload.userRole);
-    if (payload.userRole !== UserRole.Client) {
-      throw new HttpException(
-        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
-        HttpStatus.FORBIDDEN,
-      );
-    }
+    // console.log(payload.userRole);
+    const query = {
+      locations,
+      limit,
+      page,
+      userRole,
+      levelOfExperience,
+      typesOfTraining,
+    };
+    console.log(query);
+    // if (payload.userRole !== UserRole.Client) {
+    //   throw new HttpException(
+    //     { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
+    //     HttpStatus.FORBIDDEN,
+    //   );
+    // }
     return await this.fitnessUserService.getUsers(query);
   }
 

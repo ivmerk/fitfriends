@@ -22,7 +22,7 @@ export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
   public clientBody?: ClientBody | null;
   public trainerBody?: TrainerBody | null;
   public levelOfExperience!: string;
-  public typesOfTraning!: string[];
+  public typesOfTraining!: string[];
   public orders!: OrderTraining[];
   public personalOrders!: PersonalOrderTraining[];
   public userBalance!: UserBalance[];
@@ -47,7 +47,7 @@ export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
     this.clientBody = entity.clientBody;
     this.trainerBody = entity.trainerBody;
     this.levelOfExperience = entity.levelOfExperience;
-    this.typesOfTraning = entity.typesOfTraning;
+    this.typesOfTraining = entity.typesOfTraining;
     this.orders = [];
     this.personalOrders = [];
     this.userBalance = [];
