@@ -160,7 +160,6 @@ export class FitnessUserRepository
     filter: Filter,
     page: number,
   ): Promise<User[]> | null {
-    console.log({ filter });
     return this.prisma.userEntity.findMany({
       where: {
         location: { in: filter.locations },

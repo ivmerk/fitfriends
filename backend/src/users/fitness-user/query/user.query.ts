@@ -1,9 +1,8 @@
 import { Transform } from 'class-transformer';
 import { DEFAULT_USER_COUNT_LIMIT } from '../fitness-user.constant';
-import { IsIn, IsNumber, IsOptional } from 'class-validator';
+import { IsArray, IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
 import { UserRoleType, userRoleTypes } from 'src/types/user-role.enum';
-import { levelsOfExperience, userLocations } from 'src/common/constant.user';
-import { typesOfTraning } from 'src/common/constant.training';
+import { levelsOfExperience } from 'src/common/constant.user';
 
 export class UserQuery {
   @Transform(({ value }) => +value || DEFAULT_USER_COUNT_LIMIT)
@@ -16,19 +15,23 @@ export class UserQuery {
   @IsOptional()
   public page: number;
 
-  @IsIn(userLocations)
   @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }) => value.toString().split(','))
   locations: string[];
 
-  @IsIn(levelsOfExperience)
   @IsOptional()
+  @IsIn(levelsOfExperience)
   public levelOfExperience: string;
 
-  @IsIn(typesOfTraning)
   @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }) => value.toString().split(','))
   public typesOfTraining: string[];
 
-  @IsIn(userRoleTypes)
   @IsOptional()
+  @IsIn(userRoleTypes)
   public userRole: UserRoleType;
 }

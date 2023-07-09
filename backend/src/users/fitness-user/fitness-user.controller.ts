@@ -14,6 +14,7 @@ import {
   Query,
   Req,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { FitnessUserService } from './fitness-user.service.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
@@ -87,40 +88,18 @@ export class FitnessUserController {
     return this.fitnessUserService.createUserToken(user);
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('/feed')
   public async feedLine(
-    // @Req() { user: payload }: RequestWithTokenPayload,
-    // @Query() query: UserQuery,
-    @Query('locations', new ParseArrayPipe({ items: String, separator: ',' }))
-    locations: string[],
-    @Query(
-      'typesOfTraining',
-      new ParseArrayPipe({ items: String, separator: ',' }),
-    )
-    typesOfTraining: string[],
-    @Query('limit', ParseIntPipe) limit: number,
-    @Query('userRole') userRole: UserRoleType,
-    @Query('levelOfExperience') levelOfExperience: string,
-    @Query('page', ParseIntPipe) page: number,
-    // query: UserQuery,
+    @Query(new ValidationPipe({ transform: true })) query: UserQuery,
+    @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    // console.log(payload.userRole);
-    const query = {
-      locations,
-      limit,
-      page,
-      userRole,
-      levelOfExperience,
-      typesOfTraining,
-    };
-    console.log(query);
-    // if (payload.userRole !== UserRole.Client) {
-    //   throw new HttpException(
-    //     { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
-    //     HttpStatus.FORBIDDEN,
-    //   );
-    // }
+    if (payload.userRole !== UserRole.Client) {
+      throw new HttpException(
+        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
+        HttpStatus.FORBIDDEN,
+      );
+    }
     return await this.fitnessUserService.getUsers(query);
   }
 

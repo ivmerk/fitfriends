@@ -16,7 +16,7 @@ import {
   AUTH_USER_PASSWORD_WRONG,
 } from './fitness-user.constant.js';
 import { LoginUserDto } from './dto/loging-user.dto.js';
-import jwtConfig from '../config/jwt.config.js';
+import jwtConfig from '../../config/jwt.config.js';
 import { ConfigType } from '@nestjs/config';
 import { createJWTPayload } from '../../common/jwt.js';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service.js';
