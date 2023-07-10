@@ -28,3 +28,8 @@ Content-Type: application/json
   "title": "Бiкс с Кличко",
   "rating": 5
 }
+###
+
+#Get training information by ID
+
+GET http://localhost:3333/api/training/1 HTTP/1.1

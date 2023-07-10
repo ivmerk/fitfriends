@@ -34,4 +34,8 @@ export default class FitnessTrainongService {
       );
     }
   }
+
+  public async getTraining(trainingId: number) {
+    return await this.fitnessTrainingRepository.findById(trainingId);
+  }
 }

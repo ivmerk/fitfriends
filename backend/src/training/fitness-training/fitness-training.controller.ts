@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
   Param,
   ParseIntPipe,
@@ -39,6 +40,12 @@ export class FitnessTrainingController {
       id,
       dto,
     );
+    return fillObject(TrainingRdo, updatedTraiding);
+  }
+
+  @Get(':id')
+  public async show(@Param('id', ParseIntPipe) id: number) {
+    const updatedTraiding = await this.fitnessTrainingService.getTraining(id);
     return fillObject(TrainingRdo, updatedTraiding);
   }
 }
