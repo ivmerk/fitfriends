@@ -7,7 +7,6 @@ import {
   HttpException,
   HttpStatus,
   Param,
-  ParseArrayPipe,
   ParseIntPipe,
   Patch,
   Post,
@@ -33,7 +32,7 @@ import {
 } from './fitness-user.constant.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { UserQuery } from './query/user.query.js';
-import { UserRole, UserRoleType } from '../../types/user-role.enum.js';
+import { UserRole } from '../../types/user-role.enum.js';
 
 @Controller('auth')
 export class FitnessUserController {
