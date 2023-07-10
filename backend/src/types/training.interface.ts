@@ -1,4 +1,4 @@
-import { User } from './user.interface';
+import { Feedback } from './feedback.interface';
 
 export interface Training {
   trainingId?: number;
@@ -13,6 +13,7 @@ export interface Training {
   trainingGender: string;
   video: string;
   rating: number;
-  trainer: User;
+  trainerId: number;
   isPromo: boolean;
+  feedbacks?: Feedback[];
 }

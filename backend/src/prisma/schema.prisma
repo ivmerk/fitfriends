@@ -74,7 +74,7 @@ model TrainingEntity {
   trainingGender    String     @default("") @map("training_gender")
   video             String     @default("")
   rating            Int        @default(0)
-  trainer           Int        @default(0)
+  trainerId         Int        @default(0)
   isPromo           Boolean    @default(false) @map("is_promo")
   feedbacks         Feedback[]
 

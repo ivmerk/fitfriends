@@ -1,11 +1,10 @@
 import { Entity } from 'src/types/entity.interface';
+import { Feedback } from 'src/types/feedback.interface';
 import { Training } from 'src/types/training.interface';
-import { User } from 'src/types/user.interface';
 
 export class FitnessTrainingEntity
   implements Entity<FitnessTrainingEntity>, Training
 {
-  public trainingId?: number;
   public title: string;
   public backgroundPicture: string;
   public levelOfUser: string;
@@ -17,8 +16,9 @@ export class FitnessTrainingEntity
   public trainingGender: string;
   public video: string;
   public rating: number;
-  public trainer: User;
+  public trainerId: number;
   public isPromo: boolean;
+  public feedbacks: Feedback[];
 
   constructor(fitnessTraining: Training) {
     this.fillEntity(fitnessTraining);
@@ -36,8 +36,9 @@ export class FitnessTrainingEntity
     this.trainingGender = entity.trainingGender;
     this.video = entity.video;
     this.rating = entity.rating;
-    this.trainer = entity.trainer;
+    this.trainerId = entity.trainerId;
     this.isPromo = entity.isPromo;
+    this.feedbacks = [];
   }
 
   public toObject(): FitnessTrainingEntity {

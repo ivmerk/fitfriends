@@ -1,6 +1,6 @@
 import { UserRoleType } from './user-role.enum';
 
-export interface Filter {
+export interface UserFilter {
   locations: string[];
   levelOfExperience: string;
   typesOfTraining: string[];

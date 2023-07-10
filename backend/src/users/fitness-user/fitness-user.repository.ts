@@ -3,7 +3,7 @@ import { CRUDRepository } from '../../types/crud-repository.js';
 import { User } from '../../types/user.interface.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { FitnessUserEntity } from './fitness-user.entity.js';
-import { Filter } from 'src/types/filter.interface.js';
+import { UserFilter } from 'src/types/user-filter.interface.js';
 
 @Injectable()
 export class FitnessUserRepository
@@ -157,7 +157,7 @@ export class FitnessUserRepository
   }
   public async find(
     limit: number,
-    filter: Filter,
+    filter: UserFilter,
     page: number,
   ): Promise<User[]> | null {
     return this.prisma.userEntity.findMany({

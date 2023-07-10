@@ -23,7 +23,7 @@ import { RefreshTokenService } from '../refresh-token/refresh-token.service.js';
 import * as crypto from 'node:crypto';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { UserQuery } from './query/user.query.js';
-import { Filter } from 'src/types/filter.interface.js';
+import { UserFilter } from 'src/types/user-filter.interface.js';
 
 @Injectable()
 export class FitnessUserService {
@@ -96,8 +96,8 @@ export class FitnessUserService {
 
   public async getUsers(query: UserQuery): Promise<User[] | null> {
     const { limit, page } = query;
-    const filter: Filter = { ...query };
-    return await this.fitnessUserRepository.find(limit, filter, page);
+    const UserFilter: UserFilter = { ...query };
+    return await this.fitnessUserRepository.find(limit, UserFilter, page);
   }
 
   public async updateUser(id: number, dto: UpdateUserDto) {
