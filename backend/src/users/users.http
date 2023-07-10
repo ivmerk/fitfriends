@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 ###
 
-# Update user by ID
+# Update user 
 PATCH http://localhost:3333/api/auth HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2VwM29vYWRkd3dxcTIzNDIxMjNvdkBnbWFpbC5jd20iLCJ1c2VyUm9sZSI6InRyYWluZXIiLCJuYW1lIjoi0JLQsNGB0LjQuzExMdC40LkiLCJpYXQiOjE2ODg2NTE3MTIsImV4cCI6MTY4ODY1MjYxMn0.1MKYMm_-qdzSyHhLQ5afagLnRxeancN3QPmiCwXdscs
 Content-Type: application/json

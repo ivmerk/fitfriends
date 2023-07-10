@@ -4,10 +4,10 @@ const prisma = new PrismaClient();
 
 async function fillDb() {
   await prisma.userEntity.upsert({
-    where: { userId: 1 },
+    where: { userId: 10 },
     update: {},
     create: {
-      userId: 1,
+      userId: 10,
       userName: 'Иванов',
       userMail: 'ivanov@gmail.com',
       userAvatar: 'avatar.jpg',
@@ -32,7 +32,7 @@ async function fillDb() {
         create: [
           {
             typeOfOrder: 'абонемент',
-            trainingId: 2,
+            trainingId: 12,
             price: 100,
             qtt: 1000,
             typeOfPayment: 'visa',
@@ -43,10 +43,10 @@ async function fillDb() {
     },
   });
   await prisma.userEntity.upsert({
-    where: { userId: 2 },
+    where: { userId: 12 },
     update: {},
     create: {
-      userId: 2,
+      userId: 12,
       userName: 'Иванов1',
       userMail: 'ivanov1@gmail.com',
       userAvatar: 'avatar1.jpg',
@@ -69,10 +69,10 @@ async function fillDb() {
     },
   });
   await prisma.userEntity.upsert({
-    where: { userId: 3 },
+    where: { userId: 13 },
     update: {},
     create: {
-      userId: 3,
+      userId: 13,
       userName: 'Stepanova',
       userMail: 'Stepanova@gmail.com',
       userAvatar: 'avatar11.jpg',
@@ -95,10 +95,10 @@ async function fillDb() {
     },
   });
   await prisma.userEntity.upsert({
-    where: { userId: 4 },
+    where: { userId: 14 },
     update: {},
     create: {
-      userId: 4,
+      userId: 14,
       userName: 'Рабинович',
       userMail: 'рябинович@gmail.com',
       userAvatar: 'avatar545.jpg',
@@ -122,10 +122,10 @@ async function fillDb() {
     },
   });
   await prisma.userEntity.upsert({
-    where: { userId: 5 },
+    where: { userId: 15 },
     update: {},
     create: {
-      userId: 5,
+      userId: 15,
       userName: 'Чингис Хан',
       userMail: 'ура@gmail.com',
       userAvatar: '1avatar545.jpg',
@@ -149,10 +149,10 @@ async function fillDb() {
     },
   });
   await prisma.trainingEntity.upsert({
-    where: { trainingId: 1 },
+    where: { trainingId: 11 },
     update: {},
     create: {
-      trainingId: 1,
+      trainingId: 11,
       title: 'йога_1.070.23',
       backgroundPicture: 'backgroundPicture.jpg',
       levelOfUser: 'профессионал',
@@ -164,17 +164,17 @@ async function fillDb() {
       trainingGender: 'для всех',
       video: 'xxx.mov',
       rating: 2,
-      trainer: 3,
+      trainerId: 3,
       isPromo: true,
       feedbacks: {
         create: [
           {
-            userId: 1,
+            userId: 12,
             rating: 2,
             text: 'полный фуфел',
           },
           {
-            userId: 2,
+            userId: 13,
             rating: 3,
             text: 'офигеть',
           },
@@ -183,7 +183,7 @@ async function fillDb() {
     },
   });
   await prisma.trainingEntity.upsert({
-    where: { trainingId: 7 },
+    where: { trainingId: 17 },
     update: {},
     create: {
       trainingId: 7,
@@ -198,7 +198,7 @@ async function fillDb() {
       trainingGender: 'для всех',
       video: 'xxx.mov',
       rating: 0,
-      trainer: 3,
+      trainerId: 3,
       isPromo: true,
     },
   });

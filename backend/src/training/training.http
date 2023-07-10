@@ -1,0 +1,30 @@
+# Create a new training
+POST http://localhost:3333/api/training/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Бокс с Кличко",
+  "backgroundPicture":"" ,
+  "levelOfUser": "новичок",
+  "typeOfTraining": "бег",
+  "duration": "10-30 мин",
+  "price": 5,
+  "caloriesQtt": 1000,
+  "description": "description must be longer than or equal to 10 characters",
+  "trainingGender": "для мужчин",
+  "video": "",
+  "rating": 3,
+  "trainerId": 5,
+  "isPromo": false
+}
+###
+
+# Update training information by ID
+
+PATCH  http://localhost:3333/api/training/1 HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Бiкс с Кличко",
+  "rating": 5
+}
