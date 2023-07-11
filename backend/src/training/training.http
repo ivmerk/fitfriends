@@ -33,3 +33,8 @@ Content-Type: application/json
 #Get training information by ID
 
 GET http://localhost:3333/api/training/1 HTTP/1.1
+###
+
+# Get training feed
+
+GET  http://localhost:3333/api/training/feed?limit=4&page=1&userRole=trainer&locations=Пионерская,Петроградская&typesOfTraining=йога,кроссфит HTTP/1.1

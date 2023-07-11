@@ -49,7 +49,7 @@ Content-Type: application/json
   "password": "adsfaasdfadf"
 }
 ###
-# Get user posts feed
+# Get user  feed
 GET http://localhost:3333/api/auth/feed?limit=4&page=1&userRole=trainer&locations=Пионерская,Петроградская&typesOfTraining=йога,кроссфит HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6InNlcDNvb2NsaWVudGFsaWVucXEyMzIzb3ZAZ21haWwuY3dtIiwidXNlclJvbGUiOiJjbGllbnQiLCJuYW1lIjoi0JLQsNGB0LjQu9C40LkiLCJpYXQiOjE2ODg4MDc2ODMsImV4cCI6MTY4ODgwODU4M30.oeufk86eLs2CuIOVKhIRRC3hBLetzLoZwbuipVI-rTE
 ###

@@ -7,6 +7,9 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
+  UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import FitnessTrainongService from './fitness-training.service';
 import CreateTrainingDto from './dto/create-training.dto';
@@ -14,6 +17,7 @@ import { ApiResponse } from '@nestjs/swagger';
 import { fillObject } from 'src/common/helpers';
 import { TrainingRdo } from './rdo/training.rdo';
 import { UpdateUserDto } from 'src/users/fitness-user/dto/update-user.dto';
+import { JwtAuthGuard } from 'src/users/fitness-user/guards/jwt-auth.guard';
 
 @Controller('training')
 export class FitnessTrainingController {
@@ -31,6 +35,7 @@ export class FitnessTrainingController {
     return fillObject(TrainingRdo, newTraining);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   public async update(
     @Param('id', ParseIntPipe) id: number,
@@ -48,4 +53,9 @@ export class FitnessTrainingController {
     const updatedTraiding = await this.fitnessTrainingService.getTraining(id);
     return fillObject(TrainingRdo, updatedTraiding);
   }
+
+  // @Get('/feed')
+  // public async feedLine(
+  //   @Query(new ValidationPipe({transform: true})) query)
+  // )
 }
