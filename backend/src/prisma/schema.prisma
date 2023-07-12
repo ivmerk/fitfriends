@@ -125,7 +125,6 @@ model PersonalOrderTraining {
   createdAt               DateTime   @default(now()) @map("created_at")
   updateAt                DateTime   @default(now()) @map("update_at")
   orderCondition          String
-  userUserId              Int
 
   @@map("personal_order_training")
 }

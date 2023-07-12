@@ -14,7 +14,7 @@ export class OrderTrainingRepository
     orderTrainingEntity: OrderTrainingEntity,
   ): Promise<OrderTraining> {
     const entityOrder = orderTrainingEntity.toObject();
-    return this.prisma.orderTraining.create({
+    return await this.prisma.orderTraining.create({
       data: { ...entityOrder },
     });
   }
@@ -28,7 +28,7 @@ export class OrderTrainingRepository
   }
 
   public async findById(orderTrainingId: number): Promise<OrderTraining> {
-    return this.prisma.orderTraining.findFirst({
+    return await this.prisma.orderTraining.findFirst({
       where: {
         orderTrainingId,
       },
@@ -38,7 +38,7 @@ export class OrderTrainingRepository
   public async findByTrainingId(
     trainingId: number,
   ): Promise<OrderTraining[] | null> {
-    return this.prisma.orderTraining.findMany({
+    return await this.prisma.orderTraining.findMany({
       where: {
         trainingId,
       },
@@ -46,7 +46,7 @@ export class OrderTrainingRepository
   }
 
   public async findByUserId(userId: number): Promise<OrderTraining[] | null> {
-    return this.prisma.orderTraining.findMany({
+    return await this.prisma.orderTraining.findMany({
       where: {
         userId,
       },
