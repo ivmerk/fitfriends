@@ -4,10 +4,10 @@ const prisma = new PrismaClient();
 
 async function fillDb() {
   await prisma.userEntity.upsert({
-    where: { userId: 10 },
+    where: { userId: 100 },
     update: {},
     create: {
-      userId: 10,
+      userId: 100,
       userName: 'Иванов',
       userMail: 'ivanov@gmail.com',
       userAvatar: 'avatar.jpg',
@@ -32,7 +32,7 @@ async function fillDb() {
         create: [
           {
             typeOfOrder: 'абонемент',
-            trainingId: 12,
+            trainingId: 101,
             price: 100,
             qtt: 1000,
             typeOfPayment: 'visa',
@@ -43,10 +43,10 @@ async function fillDb() {
     },
   });
   await prisma.userEntity.upsert({
-    where: { userId: 12 },
+    where: { userId: 102 },
     update: {},
     create: {
-      userId: 12,
+      userId: 102,
       userName: 'Иванов1',
       userMail: 'ivanov1@gmail.com',
       userAvatar: 'avatar1.jpg',
@@ -69,10 +69,10 @@ async function fillDb() {
     },
   });
   await prisma.userEntity.upsert({
-    where: { userId: 13 },
+    where: { userId: 103 },
     update: {},
     create: {
-      userId: 13,
+      userId: 103,
       userName: 'Stepanova',
       userMail: 'Stepanova@gmail.com',
       userAvatar: 'avatar11.jpg',
@@ -122,10 +122,10 @@ async function fillDb() {
     },
   });
   await prisma.userEntity.upsert({
-    where: { userId: 15 },
+    where: { userId: 105 },
     update: {},
     create: {
-      userId: 15,
+      userId: 105,
       userName: 'Чингис Хан',
       userMail: 'ура@gmail.com',
       userAvatar: '1avatar545.jpg',
@@ -149,10 +149,10 @@ async function fillDb() {
     },
   });
   await prisma.trainingEntity.upsert({
-    where: { trainingId: 11 },
+    where: { trainingId: 101 },
     update: {},
     create: {
-      trainingId: 11,
+      trainingId: 101,
       title: 'йога_1.070.23',
       backgroundPicture: 'backgroundPicture.jpg',
       levelOfUser: 'профессионал',
@@ -183,7 +183,7 @@ async function fillDb() {
     },
   });
   await prisma.trainingEntity.upsert({
-    where: { trainingId: 17 },
+    where: { trainingId: 107 },
     update: {},
     create: {
       trainingId: 7,

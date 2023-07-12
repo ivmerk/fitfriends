@@ -63,13 +63,13 @@ export class FitnessTrainingRepository
   }
 
   public async find(
-    limit: number,
     filter: TrainingFilter,
-    page: number,
+    trainerId,
   ): Promise<Training[] | null> {
     return this.prisma.trainingEntity.findMany({
       where: {
         AND: [
+          { trainerId },
           {
             price: { gte: filter.priceMin },
           },
@@ -81,9 +81,7 @@ export class FitnessTrainingRepository
         ],
       },
 
-      take: limit,
       include: { feedbacks: true },
-      skip: page > 0 ? limit * (page - 1) : undefined,
     });
   }
 }

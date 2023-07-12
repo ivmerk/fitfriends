@@ -4,6 +4,7 @@ import CreateTrainingDto from './dto/create-training.dto';
 import { Training } from 'src/types/training.interface';
 import { FitnessTrainingEntity } from './fitness-training.entity';
 import UpdateTrainingDto from './dto/update-training.dto';
+import TrainingFilter from 'src/types/training-filter.interface';
 
 @Injectable()
 export default class FitnessTrainongService {
@@ -37,5 +38,10 @@ export default class FitnessTrainongService {
 
   public async getTraining(trainingId: number) {
     return await this.fitnessTrainingRepository.findById(trainingId);
+  }
+
+  public async getTrainings(query, trainerId) {
+    const filter: TrainingFilter = { ...query };
+    return await this.fitnessTrainingRepository.find(trainerId, filter);
   }
 }

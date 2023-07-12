@@ -1,9 +1,10 @@
 # Create a new training
 POST http://localhost:3333/api/training/register HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJlbWFpbCI6InNlcDNvb2NsaWVudGFsdHJhaW5lcmllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoidHJhaW5lciIsIm5hbWUiOiLQktCw0YHQuNC70LjQuSIsImlhdCI6MTY4OTA1NzI1OCwiZXhwIjoxNjg5MDU4MTU4fQ.YT9d1vd8nNdGsz7-Ch7GjipgJgIixfSHimC4lmE13yI
 Content-Type: application/json
 
 {
-  "title": "Бокс с Кличко",
+  "title": "Бfкс с Кличко",
   "backgroundPicture":"" ,
   "levelOfUser": "новичок",
   "typeOfTraining": "бег",
@@ -22,19 +23,27 @@ Content-Type: application/json
 # Update training information by ID
 
 PATCH  http://localhost:3333/api/training/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJlbWFpbCI6InNlcDNvb2NsaWVudGFsdHJhaW5lcmllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoidHJhaW5lciIsIm5hbWUiOiLQktCw0YHQuNC70LjQuSIsImlhdCI6MTY4OTA1NzI1OCwiZXhwIjoxNjg5MDU4MTU4fQ.YT9d1vd8nNdGsz7-Ch7GjipgJgIixfSHimC4lmE13yI
 Content-Type: application/json
 
 {
-  "title": "Бiкс с Кличко",
-  "rating": 5
+  "title": "Бiксi с Кличко",
+  "rating": 7
 }
 ###
 
 #Get training information by ID
 
 GET http://localhost:3333/api/training/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJlbWFpbCI6InNlcDNvb2NsaWVudGFsdHJhaW5lcmllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoidHJhaW5lciIsIm5hbWUiOiLQktCw0YHQuNC70LjQuSIsImlhdCI6MTY4OTA1NzI1OCwiZXhwIjoxNjg5MDU4MTU4fQ.YT9d1vd8nNdGsz7-Ch7GjipgJgIixfSHimC4lmE13yI
 ###
 
 # Get training feed
 
-GET  http://localhost:3333/api/training/feed?limit=4&page=1&userRole=trainer&locations=Пионерская,Петроградская&typesOfTraining=йога,кроссфит HTTP/1.1
+GET  http://localhost:3333/api/training/feed?durations=10-30%20мин&priceMin=1&priceMax=12&caloriesQttMin=1000&caloriesQttMax=2000 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJlbWFpbCI6InNlcDNvb2NsaWVudGFsdHJhaW5lcmllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoidHJhaW5lciIsIm5hbWUiOiLQktCw0YHQuNC70LjQuSIsImlhdCI6MTY4OTA2MTgzOSwiZXhwIjoxNjg5MDYyNzM5fQ.elLUqyjVJ-0M25C1RlNO6KZxjPZ8zwrSKRLA3erQ3Tc
+
+
+####
+
+GET  http://localhost:3333/api/training/feed?durations=10-30%20мин&priceMin=1&priceMax=12&caloriesQttMin=1000&caloriesQttMax=2000 HTTP/1.1

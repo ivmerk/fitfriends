@@ -10,10 +10,10 @@ import { JwtAuthGuard } from 'src/users/fitness-user/guards/jwt-auth.guard';
   providers: [
     FitnessTrainingRepository,
     FitnessTrainongService,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: JwtAuthGuard,
+    // },
   ],
 })
 export default class FitnessTrainingModule {}
