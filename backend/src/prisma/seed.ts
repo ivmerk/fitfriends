@@ -39,7 +39,6 @@ async function fillDb() {
           },
         ],
       },
-      friends: [5, 4],
     },
   });
   await prisma.userEntity.upsert({

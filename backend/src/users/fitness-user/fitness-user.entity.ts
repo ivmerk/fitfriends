@@ -6,6 +6,7 @@ import { UserBalance } from '../../types/user-balance.interface';
 import { UserRoleType } from '../../types/user-role.enum';
 import { TrainerBody, User, ClientBody } from '../../types/user.interface';
 import { SALT_ROUNDS } from '../../common/constant.js';
+import { UserFriend } from 'src/types/user-friend';
 
 export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
   public userName!: string;
@@ -26,7 +27,7 @@ export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
   public orders!: OrderTraining[];
   public personalOrders!: PersonalOrderTraining[];
   public userBalance!: UserBalance[];
-  public friends!: number[];
+  public friends!: UserFriend[];
 
   constructor(fitnessUser: User) {
     this.fillEntity(fitnessUser);

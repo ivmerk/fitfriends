@@ -37,6 +37,9 @@ export class FitnessUserRepository
         userBalance: {
           connect: [],
         },
+        friends: {
+          connect: [],
+        },
       },
       include: {
         clientBody: true,
@@ -44,6 +47,7 @@ export class FitnessUserRepository
         orders: true,
         personalOrders: true,
         userBalance: true,
+        friends: true,
       },
     });
   }
@@ -145,6 +149,11 @@ export class FitnessUserRepository
             userBalanceId,
           })),
         },
+        friends: {
+          connect: userEntity.friends.map(({ userFriendId }) => ({
+            userFriendId,
+          })),
+        },
       },
       include: {
         clientBody: true,
@@ -152,6 +161,7 @@ export class FitnessUserRepository
         orders: true,
         personalOrders: true,
         userBalance: true,
+        friends: true,
       },
     });
   }

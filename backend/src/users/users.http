@@ -4,12 +4,12 @@ Content-Type: application/json
 
 {
   "userName": "Василий",
-  "userMail": "sep3ooclientaltrainerienqq2323ov@gmail.cwm",
+  "userMail": "sep3ooclientienqq2323ov@gmail.cwm",
   "userAvatar": "",
   "password": "adsfaasdfadf",
   "userGender": "мужской",
   "birthDate": "1955-11-06",
-  "userRole": "trainer",
+  "userRole": "client",
   "description": "trainertrainertrainertrainertrainer",
   "location": "Пионерская",
   "backgraundPicture": "asdf.jpg",
@@ -45,7 +45,7 @@ POST http://localhost:3333/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "sep3ooclientaltrainerienqq2323ov@gmail.cwm",
+  "email": "sep3ooclientienqq2323ov@gmail.cwm",
   "password": "adsfaasdfadf"
 }
 ###

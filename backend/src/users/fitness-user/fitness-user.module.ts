@@ -24,6 +24,6 @@ import { RefreshTokenModule } from '../refresh-token/refresh-token.module.js';
     JwtRefreshStrategy,
     JwtAccessStrategy,
   ],
-  exports: [FitnessUserRepository],
+  exports: [FitnessUserRepository, FitnessUserService],
 })
 export class FitnessUserModule {}

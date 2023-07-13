@@ -33,7 +33,7 @@ model UserEntity {
   orders            OrderTraining[]
   personalOrders    PersonalOrderTraining[]
   userBalance       UserBalance[]
-  friends           Int[]
+  friends           UserFriend[]
 
   @@map("users")
 }
@@ -137,4 +137,13 @@ model RefreshToken {
   expiresIn      DateTime @default(now()) @map("expires_in")
 
   @@map("refresh_token_store")
+}
+
+model UserFriend {
+  userFriendId Int        @id @default(autoincrement()) @map("user_friend_id")
+  user         UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+  userId       Int        @map("user_id")
+  friendId     Int        @map("friend_id")
+
+  @@map("user_friend")
 }

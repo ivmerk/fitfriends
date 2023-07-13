@@ -1,6 +1,7 @@
 import { OrderTraining } from './order-training.interface';
 import { PersonalOrderTraining } from './personal-order-training.interface';
 import { UserBalance } from './user-balance.interface';
+import { UserFriend } from './user-friend';
 import { UserRoleType } from './user-role.enum';
 
 export interface User {
@@ -23,7 +24,7 @@ export interface User {
   orders?: OrderTraining[];
   personalOrders?: PersonalOrderTraining[];
   userBalance?: UserBalance[];
-  friends?: number[];
+  friends?: UserFriend[];
 }
 
 export interface ClientBody {
