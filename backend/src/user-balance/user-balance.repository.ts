@@ -30,4 +30,21 @@ export class UserBalanceRepository
       where: { userBalanceId },
     });
   }
+
+  public async findByUserIdAndTrainingId(userId: number, trainingId: number) {
+    return await this.prisma.userBalance.findFirst({
+      where: { userId, trainingId },
+    });
+  }
+
+  public async update(
+    userBalanceId: number,
+    userBalanceEntity: UserBalanceEntity,
+  ): Promise<UserBalance> {
+    const entity = userBalanceEntity.toObject();
+    return await this.prisma.userBalance.update({
+      where: { userBalanceId },
+      data: { ...entity },
+    });
+  }
 }

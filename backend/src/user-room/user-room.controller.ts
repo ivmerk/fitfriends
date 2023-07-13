@@ -61,4 +61,22 @@ export class UserRoomController {
     }
     return this.userRoomService.showFriends(payload.sub);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('traning/:id')
+  public async checkTraining(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() { user: payload }: RequestWithTokenPayload,
+  ) {
+    return this.userRoomService.showBalance(payload.sub, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('traning/:id')
+  public async buyTraning(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() { user: payload }: RequestWithTokenPayload,
+  ) {
+    return this.userRoomService.spendTraning(payload.sub, id);
+  }
 }

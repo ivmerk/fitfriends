@@ -7,7 +7,6 @@ import uploaderConfig from './config/uploader.config';
 import TrainingModule from './training/training.module';
 import { OrderTrainingModule } from './order-training/order-training.module';
 import { UserRoomModule } from './user-room/user-room.module';
-import { UserFriendModule } from './user-friend/user-friend.module';
 
 const ENV_USERS_FILE_PATH = '../.env';
 
@@ -17,7 +16,6 @@ const ENV_USERS_FILE_PATH = '../.env';
     UsersModule,
     TrainingModule,
     UserRoomModule,
-    UserFriendModule,
     OrderTrainingModule,
     ConfigModule.forRoot({
       isGlobal: true,

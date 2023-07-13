@@ -3,5 +3,6 @@ import { UserBalanceRepository } from './user-balance.repository';
 
 @Module({
   providers: [UserBalanceRepository],
+  exports: [UserBalanceRepository],
 })
 export class UserBalanceModule {}

@@ -3,5 +3,6 @@ import { OrderTrainingRepository } from './order-training.repository';
 
 @Module({
   providers: [OrderTrainingRepository],
+  exports: [OrderTrainingRepository],
 })
 export class OrderTrainingModule {}
