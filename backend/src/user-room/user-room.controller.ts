@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -15,6 +16,7 @@ import { JwtAuthGuard } from 'src/users/fitness-user/guards/jwt-auth.guard';
 import { RequestWithTokenPayload } from 'src/types/request-with-token-payloads';
 import { UserRole } from 'src/types/user-role.enum';
 import { AUTH_USER_ONLY_CLIENT_PERMIT } from 'src/users/fitness-user/fitness-user.constant';
+import { CreateFeedbackDto } from './dto/create-feedback.dto';
 
 @Controller('user')
 export class UserRoomController {
@@ -78,5 +80,20 @@ export class UserRoomController {
     @Req() { user: payload }: RequestWithTokenPayload,
   ) {
     return this.userRoomService.spendTraning(payload.sub, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('feedback')
+  public async addFeedback(
+    @Req() { user: payload }: RequestWithTokenPayload,
+    @Body() dto: CreateFeedbackDto,
+  ) {
+    if (payload.userRole !== UserRole.Client) {
+      throw new HttpException(
+        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    return this.userRoomService.postFeedback(payload.sub, dto);
   }
 }

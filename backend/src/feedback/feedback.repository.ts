@@ -2,7 +2,9 @@ import { CRUDRepository } from 'src/types/crud-repository';
 import { FeedbackEntity } from './feedback.entity';
 import { Feedback } from 'src/types/feedback.interface';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class FeedbackRepository
   implements CRUDRepository<FeedbackEntity, number, Feedback>
 {

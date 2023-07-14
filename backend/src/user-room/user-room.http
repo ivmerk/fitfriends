@@ -19,10 +19,23 @@ GET http://localhost:3333/api/user/traning/102 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpbCI6InNlcDNvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5MjQwNDgwLCJleHAiOjE2ODkyNDEzODB9.9d73k9EYVDRfGLNVVzfkOmSyfZkdsf-LQ7jF_-Vrl2o
 ###
 
-
-
 # Use traning
 
 DELETE  http://localhost:3333/api/user/traning/102 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpbCI6InNlcDNvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5MjQwNDgwLCJleHAiOjE2ODkyNDEzODB9.9d73k9EYVDRfGLNVVzfkOmSyfZkdsf-LQ7jF_-Vrl2o
+###
+
+
+# Post feedback
+
+POST http://localhost:3333/api/user/feedback HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpbCI6InNlcDNvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5MzM4NjA2LCJleHAiOjE2ODkzMzk1MDZ9.HgqisKyPPia2U5qIAq_0vvC8EVs9yWFpsZjFklZAI4c
+Content-Type: application/json
+
+{
+  "trainingId": 7,
+  "rating": 1,
+  "text": "это было блестящще, блестящщеблестящщеблестящщеблестящщеблестящщеблестящщеблестящщеблестящщеблестящщеблестящщеблестящщеблестящщеблестящщеблестящщеблестящще"
+}
+
 ###

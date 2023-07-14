@@ -1,6 +1,7 @@
 import { Transform } from 'class-transformer';
 import {
   IsArray,
+  IsIn,
   IsNumber,
   IsOptional,
   IsString,
@@ -37,6 +38,26 @@ export class TrainingQuery {
   @Transform(({ value }) => +value)
   @IsOptional()
   @IsNumber()
+  public rating: number;
+
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  @IsNumber()
   @Max(CaloriesQttDaily.Max)
   public caloriesQttMax: number;
+
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  @IsNumber()
+  public page: number;
+
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  @IsNumber()
+  public limit: number;
+
+  @IsOptional()
+  @IsString()
+  @IsIn(['acs', 'decs'])
+  public priceSortType: string;
 }

@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { FeedbackEntity } from 'src/feedback/feedback.entity';
+import { FeedbackRepository } from 'src/feedback/feedback.repository';
+import { FitnessTrainingEntity } from 'src/training/fitness-training/fitness-training.entity';
+import { FitnessTrainingRepository } from 'src/training/fitness-training/fitness-training.repository';
 import { User } from 'src/types/user.interface';
 import { UserBalanceEntity } from 'src/user-balance/user-balance.entity';
 import { UserBalanceRepository } from 'src/user-balance/user-balance.repository';
 import { UserFriendEntity } from 'src/user-friend/user-friend.entity';
 import { UserFriendRepository } from 'src/user-friend/user-friend.repository';
+import { UpdateUserDto } from 'src/users/fitness-user/dto/update-user.dto';
 import { FitnessUserService } from 'src/users/fitness-user/fitness-user.service';
 
 @Injectable()
@@ -12,6 +17,8 @@ export class UserRoomService {
     private readonly fitnessUserService: FitnessUserService,
     private readonly userFriendRepository: UserFriendRepository,
     private readonly userBalanceRepository: UserBalanceRepository,
+    private readonly feedbackRepository: FeedbackRepository,
+    private readonly fitnessTraningRepository: FitnessTrainingRepository,
   ) {}
 
   public async addFriend(userId: number, friendId: number) {
@@ -72,6 +79,24 @@ export class UserRoomService {
           newBalance,
         );
       }
+    }
+  }
+  public async postFeedback(userId: number, dto) {
+    const traning = await this.fitnessTraningRepository.findById(
+      dto.trainingId,
+    );
+    if (traning) {
+      const rating =
+        (traning.feedbacks.reduce((sum, item) => sum + item.rating, 0) +
+          dto.rating) /
+        (traning.feedbacks.length + 1);
+      const feedbackEntity = new FeedbackEntity({ ...dto, userId });
+      const trainingEntity = new FitnessTrainingEntity({ ...traning, rating });
+      await this.fitnessTraningRepository.update(
+        traning.trainingId,
+        trainingEntity,
+      );
+      return await this.feedbackRepository.create(feedbackEntity);
     }
   }
 }

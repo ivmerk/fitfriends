@@ -181,6 +181,7 @@ export class CreateUserDto {
     example: 'бокс',
   })
   @IsArray()
+  @IsString({ each: true })
   @ArrayMaxSize(MAXIMUM_TRAINING_TYPES_CHOICE)
   public typesOfTraining!: string[];
 }

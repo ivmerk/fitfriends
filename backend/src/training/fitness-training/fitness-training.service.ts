@@ -5,9 +5,10 @@ import { Training } from 'src/types/training.interface';
 import { FitnessTrainingEntity } from './fitness-training.entity';
 import UpdateTrainingDto from './dto/update-training.dto';
 import TrainingFilter from 'src/types/training-filter.interface';
+import { TrainingQuery } from './query/training.query';
 
 @Injectable()
-export default class FitnessTrainongService {
+export default class FitnessTrainingService {
   constructor(
     private readonly fitnessTrainingRepository: FitnessTrainingRepository,
   ) {}
@@ -37,11 +38,12 @@ export default class FitnessTrainongService {
   }
 
   public async getTraining(trainingId: number) {
+    console.log('service', trainingId);
     return await this.fitnessTrainingRepository.findById(trainingId);
   }
 
-  public async getTrainings(query, trainerId) {
+  public async getTrainings(query: TrainingQuery, trainerId: number) {
     const filter: TrainingFilter = { ...query };
-    return await this.fitnessTrainingRepository.find(trainerId, filter);
+    return await this.fitnessTrainingRepository.find(filter, trainerId);
   }
 }

@@ -3,7 +3,6 @@ import { CRUDRepository } from 'src/types/crud-repository';
 import { FitnessTrainingEntity } from './fitness-training.entity';
 import { Training } from 'src/types/training.interface';
 import { PrismaService } from 'src/prisma/prisma.service';
-import TrainingFilter from 'src/types/training-filter.interface';
 
 @Injectable()
 export class FitnessTrainingRepository
@@ -47,6 +46,7 @@ export class FitnessTrainingRepository
     fitnessTrainingEntity: FitnessTrainingEntity,
   ): Promise<Training> {
     const entityData = fitnessTrainingEntity.toObject();
+    console.log(trainingId, entityData);
     return this.prisma.trainingEntity.update({
       where: {
         trainingId,
@@ -63,25 +63,37 @@ export class FitnessTrainingRepository
   }
 
   public async find(
-    filter: TrainingFilter,
-    trainerId,
+    {
+      limit,
+      page,
+      priceMin,
+      priceMax,
+      caloriesQttMin,
+      caloriesQttMax,
+      rating,
+      durations,
+      priceSortType,
+    },
+    trainerId: number,
   ): Promise<Training[] | null> {
     return this.prisma.trainingEntity.findMany({
       where: {
         AND: [
           { trainerId },
           {
-            price: { gte: filter.priceMin },
+            price: { gte: priceMin },
           },
-          { price: { lte: filter.priceMax } },
-          { caloriesQtt: { gte: filter.caloriesQttMin } },
-          { caloriesQtt: { lte: filter.caloriesQttMax } },
-          { rating: { gte: filter.rating } },
-          { duration: { in: filter.durations } },
+          { price: { lte: priceMax } },
+          { caloriesQtt: { gte: caloriesQttMin } },
+          { caloriesQtt: { lte: caloriesQttMax } },
+          { rating: { gte: rating } },
+          { duration: { in: durations } },
         ],
       },
 
+      orderBy: priceSortType === 'asc' ? { price: 'asc' } : { price: 'desc' },
       include: { feedbacks: true },
+      skip: page > 0 ? limit * (page - 1) : undefined,
     });
   }
 }

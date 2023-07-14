@@ -5,4 +5,7 @@ export default class TrainingFilter {
   caloriesQttMax: number;
   rating: number;
   durations: string[];
+  priceSortType: string;
+  limit: number;
+  page: number;
 }

@@ -13,7 +13,7 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import FitnessTrainongService from './fitness-training.service';
+import FitnessTrainingService from './fitness-training.service';
 import CreateTrainingDto from './dto/create-training.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { fillObject } from 'src/common/helpers';
@@ -28,7 +28,7 @@ import { TrainingQuery } from './query/training.query';
 @Controller('training')
 export class FitnessTrainingController {
   constructor(
-    private readonly fitnessTrainingService: FitnessTrainongService,
+    private readonly fitnessTrainingService: FitnessTrainingService,
   ) {}
 
   @ApiResponse({

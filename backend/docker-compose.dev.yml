@@ -34,6 +34,18 @@ services:
     networks:
       - fitfriends
 
+  fitfriends.fakesmtp:
+    image: gessnerfl/fake-smtp-server:2.0.0
+    container_name: fitfriends.fakesmtp
+    hostname: fakesmtp
+    ports:
+      - 8025:8025
+      - 1083:8080
+    volumes:
+      - ~/db/readme.notify.fakesmtp:/var/mail
+    networks:
+      - fitfriends
+
 volumes:
   fitfriends.postgres:
 
