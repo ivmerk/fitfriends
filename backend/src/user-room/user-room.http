@@ -21,8 +21,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpb
 
 # Use traning
 
-DELETE  http://localhost:3333/api/user/traning/102 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpbCI6InNlcDNvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5MjQwNDgwLCJleHAiOjE2ODkyNDEzODB9.9d73k9EYVDRfGLNVVzfkOmSyfZkdsf-LQ7jF_-Vrl2o
+DELETE  http://localhost:3333/api/user/traning/7 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpbCI6InNlcDNvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5MzUxNDQ5LCJleHAiOjE2ODkzNTIzNDl9.BPGR4L4ju3T5YwZO3ZGvCylGSS20BLno4IkKFakZdZo
 ###
 
 
@@ -39,3 +39,15 @@ Content-Type: application/json
 }
 
 ###
+
+POST http://localhost:3333/api/user/order HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpbCI6InNlcDNvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5MzUxNDQ5LCJleHAiOjE2ODkzNTIzNDl9.BPGR4L4ju3T5YwZO3ZGvCylGSS20BLno4IkKFakZdZo
+Content-Type: application/json
+
+{
+  "typeOfOrder": "абонемент",
+  "trainingId": 7,
+  "price": 10,
+  "qtt": 100,
+  "typeOfPayment": "visa"
+}

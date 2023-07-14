@@ -6,6 +6,7 @@ import { UserFriendModule } from 'src/user-friend/user-friend.module';
 import { UserBalanceModule } from 'src/user-balance/user-balance.module';
 import { FeedbackModule } from 'src/feedback/feedback.module';
 import FitnessTrainingModule from 'src/training/fitness-training/fitness-training.module';
+import { OrderTrainingModule } from 'src/order-training/order-training.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import FitnessTrainingModule from 'src/training/fitness-training/fitness-trainin
     FitnessTrainingModule,
     UserFriendModule,
     UserBalanceModule,
+    OrderTrainingModule,
     FeedbackModule,
   ],
   controllers: [UserRoomController],

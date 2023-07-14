@@ -38,7 +38,6 @@ export default class FitnessTrainingService {
   }
 
   public async getTraining(trainingId: number) {
-    console.log('service', trainingId);
     return await this.fitnessTrainingRepository.findById(trainingId);
   }
 

@@ -17,6 +17,7 @@ import { RequestWithTokenPayload } from 'src/types/request-with-token-payloads';
 import { UserRole } from 'src/types/user-role.enum';
 import { AUTH_USER_ONLY_CLIENT_PERMIT } from 'src/users/fitness-user/fitness-user.constant';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
+import { CreateOrderDto } from './dto/create-order.dto';
 
 @Controller('user')
 export class UserRoomController {
@@ -95,5 +96,14 @@ export class UserRoomController {
       );
     }
     return this.userRoomService.postFeedback(payload.sub, dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('order')
+  public async makeOrder(
+    @Req() { user: payload }: RequestWithTokenPayload,
+    @Body() dto: CreateOrderDto,
+  ) {
+    this.userRoomService.buyTrainings(payload.sub, dto);
   }
 }

@@ -8,8 +8,10 @@ import { UserBalanceEntity } from 'src/user-balance/user-balance.entity';
 import { UserBalanceRepository } from 'src/user-balance/user-balance.repository';
 import { UserFriendEntity } from 'src/user-friend/user-friend.entity';
 import { UserFriendRepository } from 'src/user-friend/user-friend.repository';
-import { UpdateUserDto } from 'src/users/fitness-user/dto/update-user.dto';
 import { FitnessUserService } from 'src/users/fitness-user/fitness-user.service';
+import { CreateOrderDto } from './dto/create-order.dto';
+import { OrderTrainingRepository } from 'src/order-training/order-training.repository';
+import { OrderTrainingEntity } from 'src/order-training/order-training.entity';
 
 @Injectable()
 export class UserRoomService {
@@ -18,7 +20,8 @@ export class UserRoomService {
     private readonly userFriendRepository: UserFriendRepository,
     private readonly userBalanceRepository: UserBalanceRepository,
     private readonly feedbackRepository: FeedbackRepository,
-    private readonly fitnessTraningRepository: FitnessTrainingRepository,
+    private readonly fitnessTrainingRepository: FitnessTrainingRepository,
+    private readonly orderTrainingRepository: OrderTrainingRepository,
   ) {}
 
   public async addFriend(userId: number, friendId: number) {
@@ -82,7 +85,7 @@ export class UserRoomService {
     }
   }
   public async postFeedback(userId: number, dto) {
-    const traning = await this.fitnessTraningRepository.findById(
+    const traning = await this.fitnessTrainingRepository.findById(
       dto.trainingId,
     );
     if (traning) {
@@ -92,11 +95,42 @@ export class UserRoomService {
         (traning.feedbacks.length + 1);
       const feedbackEntity = new FeedbackEntity({ ...dto, userId });
       const trainingEntity = new FitnessTrainingEntity({ ...traning, rating });
-      await this.fitnessTraningRepository.update(
+      await this.fitnessTrainingRepository.update(
         traning.trainingId,
         trainingEntity,
       );
       return await this.feedbackRepository.create(feedbackEntity);
+    }
+  }
+  public async buyTrainings(userId: number, dto: CreateOrderDto) {
+    const training = await this.fitnessTrainingRepository.findById(
+      dto.trainingId,
+    );
+    const userBalance =
+      await this.userBalanceRepository.findByUserIdAndTrainingId(
+        userId,
+        dto.trainingId,
+      );
+    if (training) {
+      if (userBalance) {
+        userBalance.trainingQtt += dto.qtt;
+        const balanceEntity = new UserBalanceEntity({ ...userBalance });
+        await this.userBalanceRepository.update(
+          userBalance.userBalanceId,
+          balanceEntity,
+        );
+      } else {
+        console.log(dto, userBalance);
+        const balanceEntity = new UserBalanceEntity({
+          userId,
+          trainingId: dto.trainingId,
+          trainingQtt: dto.qtt,
+        });
+        await this.userBalanceRepository.create(balanceEntity);
+      }
+
+      const orderEntity = new OrderTrainingEntity({ ...dto, userId });
+      return await this.orderTrainingRepository.create(orderEntity);
     }
   }
 }

@@ -46,7 +46,6 @@ export class FitnessTrainingRepository
     fitnessTrainingEntity: FitnessTrainingEntity,
   ): Promise<Training> {
     const entityData = fitnessTrainingEntity.toObject();
-    console.log(trainingId, entityData);
     return this.prisma.trainingEntity.update({
       where: {
         trainingId,
