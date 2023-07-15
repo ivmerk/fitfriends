@@ -24,6 +24,8 @@ export const ordersCondition: string[] = [
   'принят',
 ];
 
+export const sortingType: string[] = ['asc', 'desc'];
+
 export enum NotificationTextLength {
   Min = 10,
   Max = 140,

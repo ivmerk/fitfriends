@@ -14,7 +14,7 @@ export class FitnessTrainingRepository
     fitnessTrainingEntity: FitnessTrainingEntity,
   ): Promise<Training> {
     const entityData = fitnessTrainingEntity.toObject();
-    return this.prisma.trainingEntity.create({
+    return await this.prisma.trainingEntity.create({
       data: {
         ...entityData,
         feedbacks: {
@@ -46,7 +46,7 @@ export class FitnessTrainingRepository
     fitnessTrainingEntity: FitnessTrainingEntity,
   ): Promise<Training> {
     const entityData = fitnessTrainingEntity.toObject();
-    return this.prisma.trainingEntity.update({
+    return await this.prisma.trainingEntity.update({
       where: {
         trainingId,
       },
@@ -75,7 +75,7 @@ export class FitnessTrainingRepository
     },
     trainerId: number,
   ): Promise<Training[] | null> {
-    return this.prisma.trainingEntity.findMany({
+    return await this.prisma.trainingEntity.findMany({
       where: {
         AND: [
           { trainerId },
@@ -93,6 +93,12 @@ export class FitnessTrainingRepository
       orderBy: priceSortType === 'asc' ? { price: 'asc' } : { price: 'desc' },
       include: { feedbacks: true },
       skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+  }
+
+  public async findByTranerId(trainerId: number): Promise<Training[] | null> {
+    return await this.prisma.trainingEntity.findMany({
+      where: { trainerId },
     });
   }
 }

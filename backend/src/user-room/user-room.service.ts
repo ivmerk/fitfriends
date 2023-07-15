@@ -180,4 +180,28 @@ export class UserRoomService {
       return await this.personalOrderTrainingRepository.update(orderId, entity);
     }
   }
+
+  public async createTrainerTrainingList(query, payload) {
+    const myTrainings = await this.fitnessTrainingRepository.findByTranerId(
+      payload.sub,
+    );
+    if (myTrainings) {
+      const result = myTrainings.map(async (training) => {
+        const orders = await this.orderTrainingRepository.findByTrainingId(
+          training.trainingId,
+        );
+        if (orders) {
+          const trainingQtt = orders.reduce((sum, item) => sum + item.qtt, 0);
+          const totalPaymentAmount = trainingQtt * training.price;
+
+          return {
+            ...training,
+            trainingQtt: trainingQtt,
+            totalPaymentAmount: totalPaymentAmount,
+          };
+        }
+      });
+      return await Promise.all(result);
+    }
+  }
 }

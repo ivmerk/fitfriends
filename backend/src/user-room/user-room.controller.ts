@@ -18,10 +18,14 @@ import { UserRoomService } from './user-room.service';
 import { JwtAuthGuard } from 'src/users/fitness-user/guards/jwt-auth.guard';
 import { RequestWithTokenPayload } from 'src/types/request-with-token-payloads';
 import { UserRole } from 'src/types/user-role.enum';
-import { AUTH_USER_ONLY_CLIENT_PERMIT } from 'src/users/fitness-user/fitness-user.constant';
+import {
+  AUTH_USER_ONLY_CLIENT_PERMIT,
+  AUTH_USER_ONLY_TRAINERS_PERMIT,
+} from 'src/users/fitness-user/fitness-user.constant';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { PersonalOrderTrainingStatusQuery } from './query/personal-order-trainpg-status.query';
+import { TrainingListQuery } from './query/training-list.query';
 
 @Controller('user')
 export class UserRoomController {
@@ -129,5 +133,20 @@ export class UserRoomController {
     query: PersonalOrderTrainingStatusQuery,
   ) {
     return await this.userRoomService.changeStatus(query);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('traininglist')
+  public async getMyListTraining(
+    @Query() query: TrainingListQuery,
+    @Req() { user: payload }: RequestWithTokenPayload,
+  ) {
+    if (payload.userRole !== UserRole.Trainer) {
+      throw new HttpException(
+        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_TRAINERS_PERMIT },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    return await this.userRoomService.createTrainerTrainingList(query, payload);
   }
 }
