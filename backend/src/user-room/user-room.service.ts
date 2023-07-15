@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { FeedbackEntity } from 'src/feedback/feedback.entity';
 import { FeedbackRepository } from 'src/feedback/feedback.repository';
 import { FitnessTrainingEntity } from 'src/training/fitness-training/fitness-training.entity';
@@ -12,6 +12,9 @@ import { FitnessUserService } from 'src/users/fitness-user/fitness-user.service'
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderTrainingRepository } from 'src/order-training/order-training.repository';
 import { OrderTrainingEntity } from 'src/order-training/order-training.entity';
+import { UserRole } from 'src/types/user-role.enum';
+import { NOT_ALLOW_BE_FRIEND_WITH_CLIENT } from './user-room.constant';
+import { TokenPayload } from 'src/types/token-payload.interface';
 
 @Injectable()
 export class UserRoomService {
@@ -24,13 +27,25 @@ export class UserRoomService {
     private readonly orderTrainingRepository: OrderTrainingRepository,
   ) {}
 
-  public async addFriend(userId: number, friendId: number) {
+  public async addFriend(payload: TokenPayload, friendId: number) {
+    const userId = payload.sub;
     const friend = await this.fitnessUserService.getUser(friendId);
     const userFrientEntity = new UserFriendEntity({
-      userId: userId,
-      friendId: friendId,
+      userId,
+      friendId,
     });
-    if (friend) {
+    if (
+      friend.userRole === UserRole.Trainer &&
+      payload.userRole === UserRole.Client
+    ) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: NOT_ALLOW_BE_FRIEND_WITH_CLIENT,
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    } else {
       return await this.userFriendRepository.create(userFrientEntity);
     }
   }

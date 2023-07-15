@@ -29,13 +29,7 @@ export class UserRoomController {
     @Param('id', ParseIntPipe) id: number,
     @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    if (payload.userRole !== UserRole.Client) {
-      throw new HttpException(
-        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
-        HttpStatus.FORBIDDEN,
-      );
-    }
-    return this.userRoomService.addFriend(payload.sub, id);
+    return this.userRoomService.addFriend(payload, id);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -44,12 +38,12 @@ export class UserRoomController {
     @Param('id', ParseIntPipe) id: number,
     @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    if (payload.userRole !== UserRole.Client) {
-      throw new HttpException(
-        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
-        HttpStatus.FORBIDDEN,
-      );
-    }
+    // if (payload.userRole !== UserRole.Client) {
+    //   throw new HttpException(
+    //     { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
+    //     HttpStatus.FORBIDDEN,
+    //   );
+    // }
     return this.userRoomService.delFriend(payload.sub, id);
   }
 
