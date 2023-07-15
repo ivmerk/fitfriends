@@ -35,4 +35,15 @@ export class PersonalOrderTrainingRepository
       where: { personalOrderTrainingId },
     });
   }
+
+  public async update(
+    personalOrderTrainingId: number,
+    personalOrderTrainingEntity: PersonalOrderTrainingEntity,
+  ): Promise<PersonalOrderTraining> {
+    const entity = personalOrderTrainingEntity.toObject();
+    return await this.prisma.personalOrderTraining.update({
+      where: { personalOrderTrainingId },
+      data: { ...entity },
+    });
+  }
 }

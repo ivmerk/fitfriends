@@ -7,9 +7,12 @@ import {
   HttpStatus,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
+  Query,
   Req,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserRoomService } from './user-room.service';
 import { JwtAuthGuard } from 'src/users/fitness-user/guards/jwt-auth.guard';
@@ -18,6 +21,7 @@ import { UserRole } from 'src/types/user-role.enum';
 import { AUTH_USER_ONLY_CLIENT_PERMIT } from 'src/users/fitness-user/fitness-user.constant';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { PersonalOrderTrainingStatusQuery } from './query/personal-order-trainpg-status.query';
 
 @Controller('user')
 export class UserRoomController {
@@ -29,7 +33,7 @@ export class UserRoomController {
     @Param('id', ParseIntPipe) id: number,
     @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    return this.userRoomService.addFriend(payload, id);
+    return await this.userRoomService.addFriend(payload, id);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -38,13 +42,7 @@ export class UserRoomController {
     @Param('id', ParseIntPipe) id: number,
     @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    // if (payload.userRole !== UserRole.Client) {
-    //   throw new HttpException(
-    //     { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
-    //     HttpStatus.FORBIDDEN,
-    //   );
-    // }
-    return this.userRoomService.delFriend(payload.sub, id);
+    return await this.userRoomService.delFriend(payload.sub, id);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -56,7 +54,7 @@ export class UserRoomController {
         HttpStatus.FORBIDDEN,
       );
     }
-    return this.userRoomService.showFriends(payload.sub);
+    return await this.userRoomService.showFriends(payload.sub);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -65,7 +63,7 @@ export class UserRoomController {
     @Param('id', ParseIntPipe) id: number,
     @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    return this.userRoomService.showBalance(payload.sub, id);
+    return await this.userRoomService.showBalance(payload.sub, id);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -74,7 +72,7 @@ export class UserRoomController {
     @Param('id', ParseIntPipe) id: number,
     @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    return this.userRoomService.spendTraning(payload.sub, id);
+    return await this.userRoomService.spendTraning(payload.sub, id);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -89,7 +87,7 @@ export class UserRoomController {
         HttpStatus.FORBIDDEN,
       );
     }
-    return this.userRoomService.postFeedback(payload.sub, dto);
+    return await this.userRoomService.postFeedback(payload.sub, dto);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -98,6 +96,38 @@ export class UserRoomController {
     @Req() { user: payload }: RequestWithTokenPayload,
     @Body() dto: CreateOrderDto,
   ) {
-    this.userRoomService.buyTrainings(payload.sub, dto);
+    return await this.userRoomService.buyTrainings(payload.sub, dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('personalorder/:id')
+  public async makePersonalOrder(
+    @Param('id', ParseIntPipe) trainerId: number,
+    @Req() { user: payload }: RequestWithTokenPayload,
+  ) {
+    if (payload.userRole !== UserRole.Client) {
+      throw new HttpException(
+        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    return await this.userRoomService.buyPersonalTraining(
+      payload.sub,
+      trainerId,
+    );
+  }
+  @UseGuards(JwtAuthGuard)
+  @Get('personalorder/:id')
+  public async checkPersonalOrder(@Param('id', ParseIntPipe) orderId: number) {
+    return await this.userRoomService.getPersonalOrder(orderId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('personalorder')
+  public async aproovePersonalOrder(
+    @Query(new ValidationPipe({ transform: true }))
+    query: PersonalOrderTrainingStatusQuery,
+  ) {
+    return await this.userRoomService.changeStatus(query);
   }
 }

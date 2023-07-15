@@ -7,6 +7,7 @@ import { UserBalanceModule } from 'src/user-balance/user-balance.module';
 import { FeedbackModule } from 'src/feedback/feedback.module';
 import FitnessTrainingModule from 'src/training/fitness-training/fitness-training.module';
 import { OrderTrainingModule } from 'src/order-training/order-training.module';
+import { PersonalOrderTrainingModule } from 'src/personal-order-training/personal-order-training.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { OrderTrainingModule } from 'src/order-training/order-training.module';
     UserBalanceModule,
     OrderTrainingModule,
     FeedbackModule,
+    PersonalOrderTrainingModule,
   ],
   controllers: [UserRoomController],
   providers: [UserRoomService],

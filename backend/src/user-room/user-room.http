@@ -39,7 +39,7 @@ Content-Type: application/json
 }
 
 ###
-
+# Order training
 POST http://localhost:3333/api/user/order HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpbCI6InNlcDNvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5MzUxNDQ5LCJleHAiOjE2ODkzNTIzNDl9.BPGR4L4ju3T5YwZO3ZGvCylGSS20BLno4IkKFakZdZo
 Content-Type: application/json
@@ -51,3 +51,22 @@ Content-Type: application/json
   "qtt": 100,
   "typeOfPayment": "visa"
 }
+###
+# Order personal training
+POST http://localhost:3333/api/user/personalorder/17 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpbCI6InNlcDNvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5NDA0NDUzLCJleHAiOjE2ODk0MDUzNTN9.iXP4o19RLvX2bzL0VSKk5GQOGH6S6nqoL1wOictlyOs
+
+###
+# Get personal order
+GET http://localhost:3333/api/user/personalorder/2 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpbCI6InNlcDRvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5NDA1MTc5LCJleHAiOjE2ODk0MDYwNzl9.blbzGDBPExepNx2oQUMMF2YdQMrR9qKK79TKYQd5EjI
+###
+
+# Aproove the training
+PATCH http://localhost:3333/api/user/personalorder?orderId=2&newStatus=принят HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpbCI6InNlcDRvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5NDA3MzczLCJleHAiOjE2ODk0MDgyNzN9.LtAfFwpTuMIuO3tnTkdy9Jwp1EHEgsGUWoo6BpK99hA
+###
+# Reject the training
+
+PATCH http://localhost:3333/api/user/personalorder?orderId=2&newStatus=отклонён HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpbCI6InNlcDRvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5NDA3MzczLCJleHAiOjE2ODk0MDgyNzN9.LtAfFwpTuMIuO3tnTkdy9Jwp1EHEgsGUWoo6BpK99hA

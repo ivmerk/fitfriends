@@ -15,6 +15,9 @@ import { OrderTrainingEntity } from 'src/order-training/order-training.entity';
 import { UserRole } from 'src/types/user-role.enum';
 import { NOT_ALLOW_BE_FRIEND_WITH_CLIENT } from './user-room.constant';
 import { TokenPayload } from 'src/types/token-payload.interface';
+import { PersonalOrderTrainingEntity } from 'src/personal-order-training/personal-order-training.entity';
+import { ordersCondition } from 'src/common/constant';
+import { PersonalOrderTrainingRepository } from 'src/personal-order-training/personal-order-training.repository';
 
 @Injectable()
 export class UserRoomService {
@@ -25,6 +28,7 @@ export class UserRoomService {
     private readonly feedbackRepository: FeedbackRepository,
     private readonly fitnessTrainingRepository: FitnessTrainingRepository,
     private readonly orderTrainingRepository: OrderTrainingRepository,
+    private readonly personalOrderTrainingRepository: PersonalOrderTrainingRepository,
   ) {}
 
   public async addFriend(payload: TokenPayload, friendId: number) {
@@ -146,6 +150,34 @@ export class UserRoomService {
 
       const orderEntity = new OrderTrainingEntity({ ...dto, userId });
       return await this.orderTrainingRepository.create(orderEntity);
+    }
+  }
+
+  public async buyPersonalTraining(userId: number, trainerId: number) {
+    const trainer = await this.fitnessUserService.getUser(trainerId);
+    if (trainer && userId !== trainerId) {
+      const entity = new PersonalOrderTrainingEntity({
+        userId,
+        trainerId,
+        orderCondition: ordersCondition[0],
+      });
+      return await this.personalOrderTrainingRepository.create(entity);
+    }
+  }
+
+  public async getPersonalOrder(orderId: number) {
+    return await this.personalOrderTrainingRepository.findById(orderId);
+  }
+
+  public async changeStatus({ orderId: orderId, newStatus: newStatus }) {
+    const order = await this.personalOrderTrainingRepository.findById(orderId);
+    if (order) {
+      const entity = new PersonalOrderTrainingEntity({
+        ...order,
+        orderCondition: newStatus,
+      });
+      entity.createdAt = order.createdAt;
+      return await this.personalOrderTrainingRepository.update(orderId, entity);
     }
   }
 }
