@@ -171,7 +171,7 @@ export class UserRoomService {
 
   public async changeStatus({ orderId: orderId, newStatus: newStatus }) {
     const order = await this.personalOrderTrainingRepository.findById(orderId);
-    if (order) {
+    if (order && order.orderCondition !== newStatus) {
       const entity = new PersonalOrderTrainingEntity({
         ...order,
         orderCondition: newStatus,
