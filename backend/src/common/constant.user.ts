@@ -1,6 +1,6 @@
 export const userGenders: string[] = ['женский', 'мужской', 'неважно'];
 
-export const userAvatarTypes: string[] = ['.jpg', '.png'];
+export const userAvatarTypes: string[] = ['jpg', 'jpeg', 'png'];
 
 export const MAXIMUM_USER_AVATAR_FILE_SIZE = 1000000;
 
@@ -27,7 +27,7 @@ export const userLocations: string[] = [
   'Спортивная',
 ];
 
-export const userBackgroundTypes: string[] = ['.jpg', '.png'];
+export const userBackgroundTypes: string[] = ['jpg', 'png'];
 
 export enum CaloriesQttDaily {
   Min = 1000,
@@ -36,7 +36,7 @@ export enum CaloriesQttDaily {
 
 export const MAXIMUM_TRAINING_TYPES_CHOICE = 3;
 
-export const trainerSertificateTypes: string[] = ['.pdf'];
+export const trainerSertificateTypes: string[] = ['pdf'];
 
 export enum TrainerMeritLength {
   Min = 10,

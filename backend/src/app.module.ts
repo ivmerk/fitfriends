@@ -7,11 +7,13 @@ import uploaderConfig from './config/uploader.config';
 import TrainingModule from './training/training.module';
 import { OrderTrainingModule } from './order-training/order-training.module';
 import { UserRoomModule } from './user-room/user-room.module';
+import { FileModule } from './file/file.module';
 
 const ENV_USERS_FILE_PATH = '../.env';
 
 @Module({
   imports: [
+    FileModule,
     PrismaModule,
     UsersModule,
     TrainingModule,

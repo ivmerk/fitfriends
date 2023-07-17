@@ -147,3 +147,14 @@ model UserFriend {
 
   @@map("user_friend")
 }
+
+model File {
+  fileId       Int    @id @default(autoincrement()) @map("file_id")
+  hashName     String
+  mimetype     String
+  originalName String @map("original_name")
+  path         String
+  size         Int
+
+  @@map("file")
+}

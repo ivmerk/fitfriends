@@ -2,7 +2,7 @@ export enum TrainingTitleLength {
   Min = 1,
   Max = 15,
 }
-export const trainingBackgroundTypes: string[] = ['.jpg', '.png'];
+export const trainingBackgroundTypes: string[] = ['.jpg', '.jpeg', '.png'];
 
 export const durationOfTraining: string[] = [
   '10-30 мин',
