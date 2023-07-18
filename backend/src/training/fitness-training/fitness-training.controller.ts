@@ -83,7 +83,11 @@ export class FitnessTrainingController {
         HttpStatus.FORBIDDEN,
       );
     }
-    return await this.fitnessTrainingService.getTrainings(query, payload.sub);
+    const trainings = await this.fitnessTrainingService.getTrainings(
+      query,
+      payload.sub,
+    );
+    return { ...fillObject(TrainingRdo, trainings) };
   }
 
   @UseGuards(JwtAuthGuard)

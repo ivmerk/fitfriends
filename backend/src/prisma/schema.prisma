@@ -164,4 +164,15 @@ model Subscriber {
   email        String
   name         String
   trainerId    Int    @map("trainer_id")
+
+  @@map("subscriber")
+}
+
+model Notification {
+  notificationId      Int    @id @default(autoincrement()) @map("notification_id")
+  targetUserId        Int    @map("target_user_id")
+  typesOfNotification String
+  askingUserId        Int    @map("asking_user_id")
+
+  @@map("notification")
 }

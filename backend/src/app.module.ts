@@ -8,6 +8,7 @@ import TrainingModule from './training/training.module';
 import { OrderTrainingModule } from './order-training/order-training.module';
 import { UserRoomModule } from './user-room/user-room.module';
 import { FileModule } from './file/file.module';
+import { NotificationModule } from './notification/notification.module';
 
 const ENV_USERS_FILE_PATH = '../.env';
 
@@ -18,6 +19,7 @@ const ENV_USERS_FILE_PATH = '../.env';
     UsersModule,
     TrainingModule,
     UserRoomModule,
+    NotificationModule,
     OrderTrainingModule,
     ConfigModule.forRoot({
       isGlobal: true,

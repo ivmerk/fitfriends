@@ -18,6 +18,7 @@ import { TokenPayload } from 'src/types/token-payload.interface';
 import { PersonalOrderTrainingEntity } from 'src/personal-order-training/personal-order-training.entity';
 import { ordersCondition } from 'src/common/constant';
 import { PersonalOrderTrainingRepository } from 'src/personal-order-training/personal-order-training.repository';
+import { TrainingListQuery } from './query/training-list.query';
 
 @Injectable()
 export class UserRoomService {
@@ -181,7 +182,10 @@ export class UserRoomService {
     }
   }
 
-  public async createTrainerTrainingList(query, payload) {
+  public async createTrainerTrainingList(
+    query: TrainingListQuery,
+    payload: TokenPayload,
+  ) {
     const myTrainings = await this.fitnessTrainingRepository.findByTranerId(
       payload.sub,
     );

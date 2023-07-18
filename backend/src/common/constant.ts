@@ -30,3 +30,9 @@ export enum NotificationTextLength {
   Min = 10,
   Max = 140,
 }
+
+export const typesOfNotification: string[] = [
+  'добавить в друзья',
+  'пригласить на тренировку',
+  'запрос на персональную тренировку',
+];
