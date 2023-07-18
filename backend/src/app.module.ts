@@ -9,6 +9,7 @@ import { OrderTrainingModule } from './order-training/order-training.module';
 import { UserRoomModule } from './user-room/user-room.module';
 import { FileModule } from './file/file.module';
 import { NotificationModule } from './notification/notification.module';
+import subscriberConfig from './config/subscriber.config';
 
 const ENV_USERS_FILE_PATH = '../.env';
 
@@ -23,7 +24,7 @@ const ENV_USERS_FILE_PATH = '../.env';
     OrderTrainingModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [jwtConfig, uploaderConfig],
+      load: [jwtConfig, uploaderConfig, subscriberConfig],
       envFilePath: ENV_USERS_FILE_PATH,
     }),
   ],
