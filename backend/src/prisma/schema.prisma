@@ -158,3 +158,10 @@ model File {
 
   @@map("file")
 }
+
+model Subscriber {
+  subscriberId Int    @id @default(autoincrement()) @map("subscriber_id")
+  email        String
+  name         String
+  trainerId    Int    @map("trainer_id")
+}
