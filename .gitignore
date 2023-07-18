@@ -8,3 +8,4 @@ backend_old
 backend/src/prisma/migrations
 backend/dist
 backend/src/user-room/query
+backend/uploads
