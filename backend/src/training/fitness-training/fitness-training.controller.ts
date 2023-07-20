@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  HttpException,
   HttpStatus,
   Param,
   ParseIntPipe,
@@ -22,7 +21,6 @@ import { UpdateUserDto } from 'src/users/fitness-user/dto/update-user.dto';
 import { JwtAuthGuard } from 'src/users/fitness-user/guards/jwt-auth.guard';
 import { RequestWithTokenPayload } from 'src/types/request-with-token-payloads';
 import { UserRole } from 'src/types/user-role.enum';
-import { AUTH_USER_ONLY_TRAINERS_PERMIT } from 'src/users/fitness-user/fitness-user.constant';
 import { TrainingQuery } from './query/training.query';
 import { Roles } from 'src/users/fitness-user/decorators/user-roles.decorator';
 import { UserRolesGuard } from 'src/users/fitness-user/guards/user-roles.quard';
