@@ -38,6 +38,7 @@ export class FitnessUserController {
   constructor(private readonly fitnessUserService: FitnessUserService) {}
 
   @ApiResponse({
+    type: UserRdo,
     status: HttpStatus.CREATED,
     description: 'The new user has been successfully created.',
   })
@@ -45,7 +46,7 @@ export class FitnessUserController {
   public async create(
     @Headers() headers: Record<string, string>,
     @Body() dto: CreateUserDto,
-  ) {
+  ): Promise<UserRdo> {
     if (headers.authorization) {
       throw new HttpException(
         { status: HttpStatus.BAD_REQUEST, error: AUTH_NOT_FOR_AUTH_USER },
@@ -67,7 +68,7 @@ export class FitnessUserController {
   })
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  public async login(@Body() dto: LoginUserDto) {
+  public async login(@Body() dto: LoginUserDto): Promise<LoggedUserRdo> {
     const verifiedUser = await this.fitnessUserService.verifyUser(dto);
     const loggedUser = await this.fitnessUserService.createUserToken(
       verifiedUser,
@@ -86,15 +87,26 @@ export class FitnessUserController {
     return this.fitnessUserService.createUserToken(user);
   }
 
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.OK,
+    description: 'Users list complete.',
+  })
   @Roles(UserRole.Client)
   @UseGuards(UserRolesGuard)
   @Get('/feed')
   public async feedLine(
     @Query(new ValidationPipe({ transform: true })) query: UserQuery,
   ) {
-    return await this.fitnessUserService.getUsers(query);
+    const users = await this.fitnessUserService.getUsers(query);
+    return { ...fillObject(UserRdo, users) };
   }
 
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.OK,
+    description: 'User updated.',
+  })
   @UseGuards(JwtAuthGuard)
   @Patch()
   public async update(
@@ -106,15 +118,22 @@ export class FitnessUserController {
     return fillObject(UserRdo, updatedUser);
   }
 
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.OK,
+    description: 'User by id received',
+  })
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   public async show(@Param('id', ParseIntPipe) id: number) {
     const user = await this.fitnessUserService.getUser(id);
-    return {
-      ...fillObject(UserRdo, user),
-    };
+    return fillObject(UserRdo, user);
   }
 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Checkig token availibility',
+  })
   @UseGuards(JwtAuthGuard)
   @Get('check')
   public async checkToken(@Req() { user: payload }: RequestWithTokenPayload) {
