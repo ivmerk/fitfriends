@@ -26,13 +26,12 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard.js';
 import { RequestWithUser } from '../../types/request-with-user.js';
 import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
 import { RequestWithTokenPayload } from '../../types/request-with-token-payloads.js';
-import {
-  AUTH_NOT_FOR_AUTH_USER,
-  AUTH_USER_ONLY_CLIENT_PERMIT,
-} from './fitness-user.constant.js';
+import { AUTH_NOT_FOR_AUTH_USER } from './fitness-user.constant.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { UserQuery } from './query/user.query.js';
 import { UserRole } from '../../types/user-role.enum.js';
+import { Roles } from './decorators/user-roles.decorator.js';
+import { UserRolesGuard } from './guards/user-roles.quard.js';
 
 @Controller('auth')
 export class FitnessUserController {
@@ -87,18 +86,12 @@ export class FitnessUserController {
     return this.fitnessUserService.createUserToken(user);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.Client)
+  @UseGuards(UserRolesGuard)
   @Get('/feed')
   public async feedLine(
     @Query(new ValidationPipe({ transform: true })) query: UserQuery,
-    @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    if (payload.userRole !== UserRole.Client) {
-      throw new HttpException(
-        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_CLIENT_PERMIT },
-        HttpStatus.FORBIDDEN,
-      );
-    }
     return await this.fitnessUserService.getUsers(query);
   }
 

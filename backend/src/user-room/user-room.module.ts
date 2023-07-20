@@ -8,9 +8,16 @@ import { FeedbackModule } from 'src/feedback/feedback.module';
 import FitnessTrainingModule from 'src/training/fitness-training/fitness-training.module';
 import { OrderTrainingModule } from 'src/order-training/order-training.module';
 import { PersonalOrderTrainingModule } from 'src/personal-order-training/personal-order-training.module';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { getJwtOptions } from 'src/common/get-jwt-options';
 
 @Module({
   imports: [
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: getJwtOptions,
+    }),
     FitnessUserModule,
     FitnessTrainingModule,
     UserFriendModule,

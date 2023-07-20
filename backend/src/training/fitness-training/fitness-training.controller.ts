@@ -24,6 +24,8 @@ import { RequestWithTokenPayload } from 'src/types/request-with-token-payloads';
 import { UserRole } from 'src/types/user-role.enum';
 import { AUTH_USER_ONLY_TRAINERS_PERMIT } from 'src/users/fitness-user/fitness-user.constant';
 import { TrainingQuery } from './query/training.query';
+import { Roles } from 'src/users/fitness-user/decorators/user-roles.decorator';
+import { UserRolesGuard } from 'src/users/fitness-user/guards/user-roles.quard';
 
 @Controller('training')
 export class FitnessTrainingController {
@@ -35,35 +37,21 @@ export class FitnessTrainingController {
     status: HttpStatus.CREATED,
     description: 'The new training has been successfully created.',
   })
-  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.Trainer)
+  @UseGuards(UserRolesGuard)
   @Post('/register')
-  public async create(
-    @Body() dto: CreateTrainingDto,
-    @Req() { user: payload }: RequestWithTokenPayload,
-  ) {
-    if (payload.userRole !== UserRole.Trainer) {
-      throw new HttpException(
-        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_TRAINERS_PERMIT },
-        HttpStatus.FORBIDDEN,
-      );
-    }
+  public async create(@Body() dto: CreateTrainingDto) {
     const newTraining = await this.fitnessTrainingService.createTraining(dto);
     return fillObject(TrainingRdo, newTraining);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.Trainer)
+  @UseGuards(UserRolesGuard)
   @Patch(':id')
   public async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateUserDto,
-    @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    if (payload.userRole !== UserRole.Trainer) {
-      throw new HttpException(
-        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_TRAINERS_PERMIT },
-        HttpStatus.FORBIDDEN,
-      );
-    }
     const updatedTraiding = await this.fitnessTrainingService.updateTraining(
       id,
       dto,
@@ -71,18 +59,13 @@ export class FitnessTrainingController {
     return fillObject(TrainingRdo, updatedTraiding);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.Trainer)
+  @UseGuards(UserRolesGuard)
   @Get('/feed')
   public async feedLine(
     @Query(new ValidationPipe({ transform: true })) query: TrainingQuery,
     @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    if (payload.userRole !== UserRole.Trainer) {
-      throw new HttpException(
-        { status: HttpStatus.FORBIDDEN, error: AUTH_USER_ONLY_TRAINERS_PERMIT },
-        HttpStatus.FORBIDDEN,
-      );
-    }
     const trainings = await this.fitnessTrainingService.getTrainings(
       query,
       payload.sub,
