@@ -13,12 +13,16 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderTrainingRepository } from 'src/order-training/order-training.repository';
 import { OrderTrainingEntity } from 'src/order-training/order-training.entity';
 import { UserRole } from 'src/types/user-role.enum';
-import { NOT_ALLOW_BE_FRIEND_WITH_CLIENT } from './user-room.constant';
+import {
+  NOT_ALLOW_BE_FRIEND_WITH_CLIENT,
+  NOT_SUCH_TRAINING,
+} from './user-room.constant';
 import { TokenPayload } from 'src/types/token-payload.interface';
 import { PersonalOrderTrainingEntity } from 'src/personal-order-training/personal-order-training.entity';
 import { ordersCondition } from 'src/common/constant';
 import { PersonalOrderTrainingRepository } from 'src/personal-order-training/personal-order-training.repository';
 import { TrainingListQuery } from './query/training-list.query';
+import { error } from 'console';
 
 @Injectable()
 export class UserRoomService {
@@ -79,6 +83,13 @@ export class UserRoomService {
   }
 
   public async showBalance(userId: number, trainerId: number) {
+    const training = await this.fitnessTrainingRepository.findById(trainerId);
+    if (!training) {
+      throw new HttpException(
+        { status: HttpStatus.BAD_REQUEST, error: NOT_SUCH_TRAINING },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     return await this.userBalanceRepository.findByUserIdAndTrainingId(
       userId,
       trainerId,
@@ -140,7 +151,6 @@ export class UserRoomService {
           balanceEntity,
         );
       } else {
-        console.log(dto, userBalance);
         const balanceEntity = new UserBalanceEntity({
           userId,
           trainingId: dto.trainingId,

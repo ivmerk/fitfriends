@@ -32,6 +32,7 @@ export class FitnessTrainingController {
   ) {}
 
   @ApiResponse({
+    type: TrainingRdo,
     status: HttpStatus.CREATED,
     description: 'The new training has been successfully created.',
   })
@@ -43,6 +44,11 @@ export class FitnessTrainingController {
     return fillObject(TrainingRdo, newTraining);
   }
 
+  @ApiResponse({
+    type: TrainingRdo,
+    status: HttpStatus.OK,
+    description: 'The training has been successfully updates.',
+  })
   @Roles(UserRole.Trainer)
   @UseGuards(UserRolesGuard)
   @Patch(':id')
@@ -57,6 +63,11 @@ export class FitnessTrainingController {
     return fillObject(TrainingRdo, updatedTraiding);
   }
 
+  @ApiResponse({
+    type: TrainingRdo,
+    status: HttpStatus.OK,
+    description: 'The training list has been successfully created.',
+  })
   @Roles(UserRole.Trainer)
   @UseGuards(UserRolesGuard)
   @Get('/feed')

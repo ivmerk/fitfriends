@@ -76,13 +76,13 @@ export class FitnessUserController {
     return fillObject(LoggedUserRdo, Object.assign(verifiedUser, loggedUser));
   }
 
-  @UseGuards(JwtRefreshGuard)
-  @Post('refresh')
-  @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Get a new access/refresh tokens',
   })
+  @UseGuards(JwtRefreshGuard)
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
   public async refreshToken(@Req() { user }: RequestWithUser) {
     return this.fitnessUserService.createUserToken(user);
   }
