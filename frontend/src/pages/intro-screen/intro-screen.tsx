@@ -1,4 +1,4 @@
-function EnterScreen() :JSX.Element {
+function IntroScreen() :JSX.Element {
   return(
     <div className="intro">
       <div className="intro__background">
@@ -26,4 +26,4 @@ function EnterScreen() :JSX.Element {
     </div>
   );
 }
-export default EnterScreen;
+export default IntroScreen;

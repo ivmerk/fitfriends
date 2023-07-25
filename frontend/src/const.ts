@@ -1,9 +1,9 @@
 export enum AppRoute {
   Main = '/',
   Enter = '/enter',
-  SingIn = '/login',
+  SingUp = '/login',
   Registration = '/registration',
-  TrainerRoom = '/traineroom',
+  TrainerRoom = '/trainerroom',
   ClientRoom = '/clientroom',
   ClientsList = '/clientlist',
   ClientCard = '/clientcard',
