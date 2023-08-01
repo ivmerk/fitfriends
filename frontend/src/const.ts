@@ -1,6 +1,6 @@
 export enum AppRoute {
   Main = '/',
-  Enter = '/enter',
+  Intro = '/intro',
   SingUp = '/login',
   Registration = '/registration',
   TrainerRoom = '/trainerroom',
@@ -10,4 +10,10 @@ export enum AppRoute {
   TrainerCard = '/trainercard',
   TrainingsLis = '/trainingslist',
   TrainingCard = '/trainingcard',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }

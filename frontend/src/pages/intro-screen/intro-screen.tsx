@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function IntroScreen() :JSX.Element {
   return(
     <div className="intro">
@@ -9,7 +11,13 @@ function IntroScreen() :JSX.Element {
       </div>
       <div className="intro__wrapper">
         <svg className="intro__icon" width="60" height="60" aria-hidden="true">
-          <use xlinkHref="#icon-logotype"></use>
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 30C16.5667 30 30 43.4333 30 60V30H60C43.4333 30 30 16.5667 30 0C30 16.5667 16.5667 30 0 30Z" fill="#181818"/>
+            <path d="M30 60C30 43.4333 16.5667 30 0 30V60H30Z" fill="#C5EC2A"/>
+            <path d="M30 60C46.5667 60 60 46.5667 60 30H30V60Z" fill="#C5EC2A"/>
+            <path d="M30 0C30 16.5667 16.5667 30 0 30V0H30Z" fill="#C5EC2A"/>
+            <path d="M60 30C43.4333 30 30 16.5667 30 0H60V30Z" fill="#C5EC2A"/>
+          </svg>
         </svg>
         <div className="intro__title-logo">
           <picture>
@@ -18,8 +26,19 @@ function IntroScreen() :JSX.Element {
           </picture>
         </div>
         <div className="intro__buttons">
-          <button className="btn intro__button" type="button">Регистрация</button>
-          <p className="intro__text">Есть аккаунт? <a className="intro__link" href="#">Вход</a>
+          <Link className="btn intro__button"
+            type="button"
+            to ="/registration"
+          >
+            Регистрация
+          </Link>
+          <p className="intro__text">
+            Есть аккаунт?
+            <Link className='intro__link'
+              to="/login"
+            >
+              Вход
+            </Link>
           </p>
         </div>
       </div>
