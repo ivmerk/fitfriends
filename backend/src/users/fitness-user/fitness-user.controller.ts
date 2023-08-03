@@ -84,6 +84,7 @@ export class FitnessUserController {
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   public async refreshToken(@Req() { user }: RequestWithUser) {
+    console.log('controller');
     return this.fitnessUserService.createUserToken(user);
   }
 
@@ -124,7 +125,7 @@ export class FitnessUserController {
     description: 'User by id received',
   })
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
+  @Get('user/:id')
   public async show(@Param('id', ParseIntPipe) id: number) {
     const user = await this.fitnessUserService.getUser(id);
     return fillObject(UserRdo, user);
