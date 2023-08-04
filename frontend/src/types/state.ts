@@ -1,11 +1,15 @@
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
-import { UserData } from './user-data';
+import { User, UserFormRegister } from './user';
 
-export type UserProcess = {
+export interface UserData {
   authorizationStatus: AuthorizationStatus;
-  user: UserData | null;
-};
+  user: User | null;
+}
+
+export interface UserProcess {
+  registringUser: UserFormRegister | null;
+}
 
 export type State = ReturnType<typeof store.getState>;
 

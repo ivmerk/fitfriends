@@ -25,4 +25,6 @@ export enum AuthorizationStatus {
 
 export enum NameSpace {
   User = 'USER',
+  Data = 'DATA',
+  Training = 'TRAINING',
 }
