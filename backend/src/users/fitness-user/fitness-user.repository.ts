@@ -123,9 +123,9 @@ export class FitnessUserRepository
           userEntity.trainerBody != null
             ? {
                 update: {
-                  sertificate:
-                    userEntity.trainerBody.sertificate != null
-                      ? userEntity.trainerBody.sertificate
+                  sertificates:
+                    userEntity.trainerBody.sertificates != null
+                      ? userEntity.trainerBody.sertificates
                       : undefined,
                   merit:
                     userEntity.trainerBody.merit != null

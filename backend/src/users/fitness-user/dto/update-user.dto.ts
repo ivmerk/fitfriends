@@ -52,7 +52,7 @@ class ClientBodyDto {
 class TrainerBodyDto {
   @IsString()
   @Contains(trainerSertificateTypes[0])
-  public sertificate: string;
+  public sertificates: string[];
 
   @IsString()
   @MinLength(TrainerMeritLength.Min)

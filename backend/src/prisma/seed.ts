@@ -57,7 +57,7 @@ async function fillDb() {
       location: 'Петроградская',
       trainerBody: {
         create: {
-          sertificate: '10-30 мин',
+          sertificates: ['10-30 мин'],
           merit: '1000',
           readinessForPrivate: true,
         },
@@ -83,7 +83,7 @@ async function fillDb() {
       location: 'Петроградская',
       trainerBody: {
         create: {
-          sertificate: 'sertificate.pdf',
+          sertificates: ['sertificate.pdf'],
           merit: 'descriptionsome',
           readinessForPrivate: false,
         },

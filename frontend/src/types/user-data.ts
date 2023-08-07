@@ -39,7 +39,7 @@ export type ClientBody = {
 export type TrainerBody = {
   trainerBodyId: number;
   userId: number;
-  sertificate: string;
+  sertificates: string[];
   merit: string;
   readinessForPrivate: boolean;
 };

@@ -7,6 +7,7 @@ import {
   IsISO8601,
   IsIn,
   IsNumber,
+  IsOptional,
   IsString,
   Max,
   MaxLength,
@@ -70,7 +71,7 @@ class ClientBodyDto implements ClientBody {
 class TrainerBodyDto implements TrainerBody {
   @IsString()
   @Contains(trainerSertificateTypes[0])
-  public sertificate!: string;
+  public sertificates!: string[];
 
   @IsString()
   @MinLength(TrainerMeritLength.Min)
@@ -140,10 +141,11 @@ export class CreateUserDto {
     description: 'User description',
     example: 'I like jump too much',
   })
+  @IsOptional()
   @IsString()
   @MinLength(UserDescriptionLength.Min)
   @MaxLength(UserDescriptionLength.Max)
-  public description!: string;
+  public description?: string;
 
   @ApiProperty({
     description: 'User location',

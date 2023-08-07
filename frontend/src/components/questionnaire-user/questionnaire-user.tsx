@@ -1,148 +1,212 @@
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { durationOfTraining, typesOfTraning } from '../../common/constant.training';
+import { capitalizeFirst } from '../../common/utils';
+import { CaloriesQtt, CaloriesQttDaily, levelsOfExperience } from '../../common/constant.user';
+import { User, UserFormRegisterDetailsClient } from '../../types/user';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getUserCommon } from '../../store/user-process/selector';
+import { createUser } from '../../store/api-action';
+
 function QuestionnaireUser():JSX.Element{
+  const dispatch = useAppDispatch();
+  const userCommonDetatails = useAppSelector(getUserCommon);
+
+  const caloriesLoseRef = useRef<HTMLInputElement | null>(null);
+  const caloriesWasteRef = useRef<HTMLInputElement | null>(null);
+
+  const [choosingTypesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
+  const [trainingDuration, setTrainingDuration] = useState(durationOfTraining[0]);
+  const[levelExperience, setLevelExperience] = useState(levelsOfExperience[0]);
+  const[validCaloriesLose, setValidCaloriesLose] = useState(false);
+  const[validCaloriesWaste, setValidCaloriesWaste] = useState(false);
+
+  const onSubmit = (user: UserFormRegisterDetailsClient)=>
+  {
+    if(userCommonDetatails){
+      const newUser :User = {...userCommonDetatails, ...user };
+      dispatch(createUser(newUser));
+    }};
+
+  const handleSubmit = (evt: FormEvent<HTMLElement>) => {
+    evt.preventDefault();
+    if (choosingTypesOfTraining.length && validCaloriesLose && validCaloriesWaste && caloriesLoseRef.current && caloriesWasteRef.current) {
+      onSubmit({
+        typesOfTraining: choosingTypesOfTraining,
+        levelOfExperience: levelExperience,
+        timeOfTraining: trainingDuration,
+        caloryLosingPlanTotal: Number.parseInt(caloriesLoseRef.current.value,10),
+        caloryLosingPlanDaily: Number.parseInt(caloriesWasteRef.current.value, 10)
+      });
+    }
+  };
+
+  const onCaloriesLoseKeyDownCaptureHandle = (evt: ChangeEvent<HTMLInputElement>) =>
+  {
+    evt.preventDefault();
+    if(caloriesLoseRef.current){
+      if(Number.isInteger(Number.parseInt(caloriesLoseRef.current.value,10)) && Number.parseInt(caloriesLoseRef.current.value, 10) >= CaloriesQttDaily.Min && Number.parseInt(caloriesLoseRef.current.value, 10) <= CaloriesQttDaily.Max) {
+        setValidCaloriesLose(true);
+      } else{setValidCaloriesLose(false);}
+    }
+  };
+
+  const onCaloriesWasteKeyDownCaptureHandle = (evt: ChangeEvent<HTMLInputElement>) =>
+  {
+    evt.preventDefault();
+    if(caloriesWasteRef.current){
+      if(Number.isInteger(Number.parseInt(caloriesWasteRef.current.value,10)) && Number.parseInt(caloriesWasteRef.current.value, 10) >= CaloriesQtt.Min && Number.parseInt(caloriesWasteRef.current.value, 10) <= CaloriesQtt.Max) {
+        setValidCaloriesWaste(true);
+      } else{setValidCaloriesWaste(false);}
+    }
+  };
+
+
+  const updateChoosingTypesOfTraining = (kindOfTraining:string) => {
+    const newChoosingTypesOfTraining :string[] = [...choosingTypesOfTraining];
+    newChoosingTypesOfTraining.includes(kindOfTraining) ?
+      newChoosingTypesOfTraining.splice(newChoosingTypesOfTraining.indexOf(kindOfTraining), 1) :
+      newChoosingTypesOfTraining.push(kindOfTraining);
+    setChoosingTypesOfTraining(newChoosingTypesOfTraining);
+  };
+
+  const onChooseTrainingDurationHandle = (evt: ChangeEvent<HTMLInputElement>) =>{
+    evt.preventDefault();
+    setTrainingDuration(evt.currentTarget.value);
+  };
+
+  const onChooseLevelExperienceHandle = (evt:ChangeEvent<HTMLInputElement>) => {
+    evt.preventDefault();
+    setLevelExperience(evt.currentTarget.value);
+  };
+  type ChooseLevelExperiencePrope ={
+    item: string;
+  }
+
+  function ChooseLevelExperience ({item}: ChooseLevelExperiencePrope): JSX.Element {
+    return(
+      <div className="custom-toggle-radio__block">
+        <label>
+          <input
+            type="radio"
+            name="level"
+            value={item}
+            checked={item === levelExperience}
+            onChange={onChooseLevelExperienceHandle}
+          />
+          <span className="custom-toggle-radio__icon"></span>
+          <span className="custom-toggle-radio__label">{item}</span>
+        </label>
+      </div>
+    );
+  }
+
+  type ChooseTrainingTypePrope = {
+    item: string;
+  }
+  function ChooseTrainingType({item} : ChooseTrainingTypePrope):JSX.Element{
+    return(
+      <div className="btn-checkbox">
+        <label>
+          <input
+            className="visually-hidden"
+            type="checkbox"
+            name="specialisation"
+            value={item}
+            checked={choosingTypesOfTraining.includes(item)}
+            onChange={() => {updateChoosingTypesOfTraining(item);}}
+          />
+          <span className="btn-checkbox__btn">{capitalizeFirst(item)}</span>
+        </label>
+      </div>
+    );
+  }
+
+  type ChooseTrainingDurationPrope ={
+    item:string;
+  }
+  function ChooseTrainingDuration({item}: ChooseTrainingDurationPrope):JSX.Element{
+    return(
+      <div className="custom-toggle-radio__block">
+        <label>
+          <input
+            type="radio"
+            name="time"
+            value={item}
+            checked={trainingDuration === item}
+            onChange={onChooseTrainingDurationHandle}
+          />
+          <span className="custom-toggle-radio__icon"></span>
+          <span className="custom-toggle-radio__label">{item}</span>
+        </label>
+      </div>
+    );
+  }
+
   return(
     <div className="popup-form popup-form--questionnaire-user">
       <div className="popup-form__wrapper">
         <div className="popup-form__content">
-          <div className="popup-form__form">
-            <form method="get">
-              <div className="questionnaire-user">
-                <h1 className="visually-hidden">Опросник</h1>
-                <div className="questionnaire-user__wrapper">
-                  <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Ваша специализация (тип) тренировок</span>
-                    <div className="specialization-checkbox questionnaire-user__specializations">
-                      <div className="btn-checkbox">
-                        <label>
-                          <input className="visually-hidden" type="checkbox" name="specialisation" value="yoga"/>
-                          <span className="btn-checkbox__btn">Йога</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input className="visually-hidden" type="checkbox" name="specialisation" value="running"/>
-                          <span className="btn-checkbox__btn">Бег</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input className="visually-hidden" type="checkbox" name="specialisation" value="power" checked/>
-                          <span className="btn-checkbox__btn">Силовые</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input className="visually-hidden" type="checkbox" name="specialisation" value="aerobics"/>
-                          <span className="btn-checkbox__btn">Аэробика</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input className="visually-hidden" type="checkbox" name="specialisation" value="crossfit" checked/>
-                          <span className="btn-checkbox__btn">Кроссфит</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input className="visually-hidden" type="checkbox" name="specialisation" value="boxing" checked/>
-                          <span className="btn-checkbox__btn">Бокс</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input className="visually-hidden" type="checkbox" name="specialisation" value="pilates"/>
-                          <span className="btn-checkbox__btn">Пилатес</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input className="visually-hidden" type="checkbox" name="specialisation" value="stretching"/>
-                          <span className="btn-checkbox__btn">Стрейчинг</span>
-                        </label>
-                      </div>
+          <form
+            className="popup-form__form"
+            action=""
+            onSubmit={handleSubmit}
+          >
+            <div className="questionnaire-user">
+              <h1 className="visually-hidden">Опросник</h1>
+              <div className="questionnaire-user__wrapper">
+                <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Ваша специализация (тип) тренировок</span>
+                  <div className="specialization-checkbox questionnaire-user__specializations">
+                    {typesOfTraning.map((item: string) => (<ChooseTrainingType item={item} key={item}/>))}
+                  </div>
+                </div>
+                <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Сколько времени вы готовы уделять на тренировку в день</span>
+                  <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
+                    {durationOfTraining.map((item:string) => <ChooseTrainingDuration item={item} key={item}/>)}
+                  </div>
+                </div>
+                <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Ваш уровень</span>
+                  <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
+                    {levelsOfExperience.map((item:string) => <ChooseLevelExperience item={item} key={item}/>)}
+                  </div>
+                </div>
+                <div className="questionnaire-user__block">
+                  <div className="questionnaire-user__calories-lose">
+                    <span className="questionnaire-user__legend">Сколько калорий хотите сбросить</span>
+                    <div className="custom-input custom-input--with-text-right questionnaire-user__input">
+                      <label>
+                        <span className="custom-input__wrapper">
+                          <input
+                            type="number"
+                            name="calories-lose"
+                            ref={caloriesLoseRef}
+                            onChange={onCaloriesLoseKeyDownCaptureHandle}
+                          />
+                          <span className="custom-input__text">ккал</span>
+                        </span>
+                      </label>
                     </div>
                   </div>
-                  <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Сколько времени вы готовы уделять на тренировку в день</span>
-                    <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="time"/>
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">10-30 мин</span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="time" checked/>
-                          <span className="custom-toggle-radio__icon"></span><span className="custom-toggle-radio__label">30-50 мин</span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="time"/>
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">50-80 мин</span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="time"/>
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">80-100 мин</span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Ваш уровень</span>
-                    <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="level"/>
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">Новичок</span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="level" checked/>
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">Любитель</span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="level"/>
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">Профессионал</span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="questionnaire-user__block">
-                    <div className="questionnaire-user__calories-lose"><span className="questionnaire-user__legend">Сколько калорий хотите сбросить</span>
-                      <div className="custom-input custom-input--with-text-right questionnaire-user__input">
-                        <label>
-                          <span className="custom-input__wrapper">
-                            <input type="number" name="calories-lose"/>
-                            <span className="custom-input__text">ккал</span>
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                    <div className="questionnaire-user__calories-waste"><span className="questionnaire-user__legend">Сколько калорий тратить в день</span>
-                      <div className="custom-input custom-input--with-text-right questionnaire-user__input">
-                        <label>
-                          <span className="custom-input__wrapper">
-                            <input type="number" name="calories-waste"/>
-                            <span className="custom-input__text">ккал</span>
-                          </span>
-                        </label>
-                      </div>
+                  <div className="questionnaire-user__calories-waste">
+                    <span className="questionnaire-user__legend">Сколько калорий тратить в день</span>
+                    <div className="custom-input custom-input--with-text-right questionnaire-user__input">
+                      <label>
+                        <span className="custom-input__wrapper">
+                          <input
+                            type="number"
+                            name="calories-waste"
+                            ref={caloriesWasteRef}
+                            onChange={onCaloriesWasteKeyDownCaptureHandle}
+                          />
+                          <span className="custom-input__text">ккал</span>
+                        </span>
+                      </label>
                     </div>
                   </div>
                 </div>
-                <button className="btn questionnaire-user__button" type="submit">Продолжить</button>
               </div>
-            </form>
-          </div>
+              <button className="btn questionnaire-user__button" type="submit">Продолжить</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

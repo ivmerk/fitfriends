@@ -13,7 +13,7 @@ export interface User {
   userGender: string;
   birthDate: string;
   userRole: UserRoleType;
-  description: string;
+  description?: string;
   location: string;
   backgraundPicture: string;
   createdAt?: Date;
@@ -39,7 +39,7 @@ export interface ClientBody {
 export interface TrainerBody {
   trainerBodyId?: number;
   userId?: number;
-  sertificate: string;
+  sertificates: string[];
   merit: string;
   readinessForPrivate: boolean;
 }

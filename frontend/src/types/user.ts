@@ -4,27 +4,27 @@ import { UserBalanceData } from './user-balance-data';
 import { UserFriendData } from './user-friend-data';
 
 export type User = {
-  userId: number;
+  userId?: number;
   userName: string;
   userMail: string;
   userAvatar: string;
-  passwordHash: string;
+  passwordHash?: string;
   userGender: string;
   birthDate: string;
   userRole: string;
-  description: string;
+  description?: string;
   location: string;
-  backgraundPicture: string;
-  createdAt: Date;
-  clientBody: ClientBody | null;
-  trainerBody: TrainerBody | null;
+  backgraundPicture?: string;
+  createdAt?: Date;
+  clientBody?: ClientBody;
+  trainerBody?: TrainerBody;
   levelOfExperience: string;
   typesOfTraining: string[];
-  orders: OrderTrainingData[];
-  personalOrders: PersonalOrderTrainingData[];
-  userBalance: UserBalanceData[];
-  friends: UserFriendData[];
-  token: string;
+  orders?: OrderTrainingData[];
+  personalOrders?: PersonalOrderTrainingData[];
+  userBalance?: UserBalanceData[];
+  friends?: UserFriendData[];
+  token?: string;
 };
 
 export type ClientBody = {
@@ -39,7 +39,7 @@ export type ClientBody = {
 export type TrainerBody = {
   trainerBodyId: number;
   userId: number;
-  sertificate: string;
+  sertificates: string[];
   merit: string;
   readinessForPrivate: boolean;
 };
@@ -53,4 +53,20 @@ export type UserFormRegister = {
   password: string;
   userGender: string;
   userRole: string;
+};
+
+export type UserFormRegisterDetailsClient = {
+  typesOfTraining: string[];
+  levelOfExperience: string;
+  timeOfTraining: string;
+  caloryLosingPlanTotal: number;
+  caloryLosingPlanDaily: number;
+};
+
+export type UserFormRegisterDetailsTrainer = {
+  typesOfTraining: string[];
+  levelOfExperience: string;
+  sertificates: string[];
+  merit: string;
+  readinessForPrivate: boolean;
 };

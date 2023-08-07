@@ -6,6 +6,7 @@ import { User } from '../types/user';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
 import { TokenData } from '../types/token-data';
+import { UserData } from '../types/user-data';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -16,7 +17,7 @@ export const checkAuthAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/checkAuth', async (_arg, { extra: api }) => {
-  const { data } = await api.get<User>(APIRoute.Login);
+  const { data } = await api.get<UserData>(APIRoute.Login);
   return data.userId;
 });
 
@@ -48,4 +49,17 @@ export const logOutAction = createAsyncThunk<
 >('user/logout', async (_arg, { extra: api }) => {
   await api.delete(APIRoute.Logout);
   dropToken();
+});
+
+export const createUser = createAsyncThunk<
+  User,
+  User,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/register', async (user, { extra: api }) => {
+  const { data } = await api.post<User>(APIRoute.Register, user);
+  return data;
 });

@@ -54,7 +54,7 @@ model TrainerBody {
   trainerBodyId       Int        @id @default(autoincrement()) @map("trainer_body_id")
   user                UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
   userId              Int        @unique @map("user_id")
-  sertificate         String     @default("")
+  sertificates        String[]
   merit               String     @default("")
   readinessForPrivate Boolean    @default(false) @map("readiness_for_private")
 

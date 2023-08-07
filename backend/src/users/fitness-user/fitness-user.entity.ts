@@ -16,7 +16,7 @@ export class FitnessUserEntity implements Entity<FitnessUserEntity>, User {
   public userGender!: string;
   public birthDate!: string;
   public userRole!: UserRoleType;
-  public description!: string;
+  public description?: string;
   public location!: string;
   public backgraundPicture!: string;
   public createdAt!: Date;

@@ -1,10 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { UserProcess } from '../../types/state';
 import { NameSpace } from '../../const';
-import { UserFormRegister } from '../../types/user';
+import {
+  UserFormRegister,
+  UserFormRegisterDetailsClient,
+} from '../../types/user';
 
 const initialState = {
   registringUser: null,
+  registringUserDetailsClient: null,
 } as UserProcess;
 
 export const userProcess = createSlice({
@@ -14,9 +18,15 @@ export const userProcess = createSlice({
     createUserGeneral: (state, action: PayloadAction<UserFormRegister>) => {
       state.registringUser = action.payload;
     },
+    createClientDetails: (
+      state,
+      action: PayloadAction<UserFormRegisterDetailsClient>
+    ) => {
+      state.registringUserDetailsClient = action.payload;
+    },
   },
 });
 
-export const { createUserGeneral } = userProcess.actions;
+export const { createUserGeneral, createClientDetails } = userProcess.actions;
 
 export default userProcess.reducer;

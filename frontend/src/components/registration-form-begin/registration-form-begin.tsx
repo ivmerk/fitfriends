@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { ArrowCheck, ArrowDown, IconCup, IconImport, IconWeight } from '../svg-const/svg-const';
-import { UserPasswordLength, UserTitleLength, userGenders } from '../../common/constant.user';
+import { UserPasswordLength, UserTitleLength, userGenders, userLocations } from '../../common/constant.user';
 import { capitalizeFirst } from '../../common/utils';
 import { UserRole } from '../../types/user-role.enum';
 import { UserFormRegister } from '../../types/user';
@@ -16,7 +16,7 @@ function RegistrationFormBegin():JSX.Element {
   const [userGender, setUserGender] = useState(userGenders[0]);
   const [userRole, setUserRole] = useState(UserRole.Client);
   const [isUserAgreementAprooved, setIsUserAgreementAprooved] = useState(false);
-
+  const [location, setLocation] = useState(userLocations[0]);
 
   const [validName, setValidName] = useState(false);
   const [validPass, setValidPass] = useState(false);
@@ -87,6 +87,20 @@ function ChooseGender({item}: ChooseGenderPrope):JSX.Element{
     </div>
   );
 }
+
+type ChooseLocationPrope = {
+  item:string;
+}
+function ChooseLocation({item}: ChooseLocationPrope): JSX.Element{
+  return(
+    <option
+      className="custom-select__item"
+      value={item}
+    >{item}
+    </option>
+  );
+
+}
 return(
   <div className="popup-form__content">
     <div className="popup-form__title-wrapper">
@@ -151,7 +165,9 @@ return(
               </span>
             </label>
           </div>
-          <div className="custom-select custom-select--not-selected"><span className="custom-select__label">Ваша локация</span>
+          <div className="custom-select custom-select--not-selected ">
+            <span className="custom-select__label">Ваша локация</span>
+
             <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
               <span className="custom-select__text"></span>
               <span className="custom-select__icon">
@@ -160,8 +176,15 @@ return(
                 </svg>
               </span>
             </button>
-            <ul className="custom-select__list" role="listbox">
-            </ul>
+            <select
+              value={location}
+              className="custom-select__list"
+              onChange={()=>console.log('clic')}
+            >
+              <option value={userLocations[0]}>{userLocations[0]}</option>
+              {userLocations.map((item:string) => (<ChooseLocation item={item} key={item}/>))}
+            </select>
+
           </div>
           <div className="custom-input">
             <label><span className="custom-input__label">Пароль</span>

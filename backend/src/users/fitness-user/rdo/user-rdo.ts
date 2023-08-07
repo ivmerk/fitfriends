@@ -43,5 +43,5 @@ export class UserRdo {
   @Expose()
   public userBalance?: UserBalance[];
   @Expose()
-  public sertificate?: string;
+  public sertificates?: string[];
 }
