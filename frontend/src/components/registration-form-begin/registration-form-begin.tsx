@@ -16,7 +16,8 @@ function RegistrationFormBegin():JSX.Element {
   const [userGender, setUserGender] = useState(userGenders[0]);
   const [userRole, setUserRole] = useState(UserRole.Client);
   const [isUserAgreementAprooved, setIsUserAgreementAprooved] = useState(false);
-  const [location, setLocation] = useState(userLocations[0]);
+  const [location, setLocation] = useState('');
+  const [locationMenuOn, setLocationMenuOn] = useState(false);
 
   const [validName, setValidName] = useState(false);
   const [validPass, setValidPass] = useState(false);
@@ -93,11 +94,12 @@ type ChooseLocationPrope = {
 }
 function ChooseLocation({item}: ChooseLocationPrope): JSX.Element{
   return(
-    <option
+    <li
       className="custom-select__item"
       value={item}
+      onClick={()=>setLocation(item)}
     >{item}
-    </option>
+    </li>
   );
 
 }
@@ -165,25 +167,23 @@ return(
               </span>
             </label>
           </div>
-          <div className="custom-select custom-select--not-selected ">
+          <div
+            className={`custom-select${locationMenuOn ? ' is-open not-empty' : ' not-empty'}`}
+            onClick={()=>{setLocationMenuOn(!locationMenuOn);}}
+          >
             <span className="custom-select__label">Ваша локация</span>
 
             <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-              <span className="custom-select__text"></span>
+              <span className="custom-select__text">{location}</span>
               <span className="custom-select__icon">
                 <svg width="15" height="6" aria-hidden="true">
                   <ArrowDown/>
                 </svg>
               </span>
             </button>
-            <select
-              value={location}
-              className="custom-select__list"
-              onChange={()=>console.log('clic')}
-            >
-              <option value={userLocations[0]}>{userLocations[0]}</option>
+            <ul className="custom-select__list" role="listbox">
               {userLocations.map((item:string) => (<ChooseLocation item={item} key={item}/>))}
-            </select>
+            </ul>
 
           </div>
           <div className="custom-input">
