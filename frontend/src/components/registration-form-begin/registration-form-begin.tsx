@@ -3,8 +3,9 @@ import { ArrowCheck, ArrowDown, IconCup, IconImport, IconWeight } from '../svg-c
 import { UserPasswordLength, UserTitleLength, userGenders, userLocations } from '../../common/constant.user';
 import { capitalizeFirst } from '../../common/utils';
 import { UserRole } from '../../types/user-role.enum';
-import { UserFormRegister } from '../../types/user';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch} from '../../hooks';
+import { CreateUserData } from '../../types/create-user-data';
+import { createUser } from '../../store/api-action';
 import { createUserGeneral } from '../../store/user-process/user-process';
 
 function RegistrationFormBegin():JSX.Element {
@@ -18,6 +19,7 @@ function RegistrationFormBegin():JSX.Element {
   const [isUserAgreementAprooved, setIsUserAgreementAprooved] = useState(false);
   const [location, setLocation] = useState('');
   const [locationMenuOn, setLocationMenuOn] = useState(false);
+  const [date, setDate] = useState('none');
 
   const [validName, setValidName] = useState(false);
   const [validPass, setValidPass] = useState(false);
@@ -25,6 +27,7 @@ function RegistrationFormBegin():JSX.Element {
   const onChooseGenderClickHandle = (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
     setUserGender(evt.currentTarget.value);
+
   };
 
   const onNameKeyDownCaptureHandle = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -45,8 +48,13 @@ function RegistrationFormBegin():JSX.Element {
     }
   };
 
-  const onSubmit = (user: UserFormRegister)=> {
+  const onDateChange = (evt:ChangeEvent<HTMLInputElement>) => {
+    setDate(evt.target.value);
+  };
+  const onSubmit = (user: CreateUserData)=> {
     dispatch(createUserGeneral(user));
+    dispatch(createUser(user));
+
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -56,8 +64,8 @@ function RegistrationFormBegin():JSX.Element {
         userName: nameRef.current.value,
         userMail: emailRef.current.value,
         userAvatar:'',
-        birthDate: '12-12-23',
-        location: '',
+        birthDate: date,
+        location: location,
         password: passRef.current.value,
         userGender: userGender,
         userRole: userRole
@@ -65,6 +73,8 @@ function RegistrationFormBegin():JSX.Element {
       });
     }
   };
+
+
 type ChooseGenderPrope = {
   item: string;
 }
@@ -162,7 +172,8 @@ return(
                 <input
                   type="date"
                   name="birthday"
-                  max="2099-12-31"
+                  value={date}
+                  onChange={onDateChange}
                 />
               </span>
             </label>

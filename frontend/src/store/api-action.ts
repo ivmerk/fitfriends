@@ -2,11 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { APIRoute } from '../const';
-import { User } from '../types/user';
+import { User, UserUpdateData } from '../types/user';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
 import { TokenData } from '../types/token-data';
 import { UserData } from '../types/user-data';
+import { CreateUserData } from '../types/create-user-data';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -53,7 +54,7 @@ export const logOutAction = createAsyncThunk<
 
 export const createUser = createAsyncThunk<
   User,
-  User,
+  CreateUserData,
   {
     dispatch: AppDispatch;
     state: State;
@@ -61,5 +62,14 @@ export const createUser = createAsyncThunk<
   }
 >('user/register', async (user, { extra: api }) => {
   const { data } = await api.post<User>(APIRoute.Register, user);
+  return data;
+});
+
+export const updateUser = createAsyncThunk<
+  User,
+  UserUpdateData,
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>('user/update', async (user, { extra: api }) => {
+  const { data } = await api.patch<User>(APIRoute.UpdateUser, user);
   return data;
 });

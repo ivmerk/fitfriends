@@ -32,35 +32,42 @@ import { durationOfTraining } from '../../../common/constant.training.js';
 import { Type } from 'class-transformer';
 
 class ClientBodyDto {
+  @IsOptional()
   @IsString()
   @IsIn(durationOfTraining)
-  public timeOfTraining: string;
+  public timeOfTraining?: string;
 
+  @IsOptional()
   @IsNumber()
   @Min(CaloriesQtt.Min)
   @Max(CaloriesQtt.Max)
-  public caloryLosingPlanTotal: number;
+  public caloryLosingPlanTotal?: number;
 
+  @IsOptional()
   @IsNumber()
   @Min(CaloriesQttDaily.Min)
   @Max(CaloriesQttDaily.Max)
-  public caloryLosingPlanDaily: number;
+  public caloryLosingPlanDaily?: number;
 
+  @IsOptional()
   @IsBoolean()
-  public readinessForTraining: boolean;
+  public readinessForTraining?: boolean;
 }
 class TrainerBodyDto {
+  @IsOptional()
   @IsString()
   @Contains(trainerSertificateTypes[0])
-  public sertificates: string[];
+  public sertificates?: string[];
 
+  @IsOptional()
   @IsString()
   @MinLength(TrainerMeritLength.Min)
   @MaxLength(TrainerMeritLength.Max)
-  public merit: string;
+  public merit?: string;
 
+  @IsOptional()
   @IsBoolean()
-  public readinessForPrivate: boolean;
+  public readinessForPrivate?: boolean;
 }
 
 export class UpdateUserDto {

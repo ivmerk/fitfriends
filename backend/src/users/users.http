@@ -24,12 +24,12 @@ Content-Type: application/json
 ###
 
 # Update user 
-PATCH http://localhost:3333/api/auth HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2VwM29vYWRkd3dxcTIzNDIxMjNvdkBnbWFpbC5jd20iLCJ1c2VyUm9sZSI6InRyYWluZXIiLCJuYW1lIjoi0JLQsNGB0LjQuzExMdC40LkiLCJpYXQiOjE2ODg2NTE3MTIsImV4cCI6MTY4ODY1MjYxMn0.1MKYMm_-qdzSyHhLQ5afagLnRxeancN3QPmiCwXdscs
+PATCH http://localhost:3333/api/auth/update HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMyLCJlbWFpbCI6InZhc3lhMzNUcmVpbmVyQG1haWwuY29tIiwidXNlclJvbGUiOiJ0cmFpbmVyIiwibmFtZSI6ImFzZGZhZGYxIiwiaWF0IjoxNjkxNTYyNjY3LCJleHAiOjE2OTE1NjM1Njd9.Li3az6tbwDnNFT4wXQtW7UOXcty1DRRXI1SASdI1mfY
 Content-Type: application/json
 
 {
-  "userName": "Васил1www11ий",
+  "userName": "Васил1www111ий",
   "userAvatar": ""
 }
 
@@ -62,7 +62,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpb
 
 # Check user token
 GET http://localhost:3333/api/auth/check HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpbCI6InNlcDRvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoidHJhaW5lciIsIm5hbWUiOiLQktCw0YHQuNC70LjQuSIsImlhdCI6MTY5MDk5NTg1MywiZXhwIjoxNjkwOTk2NzUzfQ.m8ze2a3KeRmyiL-K-6-0v6HGSnIMpc-Oc8AD7GiGZbE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM1LCJlbWFpbCI6InZhd3N5YVRyZWluZXJAbWFpbC5jb20iLCJ1c2VyUm9sZSI6ImNsaWVudCIsIm5hbWUiOiJuYW1lMTIiLCJpYXQiOjE2OTE1NjUzMjgsImV4cCI6MTY5MTU2NjIyOH0.njS2lyqsIws6QfPaI770OsfR7I3iVmn3v7y-cP3jpIE
 
 
 ###

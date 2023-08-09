@@ -8,6 +8,7 @@ export type User = {
   userName: string;
   userMail: string;
   userAvatar: string;
+  password?: string;
   passwordHash?: string;
   userGender: string;
   birthDate: string;
@@ -69,4 +70,23 @@ export type UserFormRegisterDetailsTrainer = {
   sertificates: string[];
   merit: string;
   readinessForPrivate: boolean;
+};
+
+export type UserUpdateData = {
+  userName?: string;
+  userAvatar?: string;
+  password?: string;
+  userGender?: string;
+  birthDate?: string;
+  description?: string;
+  location?: string;
+  levelOfExperience?: string;
+  typesOfTraining?: string[];
+  timeOfTraining?: string;
+  caloryLosingPlanTotal?: number;
+  caloryLosingPlanDaily?: number;
+  readinessForTraining?: boolean;
+  sertificates?: string[];
+  merit?: string;
+  readinessForPrivate?: boolean;
 };

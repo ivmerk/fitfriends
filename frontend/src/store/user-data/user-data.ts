@@ -6,12 +6,15 @@ import {
   createUser,
   logInAction,
   logOutAction,
+  updateUser,
 } from '../api-action';
 
 const initialState: UserData = {
   authorizationStatus: AuthorizationStatus.Unknown,
   users: [],
-  user: null,
+  loggedUser: null,
+  isRegistringComplete: false,
+  hasError: false,
 };
 
 export const userData = createSlice({
@@ -35,8 +38,20 @@ export const userData = createSlice({
       .addCase(logOutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
+      .addCase(createUser.pending, (state) => {
+        state.isRegistringComplete = false;
+        state.hasError = false;
+      })
       .addCase(createUser.fulfilled, (state, actions) => {
-        state.user = actions.payload;
+        state.isRegistringComplete = true;
+        state.loggedUser = actions.payload;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isRegistringComplete = false;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isRegistringComplete = true;
+        state.loggedUser = action.payload;
       });
   },
 });

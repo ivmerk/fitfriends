@@ -1,15 +1,19 @@
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { durationOfTraining, typesOfTraning } from '../../common/constant.training';
 import { capitalizeFirst } from '../../common/utils';
 import { CaloriesQtt, CaloriesQttDaily, levelsOfExperience } from '../../common/constant.user';
-import { User, UserFormRegisterDetailsClient } from '../../types/user';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getUserCommon } from '../../store/user-process/selector';
-import { createUser } from '../../store/api-action';
+import { UserFormRegisterDetailsClient, UserUpdateData } from '../../types/user';
+import {useAppDispatch, useAppSelector } from '../../hooks';
+import { logInAction, updateUser } from '../../store/api-action';
+import { useNavigate } from 'react-router-dom';
+import { getIsRegistrationComplete, getRegistredUser } from '../../store/user-data/selectors';
+import { AppRoute } from '../../const';
 
 function QuestionnaireUser():JSX.Element{
   const dispatch = useAppDispatch();
-  const userCommonDetatails = useAppSelector(getUserCommon);
+  const isRegistrationComplete = useAppSelector(getIsRegistrationComplete);
+  const registredUser = useAppSelector(getRegistredUser);
+  const navigate = useNavigate();
 
   const caloriesLoseRef = useRef<HTMLInputElement | null>(null);
   const caloriesWasteRef = useRef<HTMLInputElement | null>(null);
@@ -20,12 +24,20 @@ function QuestionnaireUser():JSX.Element{
   const[validCaloriesLose, setValidCaloriesLose] = useState(false);
   const[validCaloriesWaste, setValidCaloriesWaste] = useState(false);
 
+
+  useEffect( ()=>{
+    if(isRegistrationComplete && registredUser) {
+      dispatch(logInAction({login: registredUser.userMail, password: registredUser.password})); }
+  }, [isRegistrationComplete, registredUser, dispatch]);
+
   const onSubmit = (user: UserFormRegisterDetailsClient)=>
   {
-    if(userCommonDetatails){
-      const newUser :User = {...userCommonDetatails, ...user };
-      dispatch(createUser(newUser));
-    }};
+    const updatedUser :UserUpdateData = {...user};
+    dispatch(updateUser(updatedUser));
+    if(isRegistrationComplete) {
+      navigate(AppRoute.Main);
+    }
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLElement>) => {
     evt.preventDefault();

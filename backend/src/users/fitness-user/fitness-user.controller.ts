@@ -47,12 +47,12 @@ export class FitnessUserController {
     @Headers() headers: Record<string, string>,
     @Body() dto: CreateUserDto,
   ): Promise<UserRdo> {
-    if (headers.authorization) {
-      throw new HttpException(
-        { status: HttpStatus.BAD_REQUEST, error: AUTH_NOT_FOR_AUTH_USER },
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    // if (headers.authorization) {
+    //   throw new HttpException(
+    //     { status: HttpStatus.BAD_REQUEST, error: AUTH_NOT_FOR_AUTH_USER },
+    //     HttpStatus.BAD_REQUEST,
+    //   );
+    // }
     const newUser = await this.fitnessUserService.createUser(dto);
     return fillObject(UserRdo, newUser);
   }
@@ -109,7 +109,7 @@ export class FitnessUserController {
     description: 'User updated.',
   })
   @UseGuards(JwtAuthGuard)
-  @Patch()
+  @Patch('/update')
   public async update(
     @Req() { user: payload }: RequestWithTokenPayload,
     @Body() dto: UpdateUserDto,

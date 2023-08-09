@@ -15,12 +15,12 @@ export interface User {
   userRole: UserRoleType;
   description?: string;
   location: string;
-  backgraundPicture: string;
+  backgraundPicture?: string;
   createdAt?: Date;
   clientBody?: ClientBody | null;
   trainerBody?: TrainerBody | null;
-  levelOfExperience: string;
-  typesOfTraining: string[];
+  levelOfExperience?: string;
+  typesOfTraining?: string[];
   orders?: OrderTraining[];
   personalOrders?: PersonalOrderTraining[];
   userBalance?: UserBalance[];
@@ -30,16 +30,16 @@ export interface User {
 export interface ClientBody {
   clientBodyId?: number;
   userId?: number;
-  timeOfTraining: string;
-  caloryLosingPlanTotal: number;
-  caloryLosingPlanDaily: number;
-  readinessForTraining: boolean;
+  timeOfTraining?: string;
+  caloryLosingPlanTotal?: number;
+  caloryLosingPlanDaily?: number;
+  readinessForTraining?: boolean;
 }
 
 export interface TrainerBody {
   trainerBodyId?: number;
   userId?: number;
-  sertificates: string[];
-  merit: string;
-  readinessForPrivate: boolean;
+  sertificates?: string[];
+  merit?: string;
+  readinessForPrivate?: boolean;
 }

@@ -1,23 +1,53 @@
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { capitalizeFirst } from '../../common/utils';
 import { typesOfTraning } from '../../common/constant.training';
-import { TrainerMeritLength, levelsOfExperience } from '../../common/constant.user';
+import { MAXIMUM_TRAINING_TYPES_CHOICE, TrainerMeritLength, levelsOfExperience } from '../../common/constant.user';
 import { ArrowCheck, IconImport } from '../svg-const/svg-const';
+import { UserFormRegisterDetailsTrainer, UserUpdateData } from '../../types/user';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logInAction, updateUser } from '../../store/api-action';
+import { getIsRegistrationComplete, getRegistredUser } from '../../store/user-data/selectors';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function QuestionnaireCoach():JSX.Element {
+  const dispatch = useAppDispatch();
+  const isRegistrationComplete = useAppSelector(getIsRegistrationComplete);
+  const registredUser = useAppSelector(getRegistredUser);
+  const navigate = useNavigate();
 
   const maritRef = useRef<HTMLTextAreaElement| null>(null);
 
-
-  const [choosingTypesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
+  const [typesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
   const[levelExperience, setLevelExperience] = useState(levelsOfExperience[0]);
   const[isPersonalTrainingAprooved, setIsPersonalTrainingAprooved] = useState(false);
   const[validMarit, setValidMarit] = useState(false);
+  const [validTypesOfTraining, setValidTypesOfTraining] = useState(true);
+
+  useEffect( ()=>{
+    if(isRegistrationComplete && registredUser) {
+      dispatch(logInAction({login: registredUser.userMail, password: registredUser.password})); }
+  }, [isRegistrationComplete, registredUser, dispatch]);
+
+  const onSubmit = (user: UserFormRegisterDetailsTrainer) => {
+    const updatedUser :UserUpdateData = {...user};
+    dispatch(updateUser(updatedUser));
+    if(isRegistrationComplete) {
+      navigate(AppRoute.TrainerRoom);
+    }
+  };
+
 
   const handleSubmit = (evt: FormEvent<HTMLElement>) =>{
     evt.preventDefault();
-    if(choosingTypesOfTraining.length && validMarit && isPersonalTrainingAprooved){
-      console.log(validMarit && isPersonalTrainingAprooved);
+    if(typesOfTraining.length && validMarit && maritRef.current && validTypesOfTraining){
+      onSubmit({
+        typesOfTraining: typesOfTraining,
+        levelOfExperience: levelExperience,
+        sertificates: [],
+        merit: maritRef.current.value,
+        readinessForPrivate: isPersonalTrainingAprooved,
+      });
     }
   };
 
@@ -27,11 +57,12 @@ function QuestionnaireCoach():JSX.Element {
   };
 
   const updateChoosingTypesOfTraining = (kindOfTraining:string) => {
-    const newChoosingTypesOfTraining :string[] = [...choosingTypesOfTraining];
+    const newChoosingTypesOfTraining :string[] = [...typesOfTraining];
     newChoosingTypesOfTraining.includes(kindOfTraining) ?
       newChoosingTypesOfTraining.splice(newChoosingTypesOfTraining.indexOf(kindOfTraining), 1) :
       newChoosingTypesOfTraining.push(kindOfTraining);
     setChoosingTypesOfTraining(newChoosingTypesOfTraining);
+    setValidTypesOfTraining(typesOfTraining.length >= MAXIMUM_TRAINING_TYPES_CHOICE);
   };
   const onMeritKeyDownCaptureHandle = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     evt.preventDefault();
@@ -76,7 +107,7 @@ function QuestionnaireCoach():JSX.Element {
             type="checkbox"
             name="specialisation"
             value={item}
-            checked={choosingTypesOfTraining.includes(item)}
+            checked={typesOfTraining.includes(item)}
             onChange={() => {updateChoosingTypesOfTraining(item);}}
           />
           <span className="btn-checkbox__btn">{capitalizeFirst(item)}</span>
