@@ -1,13 +1,15 @@
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
 import { User, UserFormRegister } from './user';
+import { UserRole } from './user-role.enum';
 
 export interface UserData {
   authorizationStatus: AuthorizationStatus;
   users: User[];
-  loggedUser: User | null;
-  isRegistringComplete: boolean;
+  loggedUserId: number | null;
+  isLoadingComplete: boolean;
   hasError: boolean;
+  loggedUserRole: UserRole | null;
 }
 
 export interface UserProcess {

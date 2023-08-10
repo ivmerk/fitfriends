@@ -1,14 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute} from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
 import SignUpScreen from '../../pages/sign-up-screen/sign-up-screen';
 import RegistrationScreen from '../../pages/registration-screen/registration-screen';
 import TrainerRoomScreen from '../../pages/trainer-room-screen/trainer-room-screen';
 import IntroScreen from '../../pages/intro-screen/intro-screen';
 import PrivateRoute from '../private-route/private-route';
+import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-data/selectors';
 
 function App(): JSX.Element {
-  const authorizationStatus = AuthorizationStatus.Auth;
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return(
     <BrowserRouter>
       <Routes>

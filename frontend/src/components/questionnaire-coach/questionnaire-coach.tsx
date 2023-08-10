@@ -6,22 +6,22 @@ import { ArrowCheck, IconImport } from '../svg-const/svg-const';
 import { UserFormRegisterDetailsTrainer, UserUpdateData } from '../../types/user';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logInAction, updateUser } from '../../store/api-action';
-import { getIsRegistrationComplete, getRegistredUser } from '../../store/user-data/selectors';
+import { getIsLoadingComplete, getRegistredUser } from '../../store/user-data/selectors';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 function QuestionnaireCoach():JSX.Element {
   const dispatch = useAppDispatch();
-  const isRegistrationComplete = useAppSelector(getIsRegistrationComplete);
+  const isRegistrationComplete = useAppSelector(getIsLoadingComplete);
   const registredUser = useAppSelector(getRegistredUser);
   const navigate = useNavigate();
 
   const maritRef = useRef<HTMLTextAreaElement| null>(null);
 
   const [typesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
-  const[levelExperience, setLevelExperience] = useState(levelsOfExperience[0]);
-  const[isPersonalTrainingAprooved, setIsPersonalTrainingAprooved] = useState(false);
-  const[validMarit, setValidMarit] = useState(false);
+  const [levelExperience, setLevelExperience] = useState(levelsOfExperience[0]);
+  const [isPersonalTrainingAprooved, setIsPersonalTrainingAprooved] = useState(false);
+  const [validMarit, setValidMarit] = useState(false);
   const [validTypesOfTraining, setValidTypesOfTraining] = useState(true);
 
   useEffect( ()=>{

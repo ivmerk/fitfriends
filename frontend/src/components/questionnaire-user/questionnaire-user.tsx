@@ -1,17 +1,17 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { durationOfTraining, typesOfTraning } from '../../common/constant.training';
 import { capitalizeFirst } from '../../common/utils';
-import { CaloriesQtt, CaloriesQttDaily, levelsOfExperience } from '../../common/constant.user';
+import { CaloriesQtt, CaloriesQttDaily, MAXIMUM_TRAINING_TYPES_CHOICE, levelsOfExperience } from '../../common/constant.user';
 import { UserFormRegisterDetailsClient, UserUpdateData } from '../../types/user';
 import {useAppDispatch, useAppSelector } from '../../hooks';
 import { logInAction, updateUser } from '../../store/api-action';
 import { useNavigate } from 'react-router-dom';
-import { getIsRegistrationComplete, getRegistredUser } from '../../store/user-data/selectors';
+import { getIsLoadingComplete, getRegistredUser } from '../../store/user-data/selectors';
 import { AppRoute } from '../../const';
 
 function QuestionnaireUser():JSX.Element{
   const dispatch = useAppDispatch();
-  const isRegistrationComplete = useAppSelector(getIsRegistrationComplete);
+  const isRegistrationComplete = useAppSelector(getIsLoadingComplete);
   const registredUser = useAppSelector(getRegistredUser);
   const navigate = useNavigate();
 
@@ -20,10 +20,10 @@ function QuestionnaireUser():JSX.Element{
 
   const [choosingTypesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
   const [trainingDuration, setTrainingDuration] = useState(durationOfTraining[0]);
-  const[levelExperience, setLevelExperience] = useState(levelsOfExperience[0]);
-  const[validCaloriesLose, setValidCaloriesLose] = useState(false);
-  const[validCaloriesWaste, setValidCaloriesWaste] = useState(false);
-
+  const [levelExperience, setLevelExperience] = useState(levelsOfExperience[0]);
+  const [validCaloriesLose, setValidCaloriesLose] = useState(false);
+  const [validCaloriesWaste, setValidCaloriesWaste] = useState(false);
+  const [validTypesOfTraining, setValidTypesOfTraining] = useState(true);
 
   useEffect( ()=>{
     if(isRegistrationComplete && registredUser) {
@@ -41,7 +41,7 @@ function QuestionnaireUser():JSX.Element{
 
   const handleSubmit = (evt: FormEvent<HTMLElement>) => {
     evt.preventDefault();
-    if (choosingTypesOfTraining.length && validCaloriesLose && validCaloriesWaste && caloriesLoseRef.current && caloriesWasteRef.current) {
+    if (choosingTypesOfTraining.length && validCaloriesLose && validCaloriesWaste && caloriesLoseRef.current && caloriesWasteRef.current && validTypesOfTraining) {
       onSubmit({
         typesOfTraining: choosingTypesOfTraining,
         levelOfExperience: levelExperience,
@@ -79,6 +79,7 @@ function QuestionnaireUser():JSX.Element{
       newChoosingTypesOfTraining.splice(newChoosingTypesOfTraining.indexOf(kindOfTraining), 1) :
       newChoosingTypesOfTraining.push(kindOfTraining);
     setChoosingTypesOfTraining(newChoosingTypesOfTraining);
+    setValidTypesOfTraining(choosingTypesOfTraining.length >= MAXIMUM_TRAINING_TYPES_CHOICE);
   };
 
   const onChooseTrainingDurationHandle = (evt: ChangeEvent<HTMLInputElement>) =>{

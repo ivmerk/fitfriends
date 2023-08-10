@@ -1,9 +1,14 @@
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router';
 import { AuthData } from '../../types/auth-data';
 import { AppRoute } from '../../const';
 import { logInAction } from '../../store/api-action';
+import { UserPasswordLength } from '../../common/constant.user';
+import { getIsLoadingComplete, getLoggedUserRole } from '../../store/user-data/selectors';
+import { UserRole } from '../../types/user-role.enum';
+import { HelmetProvider } from 'react-helmet-async';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function LoginForm():JSX.Element{
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -12,13 +17,33 @@ function LoginForm():JSX.Element{
   const [validPass, setValidPass] = useState(false);
 
   const dispatch = useAppDispatch();
+  const loggedUserRole = useAppSelector(getLoggedUserRole);
+  const isLoadingComplete = useAppSelector<boolean>(getIsLoadingComplete);
   const navigate = useNavigate();
+
+
+  useEffect( () => {
+    let isMounted = true;
+
+    if(isMounted && loggedUserRole === UserRole.Trainer){
+      navigate(AppRoute.TrainerRoom);}
+    else if (isMounted && loggedUserRole === UserRole.Client){
+      navigate(AppRoute.Main);}
+    return ()=>{isMounted = false;};}, [loggedUserRole]
+  );
+
+  if (!isLoadingComplete){
+    return(
+      <HelmetProvider>
+        <LoadingScreen/>
+      </HelmetProvider>);}
+
 
   const onSubmit = (authData: AuthData) => {
     if (validPass) {
       dispatch(logInAction(authData));
-      navigate(AppRoute.ClientCard);
     }
+
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -34,10 +59,12 @@ function LoginForm():JSX.Element{
   const onKeyDownCaptureHandle = (evt: ChangeEvent<HTMLElement>) => {
     evt.preventDefault();
     if(passwordRef.current !== null) {
-      if ((passwordRef.current?.value.length >= 6) && (passwordRef.current?.value.length <= 12)) {
+      if ((passwordRef.current.value.length >= UserPasswordLength.Min) && (passwordRef.current.value.length <= UserPasswordLength.Max)) {
         setValidPass(true);
       } else {setValidPass(false);}}
   };
+
+
   return(
     <div className="popup-form__content">
       <div className="popup-form__title-wrapper">

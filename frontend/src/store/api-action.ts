@@ -8,6 +8,8 @@ import { dropToken, saveToken } from '../services/token';
 import { TokenData } from '../types/token-data';
 import { UserData } from '../types/user-data';
 import { CreateUserData } from '../types/create-user-data';
+import jwtDecode from 'jwt-decode';
+import { MyToken } from '../types/my-token.interfafe';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -23,7 +25,7 @@ export const checkAuthAction = createAsyncThunk<
 });
 
 export const logInAction = createAsyncThunk<
-  string,
+  MyToken,
   AuthData,
   {
     dispatch: AppDispatch;
@@ -36,7 +38,7 @@ export const logInAction = createAsyncThunk<
     password,
   });
   saveToken(data.accessToken);
-  return data.refreshToken;
+  return jwtDecode(data.accessToken);
 });
 
 export const logOutAction = createAsyncThunk<

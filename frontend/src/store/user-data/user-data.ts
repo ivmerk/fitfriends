@@ -12,8 +12,9 @@ import {
 const initialState: UserData = {
   authorizationStatus: AuthorizationStatus.Unknown,
   users: [],
-  loggedUser: null,
-  isRegistringComplete: false,
+  loggedUserId: null,
+  loggedUserRole: null,
+  isLoadingComplete: true,
   hasError: false,
 };
 
@@ -29,8 +30,13 @@ export const userData = createSlice({
       .addCase(checkAuthAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
-      .addCase(logInAction.fulfilled, (state) => {
+      .addCase(logInAction.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(logInAction.fulfilled, (state, action) => {
+        state.isLoadingComplete = true;
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.loggedUserRole = action.payload.userRole;
       })
       .addCase(logInAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
@@ -39,19 +45,17 @@ export const userData = createSlice({
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(createUser.pending, (state) => {
-        state.isRegistringComplete = false;
+        state.isLoadingComplete = false;
         state.hasError = false;
       })
       .addCase(createUser.fulfilled, (state, actions) => {
-        state.isRegistringComplete = true;
-        state.loggedUser = actions.payload;
+        state.isLoadingComplete = true;
       })
       .addCase(updateUser.pending, (state) => {
-        state.isRegistringComplete = false;
+        state.isLoadingComplete = false;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.isRegistringComplete = true;
-        state.loggedUser = action.payload;
+        state.isLoadingComplete = true;
       });
   },
 });
