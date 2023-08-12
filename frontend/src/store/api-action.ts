@@ -75,3 +75,16 @@ export const updateUser = createAsyncThunk<
   const { data } = await api.patch<User>(APIRoute.UpdateUser, user);
   return data;
 });
+
+export const getUserById = createAsyncThunk<
+  User,
+  number,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/getbyid', async (id, { extra: api }) => {
+  const { data } = await api.get<User>(`${APIRoute.User}/${id}`);
+  return data;
+});

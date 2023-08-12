@@ -10,9 +10,11 @@ export interface UserData {
   isLoadingComplete: boolean;
   hasError: boolean;
   loggedUserRole: UserRole | null;
+  loggedUser: User | null;
 }
 
 export interface UserProcess {
+  isEdit: boolean;
   registringUser: UserFormRegister | null;
 }
 

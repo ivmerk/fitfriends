@@ -1,12 +1,12 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router';
 import { AuthData } from '../../types/auth-data';
 import { AppRoute } from '../../const';
 import { logInAction } from '../../store/api-action';
 import { UserPasswordLength } from '../../common/constant.user';
-import { getIsLoadingComplete, getLoggedUserRole } from '../../store/user-data/selectors';
-import { UserRole } from '../../types/user-role.enum';
+import { getIsLoadingComplete } from '../../store/user-data/selectors';
+// import { UserRole } from '../../types/user-role.enum';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
@@ -17,20 +17,19 @@ function LoginForm():JSX.Element{
   const [validPass, setValidPass] = useState(false);
 
   const dispatch = useAppDispatch();
-  const loggedUserRole = useAppSelector(getLoggedUserRole);
-  const isLoadingComplete = useAppSelector<boolean>(getIsLoadingComplete);
+  // const loggedUserRole = useAppSelector(getLoggedUserRole);
+  const isLoadingComplete = useAppSelector(getIsLoadingComplete);
   const navigate = useNavigate();
 
 
-  useEffect( () => {
-    let isMounted = true;
+  // useEffect( () => {
 
-    if(isMounted && loggedUserRole === UserRole.Trainer){
-      navigate(AppRoute.TrainerRoom);}
-    else if (isMounted && loggedUserRole === UserRole.Client){
-      navigate(AppRoute.Main);}
-    return ()=>{isMounted = false;};}, [loggedUserRole]
-  );
+  //   if(loggedUserRole === UserRole.Trainer){
+  //     setTimeout(()=>navigate(AppRoute.TrainerRoom), 100);}
+  //   else if (loggedUserRole === UserRole.Client){setTimeout(()=>
+  //     navigate(AppRoute.Main), 100);}},
+  // [loggedUserRole]
+  // );
 
   if (!isLoadingComplete){
     return(
@@ -54,6 +53,7 @@ function LoginForm():JSX.Element{
         password: passwordRef.current.value
       });
     }
+    setTimeout(()=>navigate(AppRoute.TrainerRoom), 100);
   };
 
   const onKeyDownCaptureHandle = (evt: ChangeEvent<HTMLElement>) => {

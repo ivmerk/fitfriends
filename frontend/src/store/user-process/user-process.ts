@@ -5,18 +5,22 @@ import { UserFormRegister } from '../../types/user';
 
 const initialState = {
   registringUser: null,
+  isEdit: false,
 } as UserProcess;
 
 export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {
-    createUserGeneral: (state, action: PayloadAction<UserFormRegister>) => {
-      state.registringUser = action.payload;
+    createUserGeneral: (state, actions: PayloadAction<UserFormRegister>) => {
+      state.registringUser = actions.payload;
+    },
+    setToEdit: (state, actions: PayloadAction<boolean>) => {
+      state.isEdit = actions.payload;
     },
   },
 });
 
-export const { createUserGeneral } = userProcess.actions;
+export const { createUserGeneral, setToEdit } = userProcess.actions;
 
 export default userProcess.reducer;

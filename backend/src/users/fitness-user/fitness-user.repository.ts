@@ -75,6 +75,10 @@ export class FitnessUserRepository
       include: {
         clientBody: true,
         trainerBody: true,
+        orders: true,
+        personalOrders: true,
+        userBalance: true,
+        friends: true,
       },
     });
   }

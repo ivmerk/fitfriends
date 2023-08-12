@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks';
 import { UserRole } from '../../types/user-role.enum';
 import QuestionnaireUser from '../../components/questionnaire-user/questionnaire-user';
 import QuestionnaireCoach from '../../components/questionnaire-coach/questionnaire-coach';
-import { getRegistredUser } from '../../store/user-data/selectors';
+import { getRegistredUser } from '../../store/user-process/selector';
 
 
 function RegistrationScreen():JSX.Element{

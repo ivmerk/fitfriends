@@ -29,13 +29,24 @@ export class UserRdo {
   @Expose()
   public createdAt!: Date;
   @Expose()
-  public clientBody?: ClientBody;
+  public clientBody?: {
+    clientBodyId?: number;
+    timeOfTraining?: string;
+    caloryLosingPlanTotal?: number;
+    caloryLosingPlanDaily?: number;
+    readinessForTraining?: boolean;
+  };
   @Expose()
-  public trainerBody?: TrainerBody;
+  public trainerBody?: {
+    trainerBodyId?: number;
+    sertificates?: string[];
+    merit?: string;
+    readinessForPrivate?: boolean;
+  };
   @Expose()
   public levelOfExperience!: string;
   @Expose()
-  public typesOfTraning!: string[];
+  public typesOfTraining!: string[];
   @Expose()
   public orders?: OrderTraining[];
   @Expose()

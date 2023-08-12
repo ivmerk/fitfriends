@@ -4,6 +4,7 @@ import { UserData } from '../../types/state';
 import {
   checkAuthAction,
   createUser,
+  getUserById,
   logInAction,
   logOutAction,
   updateUser,
@@ -16,6 +17,7 @@ const initialState: UserData = {
   loggedUserRole: null,
   isLoadingComplete: true,
   hasError: false,
+  loggedUser: null,
 };
 
 export const userData = createSlice({
@@ -33,10 +35,11 @@ export const userData = createSlice({
       .addCase(logInAction.pending, (state) => {
         state.isLoadingComplete = false;
       })
-      .addCase(logInAction.fulfilled, (state, action) => {
+      .addCase(logInAction.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.authorizationStatus = AuthorizationStatus.Auth;
-        state.loggedUserRole = action.payload.userRole;
+        state.loggedUserRole = actions.payload.userRole;
+        state.loggedUserId = actions.payload.sub;
       })
       .addCase(logInAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
@@ -48,14 +51,21 @@ export const userData = createSlice({
         state.isLoadingComplete = false;
         state.hasError = false;
       })
-      .addCase(createUser.fulfilled, (state, actions) => {
+      .addCase(createUser.fulfilled, (state) => {
         state.isLoadingComplete = true;
       })
       .addCase(updateUser.pending, (state) => {
         state.isLoadingComplete = false;
       })
-      .addCase(updateUser.fulfilled, (state, action) => {
+      .addCase(updateUser.fulfilled, (state) => {
         state.isLoadingComplete = true;
+      })
+      .addCase(getUserById.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(getUserById.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.loggedUser = actions.payload;
       });
   },
 });

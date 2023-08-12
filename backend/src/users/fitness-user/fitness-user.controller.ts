@@ -4,7 +4,6 @@ import {
   Get,
   Headers,
   HttpCode,
-  HttpException,
   HttpStatus,
   Param,
   ParseIntPipe,
@@ -26,7 +25,6 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard.js';
 import { RequestWithUser } from '../../types/request-with-user.js';
 import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
 import { RequestWithTokenPayload } from '../../types/request-with-token-payloads.js';
-import { AUTH_NOT_FOR_AUTH_USER } from './fitness-user.constant.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { UserQuery } from './query/user.query.js';
 import { UserRole } from '../../types/user-role.enum.js';
@@ -47,12 +45,6 @@ export class FitnessUserController {
     @Headers() headers: Record<string, string>,
     @Body() dto: CreateUserDto,
   ): Promise<UserRdo> {
-    // if (headers.authorization) {
-    //   throw new HttpException(
-    //     { status: HttpStatus.BAD_REQUEST, error: AUTH_NOT_FOR_AUTH_USER },
-    //     HttpStatus.BAD_REQUEST,
-    //   );
-    // }
     const newUser = await this.fitnessUserService.createUser(dto);
     return fillObject(UserRdo, newUser);
   }

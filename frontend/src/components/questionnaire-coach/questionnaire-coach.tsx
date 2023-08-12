@@ -1,14 +1,15 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { capitalizeFirst } from '../../common/utils';
-import { typesOfTraning } from '../../common/constant.training';
+import { typesOfTraining } from '../../common/constant.training';
 import { MAXIMUM_TRAINING_TYPES_CHOICE, TrainerMeritLength, levelsOfExperience } from '../../common/constant.user';
 import { ArrowCheck, IconImport } from '../svg-const/svg-const';
 import { UserFormRegisterDetailsTrainer, UserUpdateData } from '../../types/user';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logInAction, updateUser } from '../../store/api-action';
-import { getIsLoadingComplete, getRegistredUser } from '../../store/user-data/selectors';
+import { getIsLoadingComplete} from '../../store/user-data/selectors';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { getRegistredUser } from '../../store/user-process/selector';
 
 function QuestionnaireCoach():JSX.Element {
   const dispatch = useAppDispatch();
@@ -18,7 +19,7 @@ function QuestionnaireCoach():JSX.Element {
 
   const maritRef = useRef<HTMLTextAreaElement| null>(null);
 
-  const [typesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
+  const [choosedTypesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
   const [levelExperience, setLevelExperience] = useState(levelsOfExperience[0]);
   const [isPersonalTrainingAprooved, setIsPersonalTrainingAprooved] = useState(false);
   const [validMarit, setValidMarit] = useState(false);
@@ -40,9 +41,9 @@ function QuestionnaireCoach():JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLElement>) =>{
     evt.preventDefault();
-    if(typesOfTraining.length && validMarit && maritRef.current && validTypesOfTraining){
+    if(choosedTypesOfTraining.length && validMarit && maritRef.current && validTypesOfTraining){
       onSubmit({
-        typesOfTraining: typesOfTraining,
+        typesOfTraining: choosedTypesOfTraining,
         levelOfExperience: levelExperience,
         sertificates: [],
         merit: maritRef.current.value,
@@ -57,12 +58,12 @@ function QuestionnaireCoach():JSX.Element {
   };
 
   const updateChoosingTypesOfTraining = (kindOfTraining:string) => {
-    const newChoosingTypesOfTraining :string[] = [...typesOfTraining];
+    const newChoosingTypesOfTraining :string[] = [...choosedTypesOfTraining];
     newChoosingTypesOfTraining.includes(kindOfTraining) ?
       newChoosingTypesOfTraining.splice(newChoosingTypesOfTraining.indexOf(kindOfTraining), 1) :
       newChoosingTypesOfTraining.push(kindOfTraining);
     setChoosingTypesOfTraining(newChoosingTypesOfTraining);
-    setValidTypesOfTraining(typesOfTraining.length >= MAXIMUM_TRAINING_TYPES_CHOICE);
+    setValidTypesOfTraining(choosedTypesOfTraining.length >= MAXIMUM_TRAINING_TYPES_CHOICE);
   };
   const onMeritKeyDownCaptureHandle = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     evt.preventDefault();
@@ -107,7 +108,7 @@ function QuestionnaireCoach():JSX.Element {
             type="checkbox"
             name="specialisation"
             value={item}
-            checked={typesOfTraining.includes(item)}
+            checked={choosedTypesOfTraining.includes(item)}
             onChange={() => {updateChoosingTypesOfTraining(item);}}
           />
           <span className="btn-checkbox__btn">{capitalizeFirst(item)}</span>
@@ -130,7 +131,7 @@ function QuestionnaireCoach():JSX.Element {
               <div className="questionnaire-coach__wrapper">
                 <div className="questionnaire-coach__block"><span className="questionnaire-coach__legend">Ваша специализация (тип) тренировок</span>
                   <div className="specialization-checkbox questionnaire-coach__specializations">
-                    {typesOfTraning.map((item: string) => (<ChooseTrainingType item={item} key={item}/>))}
+                    {typesOfTraining.map((item: string) => (<ChooseTrainingType item={item} key={item}/>))}
                   </div>
                 </div>
                 <div className="questionnaire-coach__block">

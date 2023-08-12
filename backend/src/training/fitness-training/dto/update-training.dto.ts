@@ -15,7 +15,7 @@ import {
   TrainingTitleLength,
   durationOfTraining,
   trainingGender,
-  typesOfTraning,
+  typesOfTraining,
 } from 'src/common/constant.training';
 import { CaloriesQttDaily, levelsOfExperience } from 'src/common/constant.user';
 
@@ -49,7 +49,7 @@ export default class UpdateTrainingDto {
     example: 'бокс',
   })
   @IsString()
-  @IsIn(typesOfTraning)
+  @IsIn(typesOfTraining)
   public typeOfTraining?: string;
 
   @ApiProperty({

@@ -16,7 +16,7 @@ export enum TrainingDescriptionLength {
   Max = 140,
 }
 
-export const typesOfTraning: string[] = [
+export const typesOfTraining: string[] = [
   'йога',
   'бег',
   'бокс',

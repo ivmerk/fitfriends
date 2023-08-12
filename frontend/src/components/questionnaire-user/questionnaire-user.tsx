@@ -1,13 +1,14 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
-import { durationOfTraining, typesOfTraning } from '../../common/constant.training';
+import { durationOfTraining, typesOfTraining } from '../../common/constant.training';
 import { capitalizeFirst } from '../../common/utils';
 import { CaloriesQtt, CaloriesQttDaily, MAXIMUM_TRAINING_TYPES_CHOICE, levelsOfExperience } from '../../common/constant.user';
 import { UserFormRegisterDetailsClient, UserUpdateData } from '../../types/user';
 import {useAppDispatch, useAppSelector } from '../../hooks';
 import { logInAction, updateUser } from '../../store/api-action';
 import { useNavigate } from 'react-router-dom';
-import { getIsLoadingComplete, getRegistredUser } from '../../store/user-data/selectors';
+import { getIsLoadingComplete} from '../../store/user-data/selectors';
 import { AppRoute } from '../../const';
+import { getRegistredUser } from '../../store/user-process/selector';
 
 function QuestionnaireUser():JSX.Element{
   const dispatch = useAppDispatch();
@@ -169,7 +170,7 @@ function QuestionnaireUser():JSX.Element{
               <div className="questionnaire-user__wrapper">
                 <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Ваша специализация (тип) тренировок</span>
                   <div className="specialization-checkbox questionnaire-user__specializations">
-                    {typesOfTraning.map((item: string) => (<ChooseTrainingType item={item} key={item}/>))}
+                    {typesOfTraining.map((item: string) => (<ChooseTrainingType item={item} key={item}/>))}
                   </div>
                 </div>
                 <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Сколько времени вы готовы уделять на тренировку в день</span>
