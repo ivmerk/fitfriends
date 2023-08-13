@@ -3,7 +3,7 @@ export enum AppRoute {
   Intro = '/intro',
   SingUp = '/login',
   Registration = '/registration',
-  TrainerRoom = '/trainerroom',
+  TrainerRoom = '/trainerroom/*',
   ClientRoom = '/clientroom',
   ClientsList = '/clientlist',
   ClientCard = '/clientcard',

@@ -1,31 +1,34 @@
+import { Link } from 'react-router-dom';
+import { IconAdd, IconBag, IconFlash, IconFriend } from '../svg-const/svg-const';
+
 function TrainerNavigationList():JSX.Element{
   return(
     <div className="personal-account-coach__navigation">
-      <a className="thumbnail-link thumbnail-link--theme-light" href="#">
+      <Link to="newtraining" className="thumbnail-link thumbnail-link--theme-light">
         <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
           <svg width="30" height="26" aria-hidden="true">
-            <use xlinkHref="#icon-flash"></use>
+            <IconFlash/>
           </svg>
         </div><span className="thumbnail-link__text">Мои тренировки</span>
-      </a>
-      <a className="thumbnail-link thumbnail-link--theme-light" href="#">
+      </Link>
+      <Link to="newtraining" className="thumbnail-link thumbnail-link--theme-light">
         <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
           <svg width="30" height="26" aria-hidden="true">
-            <use xlinkHref="#icon-add"></use>
+            <IconAdd/>
           </svg>
         </div><span className="thumbnail-link__text">Создать тренировку</span>
-      </a>
+      </Link>
       <a className="thumbnail-link thumbnail-link--theme-light" href="#">
         <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
           <svg width="30" height="26" aria-hidden="true">
-            <use xlinkHref="#icon-friends"></use>
+            <IconFriend/>
           </svg>
         </div><span className="thumbnail-link__text">Мои друзья</span>
       </a>
       <a className="thumbnail-link thumbnail-link--theme-light" href="#">
         <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
           <svg width="30" height="26" aria-hidden="true">
-            <use xlinkHref="#icon-bag"></use>
+            <IconBag/>
           </svg>
         </div><span className="thumbnail-link__text">Мои заказы</span>
       </a>

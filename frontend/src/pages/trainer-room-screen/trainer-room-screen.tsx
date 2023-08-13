@@ -8,6 +8,8 @@ import { getIsLoadingComplete, getLoggedUser, getLoggedUserId } from '../../stor
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getUserById } from '../../store/api-action';
 import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import NewTrainingForm from '../../components/new-training-form/new-training-form';
 
 function TrainerRoomScreen():JSX.Element{
   const dispatch = useAppDispatch();
@@ -27,25 +29,33 @@ function TrainerRoomScreen():JSX.Element{
         <LoadingScreen/>
       </HelmetProvider>);}
 
-  return(
-    <>
-      <Header/>
+
+  function TrainersInfoComponent ():JSX.Element {
+    return (
       <main>
         <section className="inner-page">
           <div className="container">
-            <div className="inner-page__wrapper">
-              <h1 className="visually-hidden">Личный кабинет</h1>
-              <UserInfo/>
-              <div className="inner-page__content">
-                <div className="personal-account-coach">
-                  <TrainerNavigationList/>
-                  <TrainersDiplomsBlock/>
-                </div>
+            <div className="inner-page__wrapper"></div>
+            <h1 className="visually-hidden">Личный кабинет</h1>
+            <UserInfo/>
+            <div className="inner-page__content">
+              <div className="personal-account-coach">
+                <TrainerNavigationList/>
+                <TrainersDiplomsBlock/>
               </div>
             </div>
           </div>
         </section>
       </main>
+    );
+  }
+  return(
+    <>
+      <Header/>
+      <Routes>
+        <Route path='*' element={<TrainersInfoComponent/>}/>
+        <Route path='newtraining' element={<NewTrainingForm/>}/>
+      </Routes>
     </>
   );
 }
