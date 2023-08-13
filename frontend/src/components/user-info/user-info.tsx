@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getLoggedUser } from '../../store/user-data/selectors';
 import { ArrowCheck, ArrowDown, IconChange, IconEdit, IconTrash } from '../svg-const/svg-const';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { typesOfTraining } from '../../common/constant.training';
 import { MAXIMUM_TRAINING_TYPES_CHOICE, UserDescriptionLength, UserTitleLength, levelsOfExperience, userGenders, userLocations } from '../../common/constant.user';
 import { capitalizeFirst } from '../../common/utils';
@@ -9,10 +9,11 @@ import { getIsEdit } from '../../store/user-process/selector';
 import { setToEdit } from '../../store/user-process/user-process';
 import useInput from '../../hooks/use-input';
 import useTextarea from '../../hooks/use-textarea';
+import { updateUser } from '../../store/api-action';
 
 function UserInfo():JSX.Element{
   const user = useAppSelector(getLoggedUser);
-  const isEdit = useAppSelector(getIsEdit);
+  const isEdit = useAppSelector<boolean>(getIsEdit);
   const dispatch = useAppDispatch();
 
 
@@ -50,7 +51,19 @@ function UserInfo():JSX.Element{
 
   const submit = () => {
     if(name.isValid && description.isValid && validTypesOfTraining){
-      console.log(name.value, description.value, choosingTypesOfTraining)
+      const updateData = {
+        trainerBody:{
+          readinessForPrivate: readenessForPrivat},
+        userName: name.value,
+        description: description.value,
+        location: location,
+        userGender: gender,
+        levelOfExperience: levelOfExp,
+        typesOfTraining: choosingTypesOfTraining
+
+      };
+      dispatch(setToEdit(false));
+      dispatch(updateUser(updateData));
     }
   };
   type ChooseTrainingTypePrope = {

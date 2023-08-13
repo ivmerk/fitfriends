@@ -135,6 +135,10 @@ export class FitnessUserRepository
                     userEntity.trainerBody.merit != null
                       ? userEntity.trainerBody.merit
                       : undefined,
+                  readinessForPrivate:
+                    userEntity.trainerBody.readinessForPrivate != null
+                      ? userEntity.trainerBody.readinessForPrivate
+                      : undefined,
                 },
               }
             : undefined,
