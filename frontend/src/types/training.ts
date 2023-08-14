@@ -1,9 +1,9 @@
-import { Feedback } from './feedback.interface';
+import { Feedback } from './feedback';
 
-export interface Training {
+export type Training = {
   trainingId?: number;
   title: string;
-  backgroundPicture?: string;
+  backgroundPicture: string;
   levelOfUser: string;
   typeOfTraining: string;
   duration: string;
@@ -12,8 +12,8 @@ export interface Training {
   description: string;
   trainingGender: string;
   video: string;
-  rating?: number;
+  rating: number;
   trainerId: number;
-  isPromo?: boolean;
+  isPromo: boolean;
   feedbacks?: Feedback[];
-}
+};

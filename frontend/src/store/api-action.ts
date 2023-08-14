@@ -10,6 +10,8 @@ import { UserData } from '../types/user-data';
 import { CreateUserData } from '../types/create-user-data';
 import jwtDecode from 'jwt-decode';
 import { MyToken } from '../types/my-token.interfafe';
+import { Training } from '../types/training';
+import { NewTrainingData } from '../types/new-training-data';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -86,5 +88,18 @@ export const getUserById = createAsyncThunk<
   }
 >('user/getbyid', async (id, { extra: api }) => {
   const { data } = await api.get<User>(`${APIRoute.User}/${id}`);
+  return data;
+});
+
+export const createTraining = createAsyncThunk<
+  Training,
+  NewTrainingData,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('training/create', async (training, { extra: api }) => {
+  const { data } = await api.post<Training>(APIRoute.TrainingCreate, training);
   return data;
 });

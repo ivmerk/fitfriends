@@ -8,6 +8,8 @@ import IntroScreen from '../../pages/intro-screen/intro-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-data/selectors';
+import NewTrainingForm from '../new-training-form/new-training-form';
+import TrainersInfo from '../trainer-info/trainer-info';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -25,7 +27,10 @@ function App(): JSX.Element {
         />
         <Route path={AppRoute.SingUp} element={<SignUpScreen/>}/>
         <Route path={AppRoute.Registration} element={<RegistrationScreen/>}/>
-        <Route path={AppRoute.TrainerRoom} element={<TrainerRoomScreen/>}/>
+        <Route path={AppRoute.TrainerRoom} element={<TrainerRoomScreen/>}>
+          <Route path='newtraining' element={<NewTrainingForm/>}/>
+          <Route path='info' element={<TrainersInfo/>}/>
+        </Route>
         <Route path='*' element={<IntroScreen/>} />
       </Routes>
     </BrowserRouter>

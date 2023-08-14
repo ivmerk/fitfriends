@@ -6,7 +6,7 @@ export class FitnessTrainingEntity
   implements Entity<FitnessTrainingEntity>, Training
 {
   public title: string;
-  public backgroundPicture: string;
+  public backgroundPicture?: string;
   public levelOfUser: string;
   public typeOfTraining: string;
   public duration: string;
@@ -15,10 +15,10 @@ export class FitnessTrainingEntity
   public description: string;
   public trainingGender: string;
   public video: string;
-  public rating: number;
+  public rating?: number;
   public trainerId: number;
-  public isPromo: boolean;
-  public feedbacks: Feedback[];
+  public isPromo?: boolean;
+  public feedbacks?: Feedback[];
 
   constructor(fitnessTraining: Training) {
     this.fillEntity(fitnessTraining);

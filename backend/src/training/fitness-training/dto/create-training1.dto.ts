@@ -30,6 +30,13 @@ export default class CreateTrainingDto {
   public title: string;
 
   @ApiProperty({
+    description: 'Traning backgraund picture filename',
+    example: 'myface.jpg',
+  })
+  @IsString()
+  public backgroundPicture: string;
+
+  @ApiProperty({
     description: 'Client level of experience',
     example: 'любитель',
   })
@@ -95,9 +102,25 @@ export default class CreateTrainingDto {
   public video: string;
 
   @ApiProperty({
+    description: 'Rating of traning',
+    example: '5',
+  })
+  @IsNumber()
+  @Min(Rating.Min)
+  @Max(Rating.Max)
+  public rating: number;
+
+  @ApiProperty({
     description: 'Base Id of traner',
     example: '5',
   })
   @IsNumber()
   public trainerId: number;
+
+  @ApiProperty({
+    description: 'Is promo traning',
+    example: 'true',
+  })
+  @IsBoolean()
+  public isPromo: boolean;
 }

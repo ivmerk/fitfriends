@@ -6,7 +6,6 @@ import { AppRoute } from '../../const';
 import { logInAction } from '../../store/api-action';
 import { UserPasswordLength } from '../../common/constant.user';
 import { getIsLoadingComplete } from '../../store/user-data/selectors';
-// import { UserRole } from '../../types/user-role.enum';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
@@ -17,19 +16,9 @@ function LoginForm():JSX.Element{
   const [validPass, setValidPass] = useState(false);
 
   const dispatch = useAppDispatch();
-  // const loggedUserRole = useAppSelector(getLoggedUserRole);
   const isLoadingComplete = useAppSelector(getIsLoadingComplete);
   const navigate = useNavigate();
 
-
-  // useEffect( () => {
-
-  //   if(loggedUserRole === UserRole.Trainer){
-  //     setTimeout(()=>navigate(AppRoute.TrainerRoom), 100);}
-  //   else if (loggedUserRole === UserRole.Client){setTimeout(()=>
-  //     navigate(AppRoute.Main), 100);}},
-  // [loggedUserRole]
-  // );
 
   if (!isLoadingComplete){
     return(
@@ -42,6 +31,9 @@ function LoginForm():JSX.Element{
     if (validPass) {
       dispatch(logInAction(authData));
     }
+    // if (true) {
+    //   dispatch(logInAction({login: 'client@gmail.cwm',password: 'adsfaasdfadf'} ));
+    // }
 
   };
 
@@ -53,7 +45,7 @@ function LoginForm():JSX.Element{
         password: passwordRef.current.value
       });
     }
-    setTimeout(()=>navigate(AppRoute.TrainerRoom), 100);
+    setTimeout(()=>navigate(`${AppRoute.TrainerRoom }${AppRoute.Info}`), 100);
   };
 
   const onKeyDownCaptureHandle = (evt: ChangeEvent<HTMLElement>) => {
