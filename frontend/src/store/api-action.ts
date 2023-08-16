@@ -12,6 +12,7 @@ import jwtDecode from 'jwt-decode';
 import { MyToken } from '../types/my-token.interfafe';
 import { Training } from '../types/training';
 import { NewTrainingData } from '../types/new-training-data';
+import { UploadedFile } from '../types/upload-file';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -102,4 +103,21 @@ export const createTraining = createAsyncThunk<
 >('training/create', async (training, { extra: api }) => {
   const { data } = await api.post<Training>(APIRoute.TrainingCreate, training);
   return data;
+});
+
+export const uploadFile = createAsyncThunk<
+  string,
+  File,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/uploadfil', async (file, { extra: api }) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const { data } = await api.post<UploadedFile>(APIRoute.UploadImg, formData, {
+    headers: { 'Content-type': 'multipart/form-data' },
+  });
+  return data.path;
 });

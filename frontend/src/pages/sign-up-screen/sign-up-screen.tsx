@@ -8,17 +8,16 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 function SignUpScreen(): JSX.Element{
-  // const user = useAppSelector(getLoggedUser);
   const loggedUserRole = useAppSelector(getLoggedUserRole);
 
   const navigate = useNavigate();
 
   useEffect( () => {
     if(loggedUserRole === UserRole.Trainer){
-      setTimeout(()=>navigate(AppRoute.TrainerRoom), 100);}
+      navigate(`${AppRoute.TrainerRoom}/${AppRoute.Info}`);}
     else if (loggedUserRole === UserRole.Client){setTimeout(()=>
       navigate(AppRoute.Main), 100);}},
-  [loggedUserRole]
+  [loggedUserRole,navigate]
   );
 
 

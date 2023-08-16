@@ -8,9 +8,11 @@ export interface UserData {
   users: User[];
   loggedUserId: number | null;
   isLoadingComplete: boolean;
+  isLogingComplete: boolean;
   hasError: boolean;
   loggedUserRole: UserRole | null;
   loggedUser: User | null;
+  userAvatar: string;
 }
 
 export interface UserProcess {

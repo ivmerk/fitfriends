@@ -54,22 +54,28 @@ export type UserFormRegister = {
   password: string;
   userGender: string;
   userRole: string;
+  clientBody?: ClientBody;
+  trainerBody?: TrainerBody;
 };
 
 export type UserFormRegisterDetailsClient = {
   typesOfTraining: string[];
   levelOfExperience: string;
-  timeOfTraining: string;
-  caloryLosingPlanTotal: number;
-  caloryLosingPlanDaily: number;
+  clientBody: {
+    timeOfTraining: string;
+    caloryLosingPlanTotal: number;
+    caloryLosingPlanDaily: number;
+  };
 };
 
 export type UserFormRegisterDetailsTrainer = {
   typesOfTraining: string[];
   levelOfExperience: string;
-  sertificates: string[];
-  merit: string;
-  readinessForPrivate: boolean;
+  trainerBody: {
+    sertificates: string[] | null;
+    merit: string;
+    readinessForPrivate: boolean;
+  };
 };
 
 export type UserUpdateData = {

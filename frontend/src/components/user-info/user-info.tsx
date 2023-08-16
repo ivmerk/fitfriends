@@ -10,6 +10,7 @@ import { setToEdit } from '../../store/user-process/user-process';
 import useInput from '../../hooks/use-input';
 import useTextarea from '../../hooks/use-textarea';
 import { updateUser } from '../../store/api-action';
+import { hostPort } from '../../common/constant';
 
 function UserInfo():JSX.Element{
   const user = useAppSelector(getLoggedUser);
@@ -46,7 +47,7 @@ function UserInfo():JSX.Element{
         newChoosingTypesOfTraining.splice(newChoosingTypesOfTraining.indexOf(kindOfTraining), 1) :
         newChoosingTypesOfTraining.push(kindOfTraining);
       setChoosingTypesOfTraining(newChoosingTypesOfTraining);
-      setValidTypesOfTraining(choosingTypesOfTraining.length >= MAXIMUM_TRAINING_TYPES_CHOICE);
+      setValidTypesOfTraining(newChoosingTypesOfTraining.length <= MAXIMUM_TRAINING_TYPES_CHOICE);
     } };
 
   const submit = () => {
@@ -150,8 +151,7 @@ function UserInfo():JSX.Element{
             <input className="visually-hidden" type="file" name="user-photo-1" accept="image/png, image/jpeg">
             </input>
             <span className="input-load-avatar__avatar">
-              <img src="img/content/user-photo-1.png" srcSet="img/content/user-photo-1@2x.png 2x" width="98" height="98" alt="user photo">
-              </img>
+              {user ? <img src={`${hostPort}${user?.userAvatar}`} srcSet={`${hostPort}${user?.userAvatar} 2x`} width="98" height="98" alt="user"/> : ''}
             </span>
           </label>
         </div>
@@ -160,7 +160,6 @@ function UserInfo():JSX.Element{
       <form
         className="user-info-edit__form"
         action=""
-        // onSubmit={handleSubmit}
       >
         <button
           className="btn-flat btn-flat--underlined user-info-edit__save-button"
@@ -185,6 +184,7 @@ function UserInfo():JSX.Element{
                   {...name.bind}
                 />
               </span>
+              <p> {!name.isValid ? ` Имя должно быть от ${UserTitleLength.Min} до ${UserTitleLength.Max}` : ''}</p>
             </label>
           </div>
           <div className={`custom-textarea${isEdit ? '' : ' is-disabled'} user-info-edit__textarea`}>
@@ -195,6 +195,7 @@ function UserInfo():JSX.Element{
               />
             </label>
           </div>
+          <p> {!description.isValid ? ` Описание должно быть от ${UserDescriptionLength.Min} до ${UserDescriptionLength.Max}` : ''}</p>
         </div>
         <div className={`user-info-edit__section${isEdit ? '' : ' is-disabled'} user-info-edit__section--status`}>
           <h2 className="user-info-edit__title user-info-edit__title--status">Статус</h2>
@@ -220,6 +221,7 @@ function UserInfo():JSX.Element{
           <div className="specialization-checkbox user-info-edit__specialization">
             {typesOfTraining.map((item: string) => (<ChooseTrainingType item={item} key={item}/>))}
           </div>
+          <p>{!validTypesOfTraining ? `Не более ${MAXIMUM_TRAINING_TYPES_CHOICE} тренеровок` : ''}</p>
         </div>
         <div className={isEdit ? `custom-select${locationMenuOn ? ' is-open not-empty' : ' not-empty'} user-info-edit__select` : 'custom-select is-disabled not-empty user-info-edit__select'}
           onClick={()=>{if (isEdit) {setLocationMenuOn(!locationMenuOn);}}}

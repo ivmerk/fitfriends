@@ -11,7 +11,7 @@ export interface SubscriberConfig {
   from: string;
 }
 
-export default registerAs('application', (): SubscriberConfig => {
+export default registerAs('subscribe', (): SubscriberConfig => {
   const config: SubscriberConfig = {
     host: process.env.MAIL_SMTP_HOST,
     port: parseInt(

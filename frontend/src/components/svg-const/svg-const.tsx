@@ -4,6 +4,17 @@ export const ArrowCheck = () =>(
   </svg>
 );
 
+export const ArrowLeft = () =>(
+  <svg width="100%" height="100%" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.99882 1L1 6L5.99882 11M15 6H1.14" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const ArrowRight = () => (
+  <svg width="100%" height="100%" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10.0012 1L15 6L10.0012 11M1 6H14.86" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 export const ArrowDown = () => (
   <svg width="100%" height="100%" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M16 1L9.82576 6.5118C9.09659 7.16273 7.90341 7.16273 7.17424 6.5118L1 1" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
@@ -85,4 +96,13 @@ export const IconWeight = () => (
   </svg>
 );
 
+export const LogoType = () => (
+  <svg width="100%" height="100%" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 37C20.4322 37 37 53.5678 37 74V37H74C53.5678 37 37 20.4322 37 0C37 20.4322 20.4322 37 0 37Z" fill="#181818"/>
+    <path d="M37 74C37 53.5678 20.4322 37 0 37V74H37Z" fill="#C5EC2A"/>
+    <path d="M37 74C57.4322 74 74 57.4322 74 37H37V74Z" fill="#C5EC2A"/>
+    <path d="M37 0C37 20.4322 20.4322 37 0 37V0H37Z" fill="#C5EC2A"/>
+    <path d="M74 37C53.5678 37 37 20.4322 37 0H74V37Z" fill="#C5EC2A"/>
+  </svg>
 
+);

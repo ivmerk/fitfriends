@@ -46,9 +46,10 @@ function QuestionnaireUser():JSX.Element{
       onSubmit({
         typesOfTraining: choosingTypesOfTraining,
         levelOfExperience: levelExperience,
-        timeOfTraining: trainingDuration,
-        caloryLosingPlanTotal: Number.parseInt(caloriesLoseRef.current.value,10),
-        caloryLosingPlanDaily: Number.parseInt(caloriesWasteRef.current.value, 10)
+        clientBody:{
+          timeOfTraining: trainingDuration,
+          caloryLosingPlanTotal: Number.parseInt(caloriesLoseRef.current.value,10),
+          caloryLosingPlanDaily: Number.parseInt(caloriesWasteRef.current.value, 10)}
       });
     }
   };
@@ -80,7 +81,7 @@ function QuestionnaireUser():JSX.Element{
       newChoosingTypesOfTraining.splice(newChoosingTypesOfTraining.indexOf(kindOfTraining), 1) :
       newChoosingTypesOfTraining.push(kindOfTraining);
     setChoosingTypesOfTraining(newChoosingTypesOfTraining);
-    setValidTypesOfTraining(choosingTypesOfTraining.length >= MAXIMUM_TRAINING_TYPES_CHOICE);
+    setValidTypesOfTraining(choosingTypesOfTraining.length <= MAXIMUM_TRAINING_TYPES_CHOICE);
   };
 
   const onChooseTrainingDurationHandle = (evt: ChangeEvent<HTMLInputElement>) =>{

@@ -1,13 +1,11 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useNavigate } from 'react-router';
 import { AuthData } from '../../types/auth-data';
-import { AppRoute } from '../../const';
 import { logInAction } from '../../store/api-action';
 import { UserPasswordLength } from '../../common/constant.user';
-import { getIsLoadingComplete } from '../../store/user-data/selectors';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { getIsLoggingComplete, } from '../../store/user-data/selectors';
 
 function LoginForm():JSX.Element{
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -16,11 +14,10 @@ function LoginForm():JSX.Element{
   const [validPass, setValidPass] = useState(false);
 
   const dispatch = useAppDispatch();
-  const isLoadingComplete = useAppSelector(getIsLoadingComplete);
-  const navigate = useNavigate();
+  const isLoggingComplete = useAppSelector(getIsLoggingComplete);
 
 
-  if (!isLoadingComplete){
+  if (!isLoggingComplete){
     return(
       <HelmetProvider>
         <LoadingScreen/>
@@ -28,9 +25,10 @@ function LoginForm():JSX.Element{
 
 
   const onSubmit = (authData: AuthData) => {
-    if (validPass) {
-      dispatch(logInAction(authData));
-    }
+    // if (validPass) {
+    //   dispatch(logInAction(authData));
+    // }
+    dispatch(logInAction({login: 'kolyatreiner@gmail.com',password: 'qwertyuiop'} ));
     // if (true) {
     //   dispatch(logInAction({login: 'client@gmail.cwm',password: 'adsfaasdfadf'} ));
     // }
@@ -45,7 +43,6 @@ function LoginForm():JSX.Element{
         password: passwordRef.current.value
       });
     }
-    setTimeout(()=>navigate(`${AppRoute.TrainerRoom }${AppRoute.Info}`), 100);
   };
 
   const onKeyDownCaptureHandle = (evt: ChangeEvent<HTMLElement>) => {

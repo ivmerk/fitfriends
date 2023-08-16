@@ -8,6 +8,7 @@ import {
   logInAction,
   logOutAction,
   updateUser,
+  uploadFile,
 } from '../api-action';
 
 const initialState: UserData = {
@@ -16,8 +17,10 @@ const initialState: UserData = {
   loggedUserId: null,
   loggedUserRole: null,
   isLoadingComplete: true,
+  isLogingComplete: true,
   hasError: false,
   loggedUser: null,
+  userAvatar: '',
 };
 
 export const userData = createSlice({
@@ -33,10 +36,10 @@ export const userData = createSlice({
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(logInAction.pending, (state) => {
-        state.isLoadingComplete = false;
+        state.isLogingComplete = false;
       })
       .addCase(logInAction.fulfilled, (state, actions) => {
-        state.isLoadingComplete = true;
+        state.isLogingComplete = true;
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.loggedUserRole = actions.payload.userRole;
         state.loggedUserId = actions.payload.sub;
@@ -66,6 +69,13 @@ export const userData = createSlice({
       .addCase(getUserById.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.loggedUser = actions.payload;
+      })
+      .addCase(uploadFile.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(uploadFile.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.userAvatar = actions.payload;
       });
   },
 });

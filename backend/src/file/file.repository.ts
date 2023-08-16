@@ -10,7 +10,7 @@ export class FileRepository
 {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async create(fileEntity): Promise<File> {
+  public async create(fileEntity: FileEntity): Promise<File> {
     const entity = fileEntity.toObject();
     return await this.prisma.file.create({
       data: { ...entity },

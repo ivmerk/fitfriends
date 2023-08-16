@@ -4,12 +4,12 @@ Content-Type: application/json
 
 {
   "userName": "Василий",
-  "userMail": "cliendddt@gmail.cwm",
+  "userMail": "clienbbbdddt@gmail.cwm",
   "userAvatar": "",
   "password": "adsfaasdfadf",
   "userGender": "мужской",
   "birthDate": "1955-11-06",
-  "userRole": "client",
+  "userRole": "trainer",
   "description": "trainertrainertrainertrainertrainer",
   "location": "Пионерская",
   "backgraundPicture": "asdf.jpg",
@@ -25,19 +25,18 @@ Content-Type: application/json
 
 # Update user 
 PATCH http://localhost:3333/api/auth/update HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMyLCJlbWFpbCI6InZhc3lhMzNUcmVpbmVyQG1haWwuY29tIiwidXNlclJvbGUiOiJ0cmFpbmVyIiwibmFtZSI6ImFzZGZhZGYxIiwiaWF0IjoxNjkxNTYyNjY3LCJleHAiOjE2OTE1NjM1Njd9.Li3az6tbwDnNFT4wXQtW7UOXcty1DRRXI1SASdI1mfY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYxLCJlbWFpbCI6ImNsaWVuYmJiZGRkdEBnbWFpbC5jd20iLCJ1c2VyUm9sZSI6InRyYWluZXIiLCJuYW1lIjoi0JLQsNGB0LjQu9C40LkiLCJpYXQiOjE2OTIxMTIwNDYsImV4cCI6MTY5MjExMjk0Nn0.f3TpcadhHt-WsQ53SIkI4X9Y6HXg57nIiOaBa_LURyM
 Content-Type: application/json
 
 {
-  "userName": "Васил1www111ий",
-  "userAvatar": ""
+  "trainerBody": {"merit": "что-то напишем про Машу"}
 }
 
 ###
 
 # Get user by ID
 GET http://localhost:3333/api/auth/user/51 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUxLCJlbWFpbCI6ImNsaWVudEBnbWFpbC5jd20iLCJ1c2VyUm9sZSI6InRyYWluZXIiLCJuYW1lIjoi0JLQsNGB0LjQu9C40LkiLCJpYXQiOjE2OTE3NjQ1NTMsImV4cCI6MTY5MTc2NTQ1M30.KltWNsBpTlmjFYL_L14sgH0rkR6dEDHAcvWpJEwCx0w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYxLCJlbWFpbCI6ImNsaWVuYmJiZGRkdEBnbWFpbC5jd20iLCJ1c2VyUm9sZSI6InRyYWluZXIiLCJuYW1lIjoi0JLQsNGB0LjQu9C40LkiLCJpYXQiOjE2OTIxMTIwNDYsImV4cCI6MTY5MjExMjk0Nn0.f3TpcadhHt-WsQ53SIkI4X9Y6HXg57nIiOaBa_LURyM
 ###
 
 # Login user by email and password
@@ -45,7 +44,7 @@ POST http://localhost:3333/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "client@gmail.cwm",
+  "email": "clienbbbdddt@gmail.cwm",
   "password": "adsfaasdfadf"
 }
 ###

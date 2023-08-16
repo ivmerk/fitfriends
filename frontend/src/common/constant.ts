@@ -36,3 +36,7 @@ export const typesOfNotification: string[] = [
   'пригласить на тренировку',
   'запрос на персональную тренировку',
 ];
+
+export const hopeSoonImage = '/uploads/nearest-gym-01@2x.webp';
+
+export const hostPort = 'http://localhost:3333';

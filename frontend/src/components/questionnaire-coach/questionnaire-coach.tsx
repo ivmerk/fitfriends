@@ -45,9 +45,10 @@ function QuestionnaireCoach():JSX.Element {
       onSubmit({
         typesOfTraining: choosedTypesOfTraining,
         levelOfExperience: levelExperience,
-        sertificates: [],
-        merit: maritRef.current.value,
-        readinessForPrivate: isPersonalTrainingAprooved,
+        trainerBody:{
+          sertificates: null,
+          merit: maritRef.current.value,
+          readinessForPrivate: isPersonalTrainingAprooved,}
       });
     }
   };
@@ -63,7 +64,7 @@ function QuestionnaireCoach():JSX.Element {
       newChoosingTypesOfTraining.splice(newChoosingTypesOfTraining.indexOf(kindOfTraining), 1) :
       newChoosingTypesOfTraining.push(kindOfTraining);
     setChoosingTypesOfTraining(newChoosingTypesOfTraining);
-    setValidTypesOfTraining(choosedTypesOfTraining.length >= MAXIMUM_TRAINING_TYPES_CHOICE);
+    setValidTypesOfTraining(choosedTypesOfTraining.length <= MAXIMUM_TRAINING_TYPES_CHOICE);
   };
   const onMeritKeyDownCaptureHandle = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     evt.preventDefault();

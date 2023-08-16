@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { ensureDir } from 'fs-extra';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 import uploaderConfig from 'src/config/uploader.config';
 import { writeFile } from 'node:fs/promises';
 import * as crypto from 'node:crypto';
@@ -26,11 +26,13 @@ export class FileService {
 
   public async writeFile(file: Express.Multer.File): Promise<WritedFile> {
     const [year, month] = dayjs().format('YYYY MM').split(' ');
+
     const { uploadDirectory } = this.applicationConfig;
+
     const subDirectory = `${year}/${month}`;
 
     const uuid = crypto.randomUUID();
-    const fileExtension = extension(file.mimetype);
+    const fileExtension = extension(file.mimetype) || '';
     const hashName = `${uuid}.${fileExtension}`;
 
     const uploadDirectoryPath = `${uploadDirectory}/${year}/${month}`;
@@ -52,18 +54,28 @@ export class FileService {
       size: file.size,
       hashName: writedFile.hashName,
       mimetype: file.mimetype,
-      originalName: file.originalname,
+      originalName: Buffer.from(file.originalname, 'latin1').toString('utf8'),
       path: writedFile.path,
     });
 
     return this.fileRepository.create(newFile);
   }
 
-  public async getFile(fileId: number) {
+  public async getFileById(fileId: number) {
     const existFile = await this.fileRepository.findById(fileId);
 
     if (!existFile) {
       throw new NotFoundException(`File with ${fileId} not found.`);
+    }
+
+    return existFile;
+  }
+
+  public async getFileByHasName(hashName: string) {
+    const existFile = await this.fileRepository.findByHashName(hashName);
+
+    if (!existFile) {
+      throw new NotFoundException(`File with ${hashName} not found.`);
     }
 
     return existFile;

@@ -1,3 +1,6 @@
+import { hopeSoonImage } from '../../common/constant';
+import { LogoType } from '../svg-const/svg-const';
+
 function SpecialOffers():JSX.Element{
   return(
     <section className="special-offers">
@@ -9,13 +12,14 @@ function SpecialOffers():JSX.Element{
               <aside className="promo-slider">
                 <div className="promo-slider__overlay"></div>
                 <div className="promo-slider__image">
+
                   <img src="img/content/promo-1.png" srcSet="img/content/promo-1@2x.png 2x" width="1040" height="469" alt="promo-photo"></img>
                 </div>
                 <div className="promo-slider__header">
                   <h3 className="promo-slider__title">Fitball</h3>
                   <div className="promo-slider__logo">
                     <svg width="74" height="74" aria-hidden="true">
-                      <use xlinkHref="#logotype"></use>
+                      <LogoType/>
                     </svg>
                   </div>
                 </div><span className="promo-slider__text">Горячие предложения на тренировки на фитболе</span>
@@ -37,13 +41,13 @@ function SpecialOffers():JSX.Element{
               <aside className="promo-slider">
                 <div className="promo-slider__overlay"></div>
                 <div className="promo-slider__image">
-                  <img src="img/content/promo-2.png" srcSet="img/content/promo-2@2x.png 2x" width="1040" height="469" alt="promo-photo"></img>
+                  {/* <img src="img/content/promo-2.png" srcSet="img/content/promo-2@2x.png 2x" width="1040" height="469" alt="promo-photo"></img> */}
                 </div>
                 <div className="promo-slider__header">
                   <h3 className="promo-slider__title">Fleksbend</h3>
                   <div className="promo-slider__logo">
                     <svg width="74" height="74" aria-hidden="true">
-                      <use xlinkHref="#logotype"></use>
+                      <LogoType/>
                     </svg>
                   </div>
                 </div><span className="promo-slider__text">Горячие предложения на&nbsp;Тренировки с&nbsp;резинкой для фитнеса</span>
@@ -65,13 +69,13 @@ function SpecialOffers():JSX.Element{
               <aside className="promo-slider">
                 <div className="promo-slider__overlay"></div>
                 <div className="promo-slider__image">
-                  <img src="img/content/promo-3.png" srcSet="img/content/promo-3@2x.png 2x" width="1040" height="469" alt="promo-photo"></img>
+                  <img src={hopeSoonImage} width="1040" height="469" alt="promo-photo"></img>
                 </div>
                 <div className="promo-slider__header">
                   <h3 className="promo-slider__title">Full Body Stretch</h3>
                   <div className="promo-slider__logo">
                     <svg width="74" height="74" aria-hidden="true">
-                      <use xlinkHref="#logotype"></use>
+                      <LogoType/>
                     </svg>
                   </div>
                 </div><span className="promo-slider__text">Горячие предложения на&nbsp;Комплекс упражнений на&nbsp;растяжку всего тела для новичков</span>
@@ -94,7 +98,8 @@ function SpecialOffers():JSX.Element{
             <div className="thumbnail-spec-gym__image">
               <picture>
                 <source type="image/webp" srcSet="img/content/thumbnails/nearest-gym-01.webp, img/content/thumbnails/nearest-gym-01@2x.webp 2x"></source>
-                <img src="img/content/thumbnails/nearest-gym-01.jpg" srcSet="img/content/thumbnails/nearest-gym-01@2x.jpg 2x" width="330" height="190" alt=""></img>
+                <img src={hopeSoonImage} width="1040" height="469" alt="promo-photo"></img>
+                {/* <img src="img/content/thumbnails/nearest-gym-01.jpg" srcSet="img/content/thumbnails/nearest-gym-01@2x.jpg 2x" width="330" height="190" alt=""></img> */}
               </picture>
             </div>
             <div className="thumbnail-spec-gym__header" >

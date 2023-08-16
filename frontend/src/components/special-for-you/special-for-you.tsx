@@ -1,3 +1,5 @@
+import { ArrowLeft, ArrowRight } from '../svg-const/svg-const';
+
 function SpecialForYou():JSX.Element{
   return(
     <section className="special-for-you">
@@ -8,12 +10,12 @@ function SpecialForYou():JSX.Element{
             <div className="special-for-you__controls">
               <button className="btn-icon special-for-you__control" type="button" aria-label="previous">
                 <svg width="16" height="14" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
+                  <ArrowLeft/>
                 </svg>
               </button>
               <button className="btn-icon special-for-you__control" type="button" aria-label="next">
                 <svg width="16" height="14" aria-hidden="true">
-                  <use xlinkHref="#arrow-right"></use>
+                  <ArrowRight/>
                 </svg>
               </button>
             </div>

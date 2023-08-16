@@ -1,15 +1,19 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { ArrowCheck, ArrowDown, IconCup, IconImport, IconWeight } from '../svg-const/svg-const';
-import { UserPasswordLength, UserTitleLength, userGenders, userLocations } from '../../common/constant.user';
+import { CaloriesQtt, CaloriesQttDaily, UserPasswordLength, UserTitleLength, userGenders, userLocations } from '../../common/constant.user';
 import { capitalizeFirst } from '../../common/utils';
 import { UserRole } from '../../types/user-role.enum';
-import { useAppDispatch} from '../../hooks';
+import { useAppDispatch, useAppSelector} from '../../hooks';
 import { CreateUserData } from '../../types/create-user-data';
-import { createUser } from '../../store/api-action';
+import { createUser, uploadFile } from '../../store/api-action';
 import { createUserGeneral } from '../../store/user-process/user-process';
+import { getUserAvatar } from '../../store/user-data/selectors';
+import { durationOfTraining } from '../../common/constant.training';
 
 function RegistrationFormBegin():JSX.Element {
   const dispatch = useAppDispatch();
+
+  const userAvatar = useAppSelector(getUserAvatar);
 
   const nameRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -28,6 +32,12 @@ function RegistrationFormBegin():JSX.Element {
     evt.preventDefault();
     setUserGender(evt.currentTarget.value);
 
+  };
+
+  const onFileHandle = (evt: ChangeEvent<HTMLInputElement>) => {
+    if(evt.target.files) {
+      dispatch(uploadFile(evt.target.files[0]));
+    }
   };
 
   const onNameKeyDownCaptureHandle = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -60,18 +70,35 @@ function RegistrationFormBegin():JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if(nameRef.current && emailRef.current && passRef.current && validName && validPass && isUserAgreementAprooved){
-      onSubmit({
+
+      const user = {
         userName: nameRef.current.value,
         userMail: emailRef.current.value,
-        userAvatar:'',
+        userAvatar:userAvatar,
         birthDate: date,
         location: location,
         password: passRef.current.value,
         userGender: userGender,
-        userRole: userRole
+        userRole: userRole,
+        clientBody: (userRole === UserRole.Client)
+          ? {
+            timeOfTraining: durationOfTraining[0],
+            caloryLosingPlanDaily: CaloriesQttDaily.Min,
+            caloryLosingPlanTotal: CaloriesQtt.Min,
+            readinessForTraining: false
+          }
+          : null,
+        trainerBody: (userRole === UserRole.Trainer)
+          ? {
+            sertificates:[],
+            merit: '',
+            readinessForPrivate: false
+          } : null
+      };
 
-      });
-    }
+      onSubmit(user);}
+
+
   };
 
 
@@ -127,7 +154,12 @@ return(
         <div className="sign-up__load-photo">
           <div className="input-load-avatar">
             <label>
-              <input className="visually-hidden" type="file" accept="image/png, image/jpeg"/>
+              <input
+                className="visually-hidden"
+                type="file"
+                accept="image/png, image/jpeg"
+                onChange={onFileHandle}
+              />
               <span className="input-load-avatar__btn">
                 <svg width="20" height="20" aria-hidden="true">
                   <IconImport/>

@@ -27,9 +27,28 @@ function App(): JSX.Element {
         />
         <Route path={AppRoute.SingUp} element={<SignUpScreen/>}/>
         <Route path={AppRoute.Registration} element={<RegistrationScreen/>}/>
-        <Route path={AppRoute.TrainerRoom} element={<TrainerRoomScreen/>}>
-          <Route path='newtraining' element={<NewTrainingForm/>}/>
-          <Route path='info' element={<TrainersInfo/>}/>
+        <Route path='/trainerroom' element={
+          <TrainerRoomScreen/>
+        }
+        >
+          <Route path='newtraining' element={
+            <PrivateRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <NewTrainingForm/>
+            </PrivateRoute>
+          }
+          />
+          <Route path='info' element={
+            <PrivateRoute
+              authorizationStatus = {authorizationStatus}
+            >
+              <TrainersInfo/>
+
+            </PrivateRoute>
+          }
+          />
+          <Route path='*' element={<h1>Страница не найдена</h1>}/>
         </Route>
         <Route path='*' element={<IntroScreen/>} />
       </Routes>

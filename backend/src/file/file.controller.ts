@@ -1,8 +1,10 @@
 import {
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Inject,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -46,7 +48,7 @@ export class FileController {
     return fillObject(UploadedFileRdo, Object.assign(newFile, { path }));
   }
 
-  @Post('/upload/avatar')
+  @Post('/upload/img')
   @UseInterceptors(FileInterceptor('file'))
   public async uploadImageFile(@UploadedFile() file: Express.Multer.File) {
     const fileType = file.originalname.slice(
@@ -67,5 +69,29 @@ export class FileController {
     const newFile = await this.fileService.saveFile(file);
     const path = `${this.applicationConfig.serveRoot}${newFile.path}`;
     return fillObject(UploadedFileRdo, Object.assign(newFile, { path }));
+  }
+  @Post('/upload/pdf')
+  @UseInterceptors(FileInterceptor('file'))
+  public async uploadPDFile(@UploadedFile() file: Express.Multer.File) {
+    const fileType = file.originalname.slice(
+      file.originalname.lastIndexOf('.') + 1,
+    );
+
+    if (!(fileType === 'pdf')) {
+      throw new HttpException(
+        { status: HttpStatus.NOT_ACCEPTABLE, error: WRONG_FILE_TYPE },
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    const newFile = await this.fileService.saveFile(file);
+    const path = `${this.applicationConfig.serveRoot}${newFile.path}`;
+    return fillObject(UploadedFileRdo, Object.assign(newFile, { path }));
+  }
+
+  @Get(':fileId')
+  public async show(@Param() fileId: number) {
+    const existFile = await this.fileService.getFileById(fileId);
+    const path = `${this.applicationConfig.serveRoot}${existFile.path}`;
+    return fillObject(UploadedFileRdo, Object.assign(existFile, { path }));
   }
 }

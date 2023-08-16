@@ -4,7 +4,7 @@ export enum AppRoute {
   SingUp = '/login',
   Registration = '/registration',
   TrainerRoom = '/trainerroom',
-  Info = '/info',
+  Info = 'info',
   NewTraining = '/newtraining',
   ClientRoom = '/clientroom',
   ClientsList = '/clientlist',
@@ -22,6 +22,7 @@ export enum APIRoute {
   User = '/auth/user',
   Training = '/training',
   TrainingCreate = '/training/register',
+  UploadImg = '/files/upload/img',
 }
 
 export enum AuthorizationStatus {
