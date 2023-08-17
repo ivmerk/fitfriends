@@ -13,6 +13,8 @@ import { MyToken } from '../types/my-token.interfafe';
 import { Training } from '../types/training';
 import { NewTrainingData } from '../types/new-training-data';
 import { UploadedFile } from '../types/upload-file';
+import { GetTrainingFeedQuery } from '../types/get-training-feed-query';
+import { getTreinerListQuery } from '../common/geturl';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -104,6 +106,33 @@ export const createTraining = createAsyncThunk<
   const { data } = await api.post<Training>(APIRoute.TrainingCreate, training);
   return data;
 });
+
+export const getTrainerTrainingList = createAsyncThunk<
+  Training[],
+  GetTrainingFeedQuery,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'training/getByTreinerId',
+  async (
+    { durations, priceMin, priceMax, caloriesQttMin, caloriesQttMax },
+    { extra: api }
+  ) => {
+    const { data } = await api.get<Training[]>(
+      getTreinerListQuery(
+        durations,
+        priceMin,
+        priceMax,
+        caloriesQttMin,
+        caloriesQttMax
+      )
+    );
+    return data;
+  }
+);
 
 export const uploadFile = createAsyncThunk<
   string,

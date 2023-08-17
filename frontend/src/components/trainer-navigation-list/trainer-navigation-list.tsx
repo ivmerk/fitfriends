@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { IconAdd, IconBag, IconFlash, IconFriend } from '../svg-const/svg-const';
+import { AppRoute } from '../../const';
 
 function TrainerNavigationList():JSX.Element{
   return(
     <div className="personal-account-coach__navigation">
-      <Link to="/trainerroom/newtraining" className="thumbnail-link thumbnail-link--theme-light">
+      <Link to={`${AppRoute.TrainerRoom}/${AppRoute.MyTrainings}`} className="thumbnail-link thumbnail-link--theme-light">
         <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
           <svg width="30" height="26" aria-hidden="true">
             <IconFlash/>

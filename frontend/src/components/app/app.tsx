@@ -10,6 +10,7 @@ import { useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-data/selectors';
 import NewTrainingForm from '../new-training-form/new-training-form';
 import TrainersInfo from '../trainer-info/trainer-info';
+import MyTrainingList from '../my-training-list/my-training-list';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -27,11 +28,11 @@ function App(): JSX.Element {
         />
         <Route path={AppRoute.SingUp} element={<SignUpScreen/>}/>
         <Route path={AppRoute.Registration} element={<RegistrationScreen/>}/>
-        <Route path='/trainerroom' element={
+        <Route path={AppRoute.TrainerRoom} element={
           <TrainerRoomScreen/>
         }
         >
-          <Route path='newtraining' element={
+          <Route path={AppRoute.NewTraining} element={
             <PrivateRoute
               authorizationStatus={authorizationStatus}
             >
@@ -39,12 +40,20 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path='info' element={
+          <Route path={AppRoute.Info} element={
             <PrivateRoute
               authorizationStatus = {authorizationStatus}
             >
               <TrainersInfo/>
 
+            </PrivateRoute>
+          }
+          />
+          <Route path={AppRoute.MyTrainings} element={
+            <PrivateRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <MyTrainingList/>
             </PrivateRoute>
           }
           />

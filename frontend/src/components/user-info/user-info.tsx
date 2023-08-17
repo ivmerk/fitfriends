@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getLoggedUser } from '../../store/user-data/selectors';
+import { getIsLoadingComplete, getLoggedUser, getUserAvatar } from '../../store/user-data/selectors';
 import { ArrowCheck, ArrowDown, IconChange, IconEdit, IconTrash } from '../svg-const/svg-const';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { typesOfTraining } from '../../common/constant.training';
 import { MAXIMUM_TRAINING_TYPES_CHOICE, UserDescriptionLength, UserTitleLength, levelsOfExperience, userGenders, userLocations } from '../../common/constant.user';
 import { capitalizeFirst } from '../../common/utils';
@@ -9,15 +9,18 @@ import { getIsEdit } from '../../store/user-process/selector';
 import { setToEdit } from '../../store/user-process/user-process';
 import useInput from '../../hooks/use-input';
 import useTextarea from '../../hooks/use-textarea';
-import { updateUser } from '../../store/api-action';
+import { updateUser, uploadFile } from '../../store/api-action';
 import { hostPort } from '../../common/constant';
+import { HelmetProvider } from 'react-helmet-async';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function UserInfo():JSX.Element{
   const user = useAppSelector(getLoggedUser);
   const isEdit = useAppSelector<boolean>(getIsEdit);
   const dispatch = useAppDispatch();
 
-
+  const isLoadingComplete = useAppSelector(getIsLoadingComplete);
+  const userAvatar = useAppSelector(getUserAvatar);
   const name = useInput(user?.userName || '', UserTitleLength.Min, UserTitleLength.Max);
   const description = useTextarea(user?.description || '', UserDescriptionLength.Min, UserDescriptionLength.Max);
 
@@ -39,6 +42,11 @@ function UserInfo():JSX.Element{
     }
   };
 
+  const onFileHandle = (evt: ChangeEvent<HTMLInputElement>) => {
+    if(evt.target.files) {
+      dispatch(uploadFile(evt.target.files[0]));
+    }
+  };
 
   const updateChoosingTypesOfTraining = (kindOfTraining:string) => {
     if(choosingTypesOfTraining){
@@ -129,12 +137,19 @@ function UserInfo():JSX.Element{
   function ImgMenu (): JSX.Element{
     return(
       <>
-        <button className="user-info-edit__control-btn" aria-label="обновить">
+        <button
+          className="user-info-edit__control-btn"
+          aria-label="обновить"
+          onClick={()=>{dispatch(updateUser({userAvatar:userAvatar}));}}
+        >
           <svg width="16" height="16" aria-hidden="true">
             <IconChange/>
           </svg>
         </button>
-        <button className="user-info-edit__control-btn" aria-label="удалить">
+        <button
+          className="user-info-edit__control-btn"
+          aria-label="удалить"
+        >
           <svg width="14" height="16" aria-hidden="true">
             <IconTrash/>
           </svg>
@@ -142,13 +157,26 @@ function UserInfo():JSX.Element{
       </>
     );
   }
+
+  if (!isLoadingComplete){
+    return(
+      <HelmetProvider>
+        <LoadingScreen/>
+      </HelmetProvider>);}
+
+
   return(
 
     <section className="user-info-edit">
       <div className="user-info-edit__header">
         <div className="input-load-avatar">
           <label>
-            <input className="visually-hidden" type="file" name="user-photo-1" accept="image/png, image/jpeg">
+            <input
+              className="visually-hidden"
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={onFileHandle}
+            >
             </input>
             <span className="input-load-avatar__avatar">
               {user ? <img src={`${hostPort}${user?.userAvatar}`} srcSet={`${hostPort}${user?.userAvatar} 2x`} width="98" height="98" alt="user"/> : ''}

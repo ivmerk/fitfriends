@@ -40,3 +40,46 @@ export const typesOfNotification: string[] = [
 export const hopeSoonImage = '/uploads/nearest-gym-01@2x.webp';
 
 export const hostPort = 'http://localhost:3333';
+
+export const trainingCardsImage = [
+  {
+    name: 'pilates',
+    nameCyr: 'пилатес',
+    img: 'img/content/thumbnails/training-01',
+  },
+  {
+    name: 'crossfit',
+    nameCyr: 'кроссфит',
+    img: 'img/content/thumbnails/training-02',
+  },
+  {
+    name: 'boxing',
+    nameCyr: 'бокс',
+    img: 'img/content/thumbnails/training-03',
+  },
+  {
+    name: 'power',
+    nameCyr: 'силовые',
+    img: 'img/content/thumbnails/training-04',
+  },
+  {
+    name: 'yoga',
+    nameCyr: 'йога',
+    img: 'img/content/thumbnails/training-05',
+  },
+  {
+    name: 'run',
+    nameCyr: 'бег',
+    img: 'img/content/thumbnails/training-06',
+  },
+  {
+    name: 'stratching',
+    nameCyr: 'стретчинг',
+    img: 'img/content/thumbnails/training-09',
+  },
+  {
+    name: 'aerobics',
+    nameCyr: 'аэробика',
+    img: 'img/content/thumbnails/training-12',
+  },
+];

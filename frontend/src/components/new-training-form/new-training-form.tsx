@@ -7,12 +7,17 @@ import useTextarea from '../../hooks/use-textarea';
 import { ArrowDown, IconImportVideo } from '../svg-const/svg-const';
 import { capitalizeFirst } from '../../common/utils';
 import { NewTrainingData } from '../../types/new-training-data';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { createTraining } from '../../store/api-action';
+import { getIsLoadingComplete, getLoggedUserId } from '../../store/user-data/selectors';
+import { HelmetProvider } from 'react-helmet-async';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function NewTrainingForm():JSX.Element{
 
   const dispatch = useAppDispatch();
+  const userId = useAppSelector(getLoggedUserId);
+  const isLoadingComplete = useAppSelector(getIsLoadingComplete);
   const trainingName = useInput('', TrainingTitleLength.Min, TrainingTitleLength.Max);
   const description = useTextarea('', TrainingDescriptionLength.Min, TrainingDescriptionLength.Max);
   const calory = useDigitalInput(CaloriesQtt.Min.toString(), CaloriesQtt.Min, CaloriesQtt.Max);
@@ -25,15 +30,20 @@ function NewTrainingForm():JSX.Element{
   const [expLevelMenuOn, setExpLevelMenuOn] = useState(false);
   const [userGender, setUserGender] = useState(trainingGender[0]);
 
+  // useEffect(()=>{
+  //   if(isLoadingComplete){
+  //     dispatch(getUserById(userId));
+  //   }
+  // }, [dispatch, userId]);
 
   const onSubmit = (trainingData: NewTrainingData) => {
     dispatch(createTraining(trainingData));
   };
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if(trainingName.isValid && description.isValid && calory.isValid && price){
+    if(userId && trainingName.isValid && description.isValid && calory.isValid && price){
       onSubmit({
-        trainerId: 0,
+        trainerId: userId,
         title: trainingName.value,
         caloriesQtt: parseInt(calory.value, 10),
         price: parseInt(price.value, 10),
@@ -118,6 +128,13 @@ function NewTrainingForm():JSX.Element{
       </li>
     );
   }
+
+  if (!isLoadingComplete){
+    return(
+      <HelmetProvider>
+        <LoadingScreen/>
+      </HelmetProvider>);}
+
   return(
     <div className="popup-form popup-form--create-training">
       <div className="popup-form__wrapper">
@@ -145,6 +162,7 @@ function NewTrainingForm():JSX.Element{
                         </span>
                       </label>
                     </div>
+                    <p>{!trainingName.isValid ? `Название тренировки должно быть от ${TrainingTitleLength.Min} до ${TrainingTitleLength.Max}` : ''}</p>
                   </div>
                   <div className="create-training__block">
                     <h2 className="create-training__legend">Характеристики тренировки</h2>
@@ -176,6 +194,7 @@ function NewTrainingForm():JSX.Element{
                             />
                             <span className="custom-input__text">ккал</span>
                           </span>
+                          <p>{!calory.isValid ? `Количество каллорий должно быть от ${CaloriesQtt.Min} до ${CaloriesQtt.Max}` : ''}</p>
                         </label>
                       </div>
                       <div
@@ -206,6 +225,7 @@ function NewTrainingForm():JSX.Element{
                             />
                             <span className="custom-input__text">₽</span>
                           </span>
+                          <p>{!price.isValid ? 'Цена - положительное число' : ''}</p>
                         </label>
                       </div>
                       <div
@@ -243,6 +263,7 @@ function NewTrainingForm():JSX.Element{
                           placeholder=" "
                           {...description.bind}
                         />
+                        <p>{!description.isValid ? `Описание должно быть от ${TrainingDescriptionLength.Min} до ${TrainingDescriptionLength.Max} символов` : ''}</p>
                       </label>
                     </div>
                   </div>

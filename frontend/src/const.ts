@@ -5,8 +5,13 @@ export enum AppRoute {
   Registration = '/registration',
   TrainerRoom = '/trainerroom',
   Info = 'info',
-  NewTraining = '/newtraining',
+  NewTraining = 'newtraining',
+  MyTrainings = 'mytrainings',
+  MyOrdersTrainer = 'myorderstrainer',
+  MyFriendsTrainer = 'myfriendstrainer',
   ClientRoom = '/clientroom',
+  MyOrdersUser = 'myorderuser',
+  MeFriendsUser = 'myfriendsuser',
   ClientsList = '/clientlist',
   ClientCard = '/clientcard',
   TrainerCard = '/trainercard',
@@ -22,6 +27,7 @@ export enum APIRoute {
   User = '/auth/user',
   Training = '/training',
   TrainingCreate = '/training/register',
+  TrainingFeed = '/training/feed?durations={durations}&priceMin={priceMin}&priceMax={priceMax}&caloriesQttMin={caloriesQttMin}&caloriesQttMax={caloriesQttMax}',
   UploadImg = '/files/upload/img',
 }
 

@@ -1,5 +1,6 @@
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
+import { Training } from './training';
 import { User, UserFormRegister } from './user';
 import { UserRole } from './user-role.enum';
 
@@ -20,6 +21,10 @@ export interface UserProcess {
   registringUser: UserFormRegister | null;
 }
 
+export interface TrainingData {
+  trainerTrainingList: Training[];
+  isLoadingComplete: boolean;
+}
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
