@@ -48,6 +48,17 @@ function MyTrainingFilter():JSX.Element {
         priceSortType: (listSortingAscType ? 'acs' : 'decs'),
       }));}
 
+    console.log({durations:durations.join(',') ,
+      priceMin: priceMin.value,
+      priceMax: priceMax.value,
+      caloriesQttMin: caloriesQttMin.value,
+      caloriesQttMax: caloriesQttMax.value,
+      ratingMin: ratingMin,
+      ratingMax: ratingMax,
+      page:page,
+      limit:limit,
+      priceSortType: listSortingAscType,});
+
   }, [priceMin, priceMax, caloriesQttMin, caloriesQttMax, durations]);
 
 
@@ -179,11 +190,6 @@ return(
         <div className="my-training-form__block my-training-form__block--raiting">
           <h4 className="my-training-form__block-title">Рейтинг</h4>
           <div className="filter-raiting">
-            <div className="filter-raiting__scale">
-              <div className="filter-raiting__bar">
-                <span className="visually-hidden">Полоса прокрутки</span>
-              </div>
-            </div>
             <RangeSlider
               min={Rating.Min}
               max={Rating.Max}
@@ -191,10 +197,6 @@ return(
               defaultValue={[Rating.Min, Rating.Max]}
               onInput={onChangeRatingHandle}
             />
-            <div className="filter-raiting__control">
-              <button className="filter-raiting__min-toggle"><span className="visually-hidden">Минимальное значение</span></button><span>0</span>
-              <button className="filter-raiting__max-toggle"><span className="visually-hidden">Максимальное значение</span></button><span>5</span>
-            </div>
           </div>
         </div>
         <div className="my-training-form__block my-training-form__block--duration">
