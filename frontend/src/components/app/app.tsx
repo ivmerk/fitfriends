@@ -10,7 +10,7 @@ import { useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-data/selectors';
 import NewTrainingForm from '../new-training-form/new-training-form';
 import TrainersInfo from '../trainer-info/trainer-info';
-import MyTrainingList from '../my-training-list/my-training-list';
+import MyTrainingListBlock from '../my-training-list-block/my-training-list-block';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -53,7 +53,7 @@ function App(): JSX.Element {
             <PrivateRoute
               authorizationStatus={authorizationStatus}
             >
-              <MyTrainingList/>
+              <MyTrainingListBlock/>
             </PrivateRoute>
           }
           />

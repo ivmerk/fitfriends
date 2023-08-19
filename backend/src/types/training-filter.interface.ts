@@ -3,7 +3,8 @@ export default class TrainingFilter {
   priceMax: number;
   caloriesQttMin: number;
   caloriesQttMax: number;
-  rating: number;
+  ratingMin: number;
+  ratingMax: number;
   durations: string[];
   priceSortType: string;
   limit: number;

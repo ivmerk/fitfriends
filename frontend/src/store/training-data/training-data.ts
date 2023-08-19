@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TrainingData } from '../../types/state';
-import { createTraining } from '../api-action';
+import { createTraining, getTrainerTrainingList } from '../api-action';
 
 const initialState: TrainingData = {
   trainerTrainingList: [],
@@ -19,6 +19,13 @@ export const trainingData = createSlice({
       })
       .addCase(createTraining.fulfilled, (state) => {
         state.isLoadingComplete = true;
+      })
+      .addCase(getTrainerTrainingList.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(getTrainerTrainingList.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.trainerTrainingList = actions.payload;
       });
   },
 });

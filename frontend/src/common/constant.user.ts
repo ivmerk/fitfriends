@@ -27,6 +27,8 @@ export const userLocations: string[] = [
   'Спортивная',
 ];
 
+export const MAXIMUMPRICE = 5000;
+
 export const userBackgroundTypes: string[] = ['jpg', 'png'];
 
 export enum CaloriesQttDaily {

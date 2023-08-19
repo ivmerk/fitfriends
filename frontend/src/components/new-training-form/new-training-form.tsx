@@ -12,10 +12,14 @@ import { createTraining } from '../../store/api-action';
 import { getIsLoadingComplete, getLoggedUserId } from '../../store/user-data/selectors';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function NewTrainingForm():JSX.Element{
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const userId = useAppSelector(getLoggedUserId);
   const isLoadingComplete = useAppSelector(getIsLoadingComplete);
   const trainingName = useInput('', TrainingTitleLength.Min, TrainingTitleLength.Max);
@@ -30,14 +34,9 @@ function NewTrainingForm():JSX.Element{
   const [expLevelMenuOn, setExpLevelMenuOn] = useState(false);
   const [userGender, setUserGender] = useState(trainingGender[0]);
 
-  // useEffect(()=>{
-  //   if(isLoadingComplete){
-  //     dispatch(getUserById(userId));
-  //   }
-  // }, [dispatch, userId]);
-
   const onSubmit = (trainingData: NewTrainingData) => {
     dispatch(createTraining(trainingData));
+    navigate(`${AppRoute.TrainerRoom}/${AppRoute.Info}`);
   };
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

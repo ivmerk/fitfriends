@@ -19,6 +19,9 @@ export interface UserData {
 export interface UserProcess {
   isEdit: boolean;
   registringUser: UserFormRegister | null;
+  listPageNumber: number;
+  listLimit: number;
+  listSortingAscType: boolean;
 }
 
 export interface TrainingData {

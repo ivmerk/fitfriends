@@ -4,4 +4,9 @@ export type GetTrainingFeedQuery = {
   priceMax: string;
   caloriesQttMin: string;
   caloriesQttMax: string;
+  ratingMin: string;
+  ratingMax: string;
+  page: number;
+  limit: number;
+  priceSortType: string;
 };

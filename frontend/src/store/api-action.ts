@@ -118,7 +118,18 @@ export const getTrainerTrainingList = createAsyncThunk<
 >(
   'training/getByTreinerId',
   async (
-    { durations, priceMin, priceMax, caloriesQttMin, caloriesQttMax },
+    {
+      durations,
+      priceMin,
+      priceMax,
+      caloriesQttMin,
+      caloriesQttMax,
+      ratingMin,
+      ratingMax,
+      page,
+      limit,
+      priceSortType,
+    },
     { extra: api }
   ) => {
     const { data } = await api.get<Training[]>(
@@ -127,7 +138,12 @@ export const getTrainerTrainingList = createAsyncThunk<
         priceMin,
         priceMax,
         caloriesQttMin,
-        caloriesQttMax
+        caloriesQttMax,
+        ratingMin,
+        ratingMax,
+        page,
+        limit,
+        priceSortType
       )
     );
     return data;

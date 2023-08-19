@@ -25,6 +25,7 @@ function useDigitalInput(
     value,
     clear,
     isValid,
+    setValue,
   };
 }
 

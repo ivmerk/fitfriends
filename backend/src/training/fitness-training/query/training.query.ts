@@ -38,13 +38,18 @@ export class TrainingQuery {
   @Transform(({ value }) => +value)
   @IsOptional()
   @IsNumber()
-  public rating: number;
+  @Max(CaloriesQttDaily.Max)
+  public caloriesQttMax: number;
 
   @Transform(({ value }) => +value)
   @IsOptional()
   @IsNumber()
-  @Max(CaloriesQttDaily.Max)
-  public caloriesQttMax: number;
+  public ratingMin: number;
+
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  @IsNumber()
+  public ratingMax: number;
 
   @Transform(({ value }) => +value)
   @IsOptional()
