@@ -14,6 +14,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { trainingCardsImage } from '../../common/constant';
 
 function NewTrainingForm():JSX.Element{
 
@@ -46,6 +47,8 @@ function NewTrainingForm():JSX.Element{
         title: trainingName.value,
         caloriesQtt: parseInt(calory.value, 10),
         price: parseInt(price.value, 10),
+        rating:0,
+        backgroundPicture: trainingCardsImage.find((item) => item.nameCyr === trainingType)?.img,
         trainingGender: userGender,
         typeOfTraining: trainingType,
         duration: timeTraining,

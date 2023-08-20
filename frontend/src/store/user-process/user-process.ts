@@ -42,6 +42,14 @@ export const userProcess = createSlice({
   },
 });
 
-export const { createUserGeneral, setToEdit } = userProcess.actions;
+export const {
+  createUserGeneral,
+  setToEdit,
+  resetPaging,
+  getNextPage,
+  getLastPage,
+  changeListLimit,
+  changeSorting,
+} = userProcess.actions;
 
 export default userProcess.reducer;

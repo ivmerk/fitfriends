@@ -10,6 +10,7 @@ import { ArrowCheck, ArrowLeft } from '../../svg-const/svg-const';
 import { Rating } from '../../../common/constant';
 import { useNavigate } from 'react-router-dom';
 import { getListLimit, getListPageNumber, getListSortingAscType } from '../../../store/user-process/selector';
+import { resetPaging } from '../../../store/user-process/user-process';
 
 function MyTrainingFilter():JSX.Element {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function MyTrainingFilter():JSX.Element {
     caloriesQttMin: caloriesQttMin,
     caloriesQttMax: caloriesQttMax};
 
-  useEffect(()=>{
+  useEffect(() => {
     if(filterData){
       dispatch(getTrainerTrainingList( {durations:durations.join(',') ,
         priceMin: priceMin.value,
@@ -47,19 +48,8 @@ function MyTrainingFilter():JSX.Element {
         limit:limit,
         priceSortType: (listSortingAscType ? 'acs' : 'decs'),
       }));}
-
-    console.log({durations:durations.join(',') ,
-      priceMin: priceMin.value,
-      priceMax: priceMax.value,
-      caloriesQttMin: caloriesQttMin.value,
-      caloriesQttMax: caloriesQttMax.value,
-      ratingMin: ratingMin,
-      ratingMax: ratingMax,
-      page:page,
-      limit:limit,
-      priceSortType: listSortingAscType,});
-
-  }, [priceMin, priceMax, caloriesQttMin, caloriesQttMax, durations]);
+    dispatch(resetPaging());
+  }, [priceMin, priceMax, caloriesQttMin, caloriesQttMax, ratingMin, ratingMax, durations, page, listSortingAscType, limit, dispatch]);
 
 
   const onChangePriceHandle = (event:number[]) => {

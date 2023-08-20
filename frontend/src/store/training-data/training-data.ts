@@ -25,7 +25,7 @@ export const trainingData = createSlice({
       })
       .addCase(getTrainerTrainingList.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
-        state.trainerTrainingList = actions.payload;
+        state.trainerTrainingList = Object.values(actions.payload);
       });
   },
 });

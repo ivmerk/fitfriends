@@ -62,6 +62,15 @@ export default class CreateTrainingDto {
   public price: number;
 
   @ApiProperty({
+    description: 'Rating of traning',
+    example: '5',
+  })
+  @IsNumber()
+  @Min(Rating.Min)
+  @Max(Rating.Max)
+  public rating: number;
+
+  @ApiProperty({
     description: 'Price of traning',
     example: '100',
   })
