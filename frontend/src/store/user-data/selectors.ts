@@ -17,3 +17,5 @@ export const getLoggedUser = (state: State): User | null =>
   state[NameSpace.Data].loggedUser;
 export const getUserAvatar = (state: State): string =>
   state[NameSpace.Data].userAvatar;
+export const getNewUserSertificate = (state: State): string =>
+  state[NameSpace.Data].userSertificate;

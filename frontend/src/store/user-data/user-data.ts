@@ -8,7 +8,8 @@ import {
   logInAction,
   logOutAction,
   updateUser,
-  uploadFile,
+  uploadFileImg,
+  uploadSertImg,
 } from '../api-action';
 
 const initialState: UserData = {
@@ -21,6 +22,7 @@ const initialState: UserData = {
   hasError: false,
   loggedUser: null,
   userAvatar: '',
+  userSertificate: '',
 };
 
 export const userData = createSlice({
@@ -60,8 +62,9 @@ export const userData = createSlice({
       .addCase(updateUser.pending, (state) => {
         state.isLoadingComplete = false;
       })
-      .addCase(updateUser.fulfilled, (state) => {
+      .addCase(updateUser.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
+        state.loggedUser = actions.payload;
       })
       .addCase(getUserById.pending, (state) => {
         state.isLoadingComplete = false;
@@ -70,12 +73,19 @@ export const userData = createSlice({
         state.isLoadingComplete = true;
         state.loggedUser = actions.payload;
       })
-      .addCase(uploadFile.pending, (state) => {
+      .addCase(uploadFileImg.pending, (state) => {
         state.isLoadingComplete = false;
       })
-      .addCase(uploadFile.fulfilled, (state, actions) => {
+      .addCase(uploadFileImg.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.userAvatar = actions.payload;
+      })
+      .addCase(uploadSertImg.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(uploadSertImg.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.userSertificate = actions.payload;
       });
   },
 });

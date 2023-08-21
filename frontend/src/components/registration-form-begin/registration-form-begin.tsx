@@ -5,7 +5,7 @@ import { capitalizeFirst } from '../../common/utils';
 import { UserRole } from '../../types/user-role.enum';
 import { useAppDispatch, useAppSelector} from '../../hooks';
 import { CreateUserData } from '../../types/create-user-data';
-import { createUser, uploadFile } from '../../store/api-action';
+import { createUser, uploadFileImg } from '../../store/api-action';
 import { createUserGeneral } from '../../store/user-process/user-process';
 import { getUserAvatar } from '../../store/user-data/selectors';
 import { durationOfTraining } from '../../common/constant.training';
@@ -36,7 +36,7 @@ function RegistrationFormBegin():JSX.Element {
 
   const onFileHandle = (evt: ChangeEvent<HTMLInputElement>) => {
     if(evt.target.files) {
-      dispatch(uploadFile(evt.target.files[0]));
+      dispatch(uploadFileImg(evt.target.files[0]));
     }
   };
 

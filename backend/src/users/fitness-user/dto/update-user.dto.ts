@@ -24,7 +24,6 @@ import {
   UserDescriptionLength,
   UserTitleLength,
   levelsOfExperience,
-  trainerSertificateTypes,
   userGenders,
   userLocations,
 } from '../../../common/constant.user.js';
@@ -55,8 +54,8 @@ class ClientBodyDto {
 }
 class TrainerBodyDto {
   @IsOptional()
-  @IsString()
-  @Contains(trainerSertificateTypes[0])
+  @IsArray()
+  @IsString({ each: true })
   public sertificates?: string[];
 
   @IsOptional()

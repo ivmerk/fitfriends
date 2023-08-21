@@ -31,7 +31,7 @@ function QuestionnaireCoach():JSX.Element {
   }, [isRegistrationComplete, registredUser, dispatch]);
 
   const onSubmit = (user: UserFormRegisterDetailsTrainer) => {
-    const updatedUser :UserUpdateData = {...user};
+    const updatedUser :UserUpdateData = {...user, trainerBody: {...user.trainerBody}};
     dispatch(updateUser(updatedUser));
     if(isRegistrationComplete) {
       navigate(AppRoute.TrainerRoom);
@@ -46,7 +46,7 @@ function QuestionnaireCoach():JSX.Element {
         typesOfTraining: choosedTypesOfTraining,
         levelOfExperience: levelExperience,
         trainerBody:{
-          sertificates: null,
+          sertificates: [],
           merit: maritRef.current.value,
           readinessForPrivate: isPersonalTrainingAprooved,}
       });

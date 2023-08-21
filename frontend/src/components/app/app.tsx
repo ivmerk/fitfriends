@@ -11,6 +11,8 @@ import { getAuthorizationStatus } from '../../store/user-data/selectors';
 import NewTrainingForm from '../new-training-form/new-training-form';
 import TrainersInfo from '../trainer-info/trainer-info';
 import MyTrainingListBlock from '../my-training-list-block/my-training-list-block';
+import MyFriendsTrainerroom from '../my-friends-trainerroom/my-friends-traineroom';
+import MyOrdersTrainerroom from '../my-orders-trainerroom/my-orders-trainerroom';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -32,14 +34,6 @@ function App(): JSX.Element {
           <TrainerRoomScreen/>
         }
         >
-          <Route path={AppRoute.NewTraining} element={
-            <PrivateRoute
-              authorizationStatus={authorizationStatus}
-            >
-              <NewTrainingForm/>
-            </PrivateRoute>
-          }
-          />
           <Route path={AppRoute.Info} element={
             <PrivateRoute
               authorizationStatus = {authorizationStatus}
@@ -49,11 +43,37 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
           />
+          <Route path={AppRoute.NewTraining} element={
+            <PrivateRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <NewTrainingForm/>
+            </PrivateRoute>
+          }
+          />
           <Route path={AppRoute.MyTrainings} element={
             <PrivateRoute
               authorizationStatus={authorizationStatus}
             >
               <MyTrainingListBlock/>
+            </PrivateRoute>
+          }
+          />
+          <Route path={AppRoute.MyFriendsTrainer} element={
+            <PrivateRoute
+              authorizationStatus = {authorizationStatus}
+            >
+              <MyFriendsTrainerroom/>
+
+            </PrivateRoute>
+          }
+          />
+          <Route path={AppRoute.MyOrdersTrainer} element={
+            <PrivateRoute
+              authorizationStatus = {authorizationStatus}
+            >
+              <MyOrdersTrainerroom/>
+
             </PrivateRoute>
           }
           />

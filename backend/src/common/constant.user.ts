@@ -36,7 +36,7 @@ export enum CaloriesQttDaily {
 
 export const MAXIMUM_TRAINING_TYPES_CHOICE = 3;
 
-export const trainerSertificateTypes: string[] = ['pdf'];
+export const trainerSertificateTypes: string[] = ['pdf', 'jpg', 'png'];
 
 export enum TrainerMeritLength {
   Min = 10,

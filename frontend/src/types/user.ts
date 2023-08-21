@@ -72,9 +72,9 @@ export type UserFormRegisterDetailsTrainer = {
   typesOfTraining: string[];
   levelOfExperience: string;
   trainerBody: {
-    sertificates: string[] | null;
-    merit: string;
-    readinessForPrivate: boolean;
+    sertificates?: string[];
+    merit?: string;
+    readinessForPrivate?: boolean;
   };
 };
 
@@ -93,6 +93,10 @@ export type UserUpdateData = {
   caloryLosingPlanDaily?: number;
   readinessForTraining?: boolean;
   sertificates?: string[];
+  trainerBody?: {
+    sertificates?: string[];
+    readinessForPrivate?: boolean;
+  };
   merit?: string;
   readinessForPrivate?: boolean;
 };

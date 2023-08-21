@@ -29,6 +29,8 @@ export enum APIRoute {
   TrainingCreate = '/training/register',
   TrainingFeed = '/training/feed?durations={durations}&priceMin={priceMin}&priceMax={priceMax}&caloriesQttMin={caloriesQttMin}&caloriesQttMax={caloriesQttMax}&ratingMin={ratingMin}&ratingMax={ratingMax}&page={page}&limit={limit}&priceSortType={priceSortType}',
   UploadImg = '/files/upload/img',
+  UploadPdf = '/files/upload/pdf',
+  UploadVideo = '/files/upload/video',
 }
 
 export enum AuthorizationStatus {

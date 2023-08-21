@@ -9,7 +9,7 @@ import { getIsEdit } from '../../store/user-process/selector';
 import { setToEdit } from '../../store/user-process/user-process';
 import useInput from '../../hooks/use-input';
 import useTextarea from '../../hooks/use-textarea';
-import { updateUser, uploadFile } from '../../store/api-action';
+import { updateUser, uploadFileImg } from '../../store/api-action';
 import { hostPort } from '../../common/constant';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
@@ -44,7 +44,7 @@ function UserInfo():JSX.Element{
 
   const onFileHandle = (evt: ChangeEvent<HTMLInputElement>) => {
     if(evt.target.files) {
-      dispatch(uploadFile(evt.target.files[0]));
+      dispatch(uploadFileImg(evt.target.files[0]));
     }
   };
 

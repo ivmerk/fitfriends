@@ -150,7 +150,7 @@ export const getTrainerTrainingList = createAsyncThunk<
   }
 );
 
-export const uploadFile = createAsyncThunk<
+export const uploadFileImg = createAsyncThunk<
   string,
   File,
   {
@@ -158,11 +158,66 @@ export const uploadFile = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/uploadfil', async (file, { extra: api }) => {
+>('data/uploadimg', async (file, { extra: api }) => {
   const formData = new FormData();
   formData.append('file', file);
   const { data } = await api.post<UploadedFile>(APIRoute.UploadImg, formData, {
     headers: { 'Content-type': 'multipart/form-data' },
   });
+  return data.path;
+});
+
+export const uploadSertImg = createAsyncThunk<
+  string,
+  File,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/uploadsertimg', async (file, { extra: api }) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const { data } = await api.post<UploadedFile>(APIRoute.UploadImg, formData, {
+    headers: { 'Content-type': 'multipart/form-data' },
+  });
+  return data.path;
+});
+
+export const uploadFilePdf = createAsyncThunk<
+  string,
+  File,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/uploadpdf', async (file, { extra: api }) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const { data } = await api.post<UploadedFile>(APIRoute.UploadPdf, formData, {
+    headers: { 'Content-type': 'multipart/form-data' },
+  });
+  return data.path;
+});
+
+export const uploadFileVideo = createAsyncThunk<
+  string,
+  File,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/uploadvideo', async (file, { extra: api }) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const { data } = await api.post<UploadedFile>(
+    APIRoute.UploadVideo,
+    formData,
+    {
+      headers: { 'Content-type': 'multipart/form-data' },
+    }
+  );
   return data.path;
 });

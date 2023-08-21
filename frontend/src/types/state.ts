@@ -14,6 +14,7 @@ export interface UserData {
   loggedUserRole: UserRole | null;
   loggedUser: User | null;
   userAvatar: string;
+  userSertificate: string;
 }
 
 export interface UserProcess {
