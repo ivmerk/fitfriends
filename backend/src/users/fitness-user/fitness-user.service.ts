@@ -108,7 +108,6 @@ export class FitnessUserService {
         ...dto,
       });
       userEntity.createdAt = oldUser.createdAt;
-      console.log(userEntity);
       return await this.fitnessUserRepository.update(id, userEntity);
     }
   }

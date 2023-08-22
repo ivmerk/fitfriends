@@ -14,7 +14,6 @@ export class FitnessTrainingRepository
     fitnessTrainingEntity: FitnessTrainingEntity,
   ): Promise<Training> {
     const entityData = fitnessTrainingEntity.toObject();
-    console.log(entityData);
     return await this.prisma.trainingEntity.create({
       data: {
         ...entityData,

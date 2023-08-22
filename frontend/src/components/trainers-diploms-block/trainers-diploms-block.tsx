@@ -1,50 +1,58 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, IconChange, IconEdit, IconImport, IconTrash } from '../svg-const/svg-const';
+import { ArrowLeft, ArrowRight, IconImport } from '../svg-const/svg-const';
 import { updateUser, uploadFilePdf, uploadSertImg } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getIsLoadingComplete, getLoggedUser, getNewUserSertificate } from '../../store/user-data/selectors';
+import { getAllTrainerSertificates, getIsLoadingComplete, getLoggedUser, getNewUserSertificate } from '../../store/user-data/selectors';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { SERTIFICATES_SCREEN_COUNT_MAX } from '../../common/constant';
+import { SertificateCard } from '../sertificate-card/sertificatet-card';
 
 function TrainersDiplomsBlock():JSX.Element
 {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector(getLoggedUser);
+  const allSertificates = useAppSelector(getAllTrainerSertificates);
   const sertUrl = useAppSelector(getNewUserSertificate);
   const isLoadingComplete = useAppSelector(getIsLoadingComplete);
-
-
-  const [isBlockEdit, setIsBlockEdit] = useState(false);
-
-
-  const submit = () => null;
+  const [sertsForScreen, setSertsForScreen] = useState(allSertificates?.slice(0, SERTIFICATES_SCREEN_COUNT_MAX));
 
   const onFileHandle = (evt: ChangeEvent<HTMLInputElement>) => {
-    if(evt.target.files && evt.target.files[0].type === 'image/pdf' ) {dispatch(uploadFilePdf(evt.target.files[0]));} else if(evt.target.files){
+    if(evt.target.files && evt.target.files[0].type === 'image/pdf' ) {
+      dispatch(uploadFilePdf(evt.target.files[0]));
+    } else if(evt.target.files){
       dispatch(uploadSertImg(evt.target.files[0]));
     }
   };
 
-
-  const onSaveRedoButtonClickHandle = (evt: React.MouseEvent<HTMLButtonElement>) => {
-    evt.preventDefault();
-    if (!isBlockEdit) {setIsBlockEdit(true);} else{
-      submit();
-    }
-  };
-
-  function CardsMenu():JSX.Element{
+  function SertificatesBoardControll():JSX.Element {
     return(
-      <div className="certificate-card__controls">
-        <button className="btn-icon certificate-card__control" type="button" aria-label="next">
-          <svg width="16" height="16" aria-hidden="true">
-            <IconChange/>
+      <div className="personal-account-coach__controls">
+        <button
+          className="btn-icon personal-account-coach__control"
+          type="button"
+          aria-label="previous"
+          onClick={() => {if(sertsForScreen && allSertificates && sertsForScreen[0] !== allSertificates[0]){
+            setSertsForScreen( allSertificates.slice(allSertificates.indexOf(sertsForScreen[0]) - 1, allSertificates.indexOf(sertsForScreen[0]) + SERTIFICATES_SCREEN_COUNT_MAX - 1));
+
+          }}}
+        >
+          <svg width="16" height="14" aria-hidden="true">
+            <ArrowLeft/>
           </svg>
         </button>
-        <button className="btn-icon certificate-card__control" type="button" aria-label="next">
-          <svg width="14" height="16" aria-hidden="true">
-            <IconTrash/>
+        <button
+          className="btn-icon personal-account-coach__control"
+          type="button"
+          aria-label="next"
+          onClick={() => {if(sertsForScreen && allSertificates && sertsForScreen[SERTIFICATES_SCREEN_COUNT_MAX - 1 ] !== allSertificates[allSertificates.length - 1]){
+            setSertsForScreen( allSertificates.slice(allSertificates.indexOf(sertsForScreen[0]) + 1, allSertificates.indexOf(sertsForScreen[0]) + SERTIFICATES_SCREEN_COUNT_MAX + 1 ));
+          }
+          }}
+        >
+          <svg width="16" height="14" aria-hidden="true">
+            <ArrowRight/>
           </svg>
         </button>
       </div>
@@ -52,11 +60,12 @@ function TrainersDiplomsBlock():JSX.Element
   }
 
   useEffect(() => {
-    if (isLoadingComplete && sertUrl !== '' && user?.trainerBody?.sertificates.includes(sertUrl) === false) {
-      const newSertificates = [...user.trainerBody.sertificates, sertUrl];
+    if (isLoadingComplete && sertUrl !== '' && allSertificates?.includes(sertUrl) === false) {
+      const newSertificates = [...allSertificates, sertUrl];
       dispatch(updateUser({trainerBody:{sertificates: newSertificates}}));
     }
-  }, [sertUrl]);
+    setSertsForScreen(allSertificates?.slice(0, SERTIFICATES_SCREEN_COUNT_MAX));
+  }, [sertUrl, isLoadingComplete]);
 
   if (!isLoadingComplete){
     return(
@@ -80,42 +89,10 @@ function TrainersDiplomsBlock():JSX.Element
           </svg>
           <span>Загрузить</span>
         </label>
-        <div className="personal-account-coach__controls">
-          <button className="btn-icon personal-account-coach__control" type="button" aria-label="previous">
-            <svg width="16" height="14" aria-hidden="true">
-              <ArrowLeft/>
-            </svg>
-          </button>
-          <button className="btn-icon personal-account-coach__control" type="button" aria-label="next">
-            <svg width="16" height="14" aria-hidden="true">
-              <ArrowRight/>
-            </svg>
-          </button>
-        </div>
+        {(sertsForScreen && user?.trainerBody?.sertificates && user?.trainerBody?.sertificates.length > sertsForScreen?.length) ? <SertificatesBoardControll/> : ''}
       </div>
       <ul className="personal-account-coach__list">
-        <li className="personal-account-coach__item">
-          <div className="certificate-card certificate-card--edit">
-            <div className="certificate-card__image">
-              <picture>
-                <source type="image/webp" srcSet="img/content/certificates-and-diplomas/certificate-1.webp, img/content/certificates-and-diplomas/certificate-1@2x.webp 2x"></source>
-                <img src="img/content/certificates-and-diplomas/certificate-1.jpg" srcSet="img/content/certificates-and-diplomas/certificate-1@2x.jpg 2x" width="294" height="360" alt="Сертификат - Биомеханика ударов в боксе"></img>
-              </picture>
-            </div>
-            <div className="certificate-card__buttons">
-              <button
-                className={isBlockEdit ? 'btn-flat btn-flat--underlined certificate-card__button' : 'btn-flat btn-flat--underlined certificate-card__button certificate-card__button--save'}
-                type="button"
-                onClick={onSaveRedoButtonClickHandle}
-              >
-                <svg width="12" height="12" aria-hidden="true">
-                  <IconEdit/>
-                </svg><span>{isBlockEdit ? 'Coxранить' : 'Изменить'}</span>
-              </button>
-              {isBlockEdit ? <CardsMenu/> : ''}
-            </div>
-          </div>
-        </li>
+        {sertsForScreen?.map((item:string) =>( <SertificateCard item={item} key={item}/>)) }
       </ul>
     </div>
   );

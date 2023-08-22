@@ -13,7 +13,6 @@ export class FitnessUserRepository
 
   public async create(item: FitnessUserEntity): Promise<User> {
     const entityData = item.toObject();
-    console.log('entitydata', entityData);
     return this.prisma.userEntity.create({
       data: {
         ...entityData,

@@ -26,6 +26,8 @@ export const ordersCondition: string[] = [
 
 export const sortingType: string[] = ['asc', 'desc'];
 
+export const SERTIFICATES_SCREEN_COUNT_MAX = 3;
+
 export enum NotificationTextLength {
   Min = 10,
   Max = 140,

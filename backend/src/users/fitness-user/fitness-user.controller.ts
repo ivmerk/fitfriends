@@ -76,7 +76,6 @@ export class FitnessUserController {
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   public async refreshToken(@Req() { user }: RequestWithUser) {
-    console.log('controller');
     return this.fitnessUserService.createUserToken(user);
   }
 

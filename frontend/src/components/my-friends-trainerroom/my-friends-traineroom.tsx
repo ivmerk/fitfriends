@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from '../svg-const/svg-const';
+import FriendCard from '../friend-card/friend-card';
 
 function MyFriendsTrainerroom():JSX.Element{
 
@@ -23,6 +24,7 @@ function MyFriendsTrainerroom():JSX.Element{
               <h1 className="friends-list__title">Мои друзья</h1>
             </div>
             <ul className="friends-list__list">
+              <FriendCard/>
               <li className="friends-list__item">
                 <div className="thumbnail-friend">
                   <div className="thumbnail-friend__info thumbnail-friend__info--theme-light">

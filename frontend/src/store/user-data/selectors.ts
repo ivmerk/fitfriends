@@ -15,6 +15,8 @@ export const getLoggedUserId = (state: State): number | null =>
   state[NameSpace.Data].loggedUserId;
 export const getLoggedUser = (state: State): User | null =>
   state[NameSpace.Data].loggedUser;
+export const getAllTrainerSertificates = (state: State): string[] | undefined =>
+  state[NameSpace.Data].loggedUser?.trainerBody?.sertificates;
 export const getUserAvatar = (state: State): string =>
   state[NameSpace.Data].userAvatar;
 export const getNewUserSertificate = (state: State): string =>
