@@ -70,8 +70,7 @@ export class UserRoomController {
     status: HttpStatus.OK,
     description: 'The friend list has been successfully created.',
   })
-  @Roles(UserRole.Client)
-  @UseGuards(UserRolesGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('friend')
   public async friends(@Req() { user: payload }: RequestWithTokenPayload) {
     const users = await this.userRoomService.showFriends(payload.sub);

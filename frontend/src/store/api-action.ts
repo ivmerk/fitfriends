@@ -221,3 +221,16 @@ export const uploadFileVideo = createAsyncThunk<
   );
   return data.path;
 });
+
+export const getFriends = createAsyncThunk<
+  User[],
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/getfriends', async (_arg, { extra: api }) => {
+  const { data } = await api.get<User[]>(APIRoute.UserFriends);
+  return data;
+});

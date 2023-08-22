@@ -15,6 +15,7 @@ export interface UserData {
   loggedUser: User | null;
   userAvatar: string;
   userSertificate: string;
+  userFriends: User[];
 }
 
 export interface UserProcess {

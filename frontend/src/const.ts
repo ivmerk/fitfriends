@@ -31,6 +31,7 @@ export enum APIRoute {
   UploadImg = '/files/upload/img',
   UploadPdf = '/files/upload/pdf',
   UploadVideo = '/files/upload/video',
+  UserFriends = '/user/friend',
 }
 
 export enum AuthorizationStatus {

@@ -4,6 +4,7 @@ import { UserData } from '../../types/state';
 import {
   checkAuthAction,
   createUser,
+  getFriends,
   getUserById,
   logInAction,
   logOutAction,
@@ -23,6 +24,7 @@ const initialState: UserData = {
   loggedUser: null,
   userAvatar: '',
   userSertificate: '',
+  userFriends: [],
 };
 
 export const userData = createSlice({
@@ -86,6 +88,13 @@ export const userData = createSlice({
       .addCase(uploadSertImg.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.userSertificate = actions.payload;
+      })
+      .addCase(getFriends.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(getFriends.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.userFriends = Object.values(actions.payload);
       });
   },
 });

@@ -1,11 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from '../svg-const/svg-const';
 import FriendCard from '../friend-card/friend-card';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFriends } from '../../store/api-action';
+import { getUserFriends } from '../../store/user-data/selectors';
+import { User } from '../../types/user';
 
 function MyFriendsTrainerroom():JSX.Element{
 
-
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const friends = useAppSelector<User[]>(getUserFriends);
+  useEffect(() =>{
+    dispatch(getFriends());
+
+  }, []);
   return(
     <main>
       <section className="friends-list">
@@ -24,7 +34,7 @@ function MyFriendsTrainerroom():JSX.Element{
               <h1 className="friends-list__title">Мои друзья</h1>
             </div>
             <ul className="friends-list__list">
-              <FriendCard/>
+              {friends.map((friend) => <FriendCard item={friend} key={friend.userId}/>)}
               <li className="friends-list__item">
                 <div className="thumbnail-friend">
                   <div className="thumbnail-friend__info thumbnail-friend__info--theme-light">
@@ -168,7 +178,8 @@ function MyFriendsTrainerroom():JSX.Element{
                       </li>
                     </ul>
                     <div className="thumbnail-friend__activity-bar">
-                      <div className="thumbnail-friend__ready-status thumbnail-friend__ready-status--is-not-ready"><span>Не&nbsp;готов к&nbsp;тренировке</span>
+                      <div className="thumbnail-friend__ready-status thumbnail-friend__ready-status--is-not-ready">
+                        <span>Не готов к тренировке</span>
                       </div>
                     </div>
                   </div>

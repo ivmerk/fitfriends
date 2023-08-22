@@ -21,3 +21,5 @@ export const getUserAvatar = (state: State): string =>
   state[NameSpace.Data].userAvatar;
 export const getNewUserSertificate = (state: State): string =>
   state[NameSpace.Data].userSertificate;
+export const getUserFriends = (state: State): User[] =>
+  state[NameSpace.Data].userFriends;
