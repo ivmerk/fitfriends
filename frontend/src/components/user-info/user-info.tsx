@@ -10,7 +10,7 @@ import { setToEdit } from '../../store/user-process/user-process';
 import useInput from '../../hooks/use-input';
 import useTextarea from '../../hooks/use-textarea';
 import { updateUser, uploadFileImg } from '../../store/api-action';
-import { hostPort } from '../../common/constant';
+import { HOST_PORT } from '../../common/constant';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
@@ -179,7 +179,7 @@ function UserInfo():JSX.Element{
             >
             </input>
             <span className="input-load-avatar__avatar">
-              {user ? <img src={`${hostPort}${user?.userAvatar}`} srcSet={`${hostPort}${user?.userAvatar} 2x`} width="98" height="98" alt="user"/> : ''}
+              {user ? <img src={`${HOST_PORT}${user?.userAvatar}`} srcSet={`${HOST_PORT}${user?.userAvatar} 2x`} width="98" height="98" alt="user"/> : ''}
             </span>
           </label>
         </div>

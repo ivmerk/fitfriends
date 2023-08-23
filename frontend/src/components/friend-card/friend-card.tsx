@@ -1,4 +1,4 @@
-import { OrdersCondition, hostPort} from '../../common/constant';
+import { OrdersCondition, HOST_PORT} from '../../common/constant';
 import { capitalizeFirst } from '../../common/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getTrainingPersonalOrderList } from '../../store/user-data/selectors';
@@ -51,7 +51,7 @@ function FriendCard({card} :FriendCardPropes):JSX.Element{
           <div className="thumbnail-friend__image-status">
             <div className="thumbnail-friend__image">
               <picture>
-                {userAvatar ? <img src={`${hostPort}${userAvatar}`} srcSet={`${hostPort}${userAvatar} 2x`} width="78" height="78" alt="user"/> : ''}
+                {userAvatar ? <img src={`${HOST_PORT}${userAvatar}`} srcSet={`${HOST_PORT}${userAvatar} 2x`} width="78" height="78" alt="user"/> : ''}
               </picture>
             </div>
           </div>

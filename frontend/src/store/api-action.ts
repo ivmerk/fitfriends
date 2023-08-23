@@ -16,10 +16,13 @@ import { UploadedFile } from '../types/upload-file';
 import { GetTrainingFeedQuery } from '../types/get-training-feed-query';
 import {
   getPersonalTrainingOrderApprovingUrl,
+  getListOfTrainingUrl,
   getTreinerListQuery,
 } from '../common/geturl';
 import { PersonalOrderTraining } from '../types/personal-order-training';
 import { PersonalOrderTrainingStatusQuery } from '../types/personal-order-training-status.query';
+import { TrainingListQuery } from '../types/training-list-query';
+import { TrainingOrderFeed } from '../types/training-order-feed';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -235,7 +238,7 @@ export const getFriends = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/getfriends', async (_arg, { extra: api }) => {
+>('user/getfriends', async (_arg, { extra: api }) => {
   const { data } = await api.get<User[]>(APIRoute.UserFriends);
   return data;
 });
@@ -248,7 +251,7 @@ export const getPersonalOrdersList = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/getpersonalrderlist', async (_arg, { extra: api }) => {
+>('trainer/getpersonalrderlist', async (_arg, { extra: api }) => {
   const { data } = await api.get<PersonalOrderTraining[]>(
     APIRoute.UserPersonalOrder
   );
@@ -264,10 +267,28 @@ export const getPersonalOrderAprooving = createAsyncThunk<
     extra: AxiosInstance;
   }
 >(
-  'data/getpersonalorderapprooving',
+  'trainer/getpersonalorderapprooving',
   async ({ orderId, newStatus }, { extra: api }) => {
     const { data } = await api.patch<PersonalOrderTraining[]>(
       getPersonalTrainingOrderApprovingUrl(orderId, newStatus)
+    );
+    return data;
+  }
+);
+
+export const getOrderedListOfTraining = createAsyncThunk<
+  TrainingOrderFeed[],
+  TrainingListQuery,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'trainer/gettraininglist',
+  async ({ trainingQttSortingType, totalMoneySortingType }, { extra: api }) => {
+    const { data } = await api.get<TrainingOrderFeed[]>(
+      getListOfTrainingUrl(trainingQttSortingType, totalMoneySortingType)
     );
     return data;
   }

@@ -2,6 +2,7 @@ import { AuthorizationStatus } from '../common/const';
 import { store } from '../store';
 import { PersonalOrderTraining } from './personal-order-training';
 import { Training } from './training';
+import { TrainingOrderFeed } from './training-order-feed';
 import { User, UserFormRegister } from './user';
 import { UserRole } from './user-role.enum';
 
@@ -31,6 +32,7 @@ export interface UserProcess {
 export interface TrainingData {
   trainerTrainingList: Training[];
   isLoadingComplete: boolean;
+  trainerOrderedTrainingList: TrainingOrderFeed[];
 }
 export type State = ReturnType<typeof store.getState>;
 

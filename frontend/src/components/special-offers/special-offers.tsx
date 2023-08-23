@@ -1,4 +1,4 @@
-import { hopeSoonImage } from '../../common/constant';
+import { HOPE_SOON_IMAGE } from '../../common/constant';
 import { LogoType } from '../svg-const/svg-const';
 
 function SpecialOffers():JSX.Element{
@@ -13,7 +13,7 @@ function SpecialOffers():JSX.Element{
                 <div className="promo-slider__overlay"></div>
                 <div className="promo-slider__image">
 
-                  <img src="img/content/promo-1.png" srcSet="img/content/promo-1@2x.png 2x" width="1040" height="469" alt="promo-photo"></img>
+                  <img src="img/content/promo-1.png" srcSet="img/content/promo-1@2x.png 2x" width="1040" height="469" alt="promo"></img>
                 </div>
                 <div className="promo-slider__header">
                   <h3 className="promo-slider__title">Fitball</h3>
@@ -69,7 +69,7 @@ function SpecialOffers():JSX.Element{
               <aside className="promo-slider">
                 <div className="promo-slider__overlay"></div>
                 <div className="promo-slider__image">
-                  <img src={hopeSoonImage} width="1040" height="469" alt="promo-photo"></img>
+                  <img src={HOPE_SOON_IMAGE} width="1040" height="469" alt="promo"></img>
                 </div>
                 <div className="promo-slider__header">
                   <h3 className="promo-slider__title">Full Body Stretch</h3>
@@ -98,8 +98,7 @@ function SpecialOffers():JSX.Element{
             <div className="thumbnail-spec-gym__image">
               <picture>
                 <source type="image/webp" srcSet="img/content/thumbnails/nearest-gym-01.webp, img/content/thumbnails/nearest-gym-01@2x.webp 2x"></source>
-                <img src={hopeSoonImage} width="1040" height="469" alt="promo-photo"></img>
-                {/* <img src="img/content/thumbnails/nearest-gym-01.jpg" srcSet="img/content/thumbnails/nearest-gym-01@2x.jpg 2x" width="330" height="190" alt=""></img> */}
+                <img src={HOPE_SOON_IMAGE} width="1040" height="469" alt="promo"></img>
               </picture>
             </div>
             <div className="thumbnail-spec-gym__header" >

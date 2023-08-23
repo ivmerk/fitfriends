@@ -22,7 +22,7 @@ import { PersonalOrderTrainingEntity } from 'src/personal-order-training/persona
 import { ordersCondition } from 'src/common/constant';
 import { PersonalOrderTrainingRepository } from 'src/personal-order-training/personal-order-training.repository';
 import { TrainingListQuery } from './query/training-list.query';
-import { error } from 'console';
+import { TrainingOrderFeed } from 'src/types/trraining-order-feed.interface';
 
 @Injectable()
 export class UserRoomService {
@@ -208,6 +208,21 @@ export class UserRoomService {
     const myTrainings = await this.fitnessTrainingRepository.findByTranerId(
       payload.sub,
     );
+
+    function compareByQtt(prev: TrainingOrderFeed, next: TrainingOrderFeed) {
+      if (query.trainingQttSortingType === 'asc') {
+        return prev.trainingQtt - next.trainingQtt;
+      } else {
+        return next.trainingQtt - prev.trainingQtt;
+      }
+    }
+    function compareByAmount(prev: TrainingOrderFeed, next: TrainingOrderFeed) {
+      if (query.totalMoneySortingType === 'asc') {
+        return prev.totalPaymentAmount - next.totalPaymentAmount;
+      } else {
+        return next.totalPaymentAmount - prev.totalPaymentAmount;
+      }
+    }
     if (myTrainings) {
       const result = myTrainings.map(async (training) => {
         const orders = await this.orderTrainingRepository.findByTrainingId(
@@ -218,13 +233,22 @@ export class UserRoomService {
           const totalPaymentAmount = trainingQtt * training.price;
 
           return {
-            ...training,
+            trainingId: training.trainingId,
+            title: training.title,
+            typeOfTraining: training.typeOfTraining,
+            price: training.price,
+            backgroundPicture: training.backgroundPicture,
+            caloriesQtt: training.caloriesQtt,
+            description: training.description,
+            rating: training.rating,
             trainingQtt: trainingQtt,
             totalPaymentAmount: totalPaymentAmount,
           };
         }
       });
-      return await Promise.all(result);
+      return (await Promise.all(result))
+        .sort(compareByQtt)
+        .sort(compareByAmount);
     }
   }
 }

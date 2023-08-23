@@ -34,6 +34,7 @@ export enum APIRoute {
   UserFriends = '/user/friend',
   UserPersonalOrder = '/user/personalorder',
   PersonalOrderAprooving = '/user/personalorder?orderId={orderId}&newStatus={newStatus}',
+  ListOfTraining = '/user/traininglist?trainingQttSortingType={trainingQttSortingType}&totalMoneySortingType={totalMoneySortingType}',
 }
 
 export enum AuthorizationStatus {

@@ -31,3 +31,12 @@ export const getPersonalTrainingOrderApprovingUrl = (
     '{orderId}',
     orderId.toString()
   ).replace('{newStatus}', newStatus);
+
+export const getListOfTrainingUrl = (
+  trainingQttSortingType: string,
+  totalMoneySortingType: string
+) =>
+  APIRoute.ListOfTraining.replace(
+    '{trainingQttSortingType}',
+    trainingQttSortingType
+  ).replace('{totalMoneySortingType}', totalMoneySortingType);

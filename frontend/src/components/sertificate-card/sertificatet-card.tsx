@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { hostPort } from '../../common/constant';
+import { HOST_PORT } from '../../common/constant';
 import { IconChange, IconEdit, IconTrash } from '../svg-const/svg-const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAllTrainerSertificates, getIsLoadingComplete, getNewUserSertificate } from '../../store/user-data/selectors';
@@ -94,7 +94,7 @@ export function SertificateCard({item}:SertificateCardPropes):JSX.Element{
       <div className="certificate-card certificate-card--edit">
         <div className="certificate-card__image">
           <picture>
-            <img src={`${hostPort}${item}`} width="294" height="360" alt="Сертификат"></img>
+            <img src={`${HOST_PORT}${item}`} width="294" height="360" alt="Сертификат"></img>
           </picture>
         </div>
         <div className="certificate-card__buttons">

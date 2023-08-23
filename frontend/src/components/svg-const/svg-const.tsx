@@ -55,6 +55,14 @@ export const IconChange = () =>(
   </svg>
 );
 
+export const IconChart = () => (
+  <svg width="100%" height="100%" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M13.165 14.725H9.18999C8.24499 14.725 7.48001 15.49 7.48001 16.435V24.115H13.165V14.725Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M17.1419 7.89996H14.8619C13.9169 7.89996 13.1519 8.66499 13.1519 9.60999V24.1H18.8369V9.60999C18.8369 8.66499 18.0869 7.89996 17.1419 7.89996Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M22.8222 17.275H18.8472V24.1H24.5322V18.985C24.5172 18.04 23.7522 17.275 22.8222 17.275Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11.5 31H20.5C28 31 31 28 31 20.5V11.5C31 4 28 1 20.5 1H11.5C4 1 1 4 1 11.5V20.5C1 28 4 31 11.5 31Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 
 export const IconCup = () => (
   <svg width="100%" height="100%" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,6 +104,12 @@ export const IconImportVideo = () => (
   </svg>
 );
 
+export const IconInfo = () => (
+  <svg width="100%" height="100%" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9 5.8V9.8M8.99561 12.2H9.00279M9 17C13.4 17 17 13.4 17 9C17 4.6 13.4 1 9 1C4.6 1 1 4.6 1 9C1 13.4 4.6 17 9 17Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 export const IconLocation = () => (
   <svg width="100%" height="100%" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M7.00001 8.62182C8.19902 8.62182 9.17101 7.69035 9.17101 6.54132C9.17101 5.39229 8.19902 4.46083 7.00001 4.46083C5.801 4.46083 4.82901 5.39229 4.82901 6.54132C4.82901 7.69035 5.801 8.62182 7.00001 8.62182Z" stroke="currentColor"/>
@@ -103,9 +117,36 @@ export const IconLocation = () => (
   </svg>
 );
 
+export const IconSortUp = () =>(
+  <svg width="100%" height="100%" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1H17H1Z" fill="#8E8E8E"/>
+    <path d="M1 6H13H1Z" fill="#8E8E8E"/>
+    <path d="M1 11H7H1Z" fill="#8E8E8E"/>
+    <path d="M1 1H17M1 6H13M1 11H7" stroke="currentColor" strokeLinecap="round"/>
+  </svg>
+);
+
+export const IconSortDown = () => (
+  <svg width="100%" height="100%" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 11H17M1 6H13M1 1H7" stroke="currentColor" strokeLinecap="round"/>
+  </svg>
+);
+
+export const IconStar = () => (
+  <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9.38211 1.15534L10.79 3.9943C10.9819 4.3895 11.4939 4.76856 11.9258 4.84115L14.4775 5.2686C16.1094 5.54282 16.4933 6.73647 15.3175 7.914L13.3337 9.91417C12.9977 10.2529 12.8137 10.9062 12.9177 11.374L13.4857 13.85C13.9336 15.8098 12.9017 16.568 11.1819 15.5437L8.79017 14.1162C8.35822 13.8581 7.6463 13.8581 7.20635 14.1162L4.81461 15.5437C3.1028 16.568 2.06292 15.8018 2.51087 13.85L3.07881 11.374C3.18279 10.9062 2.99881 10.2529 2.66285 9.91417L0.679071 7.914C-0.4888 6.73647 -0.112841 5.54282 1.51898 5.2686L4.0707 4.84115C4.49465 4.76856 5.00659 4.3895 5.19857 3.9943L6.60642 1.15534C7.37433 -0.385114 8.62219 -0.385114 9.38211 1.15534Z" fill="currentColor"/>
+  </svg>
+);
+
 export const IconTrash = () =>(
   <svg width="100%" height="100%" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M15 4.184C12.41 3.92 9.80444 3.784 7.20667 3.784C5.66667 3.784 4.12667 3.864 2.58667 4.024L1 4.184M5.27778 3.376L5.44889 2.328C5.57333 1.568 5.66667 1 6.98111 1H9.01889C10.3333 1 10.4344 1.6 10.5511 2.336L10.7222 3.376M13.3278 6.712L12.8222 14.768C12.7367 16.024 12.6667 17 10.4967 17H5.50333C3.33333 17 3.26333 16.024 3.17778 14.768L2.67222 6.712M6.70111 12.6H9.29111M6.05556 9.4H9.94444" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const IconWallet = () => (
+  <svg width="31" height="28" viewBox="0 0 31 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16.95 9.41176H8.24999M28.55 17.1353C29.362 17.1047 30 16.4165 30 15.5753V12.4247C30 11.5835 29.362 10.8953 28.55 10.8647M28.55 17.1353H25.708C24.142 17.1353 22.7065 15.927 22.576 14.2753C22.489 13.3118 22.837 12.4094 23.446 11.7823C23.9825 11.2012 24.722 10.8647 25.534 10.8647H28.55M28.55 17.1353L28.55 19.3529C28.55 23.9412 25.65 27 21.3 27H8.24999C3.9 27 1 23.9412 1 19.3529V8.64706C1 4.48706 3.378 1.58117 7.07549 1.09176C7.45249 1.03058 7.84399 1 8.24999 1H21.3C21.677 1 22.0395 1.01528 22.3875 1.07645C26.1285 1.53528 28.55 4.45647 28.55 8.64706L28.55 10.8647" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 

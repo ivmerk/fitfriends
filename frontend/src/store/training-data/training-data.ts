@@ -1,11 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../common/const';
 import { TrainingData } from '../../types/state';
-import { createTraining, getTrainerTrainingList } from '../api-action';
+import {
+  createTraining,
+  getOrderedListOfTraining,
+  getTrainerTrainingList,
+} from '../api-action';
 
 const initialState: TrainingData = {
   trainerTrainingList: [],
   isLoadingComplete: true,
+  trainerOrderedTrainingList: [],
 };
 
 export const trainingData = createSlice({
@@ -26,6 +31,13 @@ export const trainingData = createSlice({
       .addCase(getTrainerTrainingList.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.trainerTrainingList = Object.values(actions.payload);
+      })
+      .addCase(getOrderedListOfTraining.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(getOrderedListOfTraining.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.trainerOrderedTrainingList = Object.values(actions.payload);
       });
   },
 });

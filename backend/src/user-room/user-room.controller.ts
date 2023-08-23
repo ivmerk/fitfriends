@@ -31,6 +31,7 @@ import { OrderTrainingRdo } from './rdo/order-training.rdo';
 import { PersonalOrderTrainingRdo } from './rdo/personal-order-training.rdo';
 import { TrainingRdo } from 'src/training/fitness-training/rdo/training.rdo';
 import { ApiResponse } from '@nestjs/swagger';
+import { TrainingOrderFeedRdo } from './rdo/training-order-feed.rdo';
 
 @Controller('user')
 export class UserRoomController {
@@ -216,6 +217,6 @@ export class UserRoomController {
       query,
       payload,
     );
-    return { ...fillObject(TrainingRdo, trainings) };
+    return { ...fillObject(TrainingOrderFeedRdo, trainings) };
   }
 }
