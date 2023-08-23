@@ -36,6 +36,14 @@ export class PersonalOrderTrainingRepository
     });
   }
 
+  public async findByTrainerId(
+    trainerId: number,
+  ): Promise<PersonalOrderTraining[]> {
+    return await this.prisma.personalOrderTraining.findMany({
+      where: { trainerId },
+    });
+  }
+
   public async update(
     personalOrderTrainingId: number,
     personalOrderTrainingEntity: PersonalOrderTrainingEntity,

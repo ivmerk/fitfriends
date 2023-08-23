@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute} from '../../const';
+import { AppRoute} from '../../common/const';
 import MainScreen from '../../pages/main-screen/main-screen';
 import SignUpScreen from '../../pages/sign-up-screen/sign-up-screen';
 import RegistrationScreen from '../../pages/registration-screen/registration-screen';

@@ -1,13 +1,49 @@
-import { hostPort } from '../../common/constant';
+import { OrdersCondition, hostPort} from '../../common/constant';
 import { capitalizeFirst } from '../../common/utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getTrainingPersonalOrderList } from '../../store/user-data/selectors';
+import { PersonalOrderTraining } from '../../types/personal-order-training';
 import { User } from '../../types/user';
+import { IconLocation } from '../svg-const/svg-const';
+import { getPersonalOrderAprooving } from '../../store/api-action';
 
 type FriendCardPropes = {
-  item: User;
+  card: User;
 }
 
-function FriendCard({item} :FriendCardPropes):JSX.Element{
-  const {userName, location, typesOfTraining, clientBody, userAvatar} = item;
+function FriendCard({card} :FriendCardPropes):JSX.Element{
+  const dispatch = useAppDispatch();
+
+  const {userName, location, typesOfTraining, clientBody, userAvatar, userId} = card;
+  const trainings = useAppSelector<PersonalOrderTraining[]>(getTrainingPersonalOrderList);
+  const personalTraining = trainings.find((item) => item.userId === userId);
+
+  function PersonalTrainingMenu():JSX.Element{
+    return(
+      <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
+        <p className="thumbnail-friend__request-text">Запрос на&nbsp;персональную тренировку</p>
+        <div className="thumbnail-friend__button-wrapper">
+          <button
+            className="btn btn--medium btn--dark-bg thumbnail-friend__button"
+            type="button"
+            onClick={() => {if(personalTraining){dispatch(getPersonalOrderAprooving(
+              {orderId: personalTraining.personalOrderTrainingId,newStatus: OrdersCondition.Aprooved }
+            ));}}}
+          >Принять
+          </button>
+          <button
+            className="btn btn--medium btn--outlined btn--dark-bg thumbnail-friend__button"
+            type="button"
+            onClick={() => {if(personalTraining){dispatch(getPersonalOrderAprooving(
+              {orderId: personalTraining.personalOrderTrainingId,newStatus: OrdersCondition.Rejected}
+            ));}}}
+          >Отклонить
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return(
     <li className="friends-list__item">
       <div className="thumbnail-friend">
@@ -23,7 +59,7 @@ function FriendCard({item} :FriendCardPropes):JSX.Element{
             <h2 className="thumbnail-friend__name">{userName}</h2>
             <div className="thumbnail-friend__location">
               <svg width="14" height="16" aria-hidden="true">
-                <use xlinkHref="#icon-location"></use>
+                <IconLocation/>
               </svg>
               <address className="thumbnail-friend__location-address">{capitalizeFirst(location)}</address>
             </div>
@@ -46,13 +82,7 @@ function FriendCard({item} :FriendCardPropes):JSX.Element{
               </div>}
           </div>
         </div>
-        <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
-          <p className="thumbnail-friend__request-text">Запрос на&nbsp;персональную тренировку</p>
-          <div className="thumbnail-friend__button-wrapper">
-            <button className="btn btn--medium btn--dark-bg thumbnail-friend__button" type="button">Принять</button>
-            <button className="btn btn--medium btn--outlined btn--dark-bg thumbnail-friend__button" type="button">Отклонить</button>
-          </div>
-        </div>
+        {personalTraining?.orderCondition === OrdersCondition.Waiting ? <PersonalTrainingMenu/> : ''}
       </div>
     </li>
   );

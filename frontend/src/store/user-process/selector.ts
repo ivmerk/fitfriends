@@ -1,4 +1,4 @@
-import { NameSpace } from '../../const';
+import { NameSpace } from '../../common/const';
 import { State } from '../../types/state';
 import { UserFormRegister } from '../../types/user';
 

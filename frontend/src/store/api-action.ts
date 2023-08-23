@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
-import { APIRoute } from '../const';
+import { APIRoute } from '../common/const';
 import { User, UserUpdateData } from '../types/user';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
@@ -14,7 +14,12 @@ import { Training } from '../types/training';
 import { NewTrainingData } from '../types/new-training-data';
 import { UploadedFile } from '../types/upload-file';
 import { GetTrainingFeedQuery } from '../types/get-training-feed-query';
-import { getTreinerListQuery } from '../common/geturl';
+import {
+  getPersonalTrainingOrderApprovingUrl,
+  getTreinerListQuery,
+} from '../common/geturl';
+import { PersonalOrderTraining } from '../types/personal-order-training';
+import { PersonalOrderTrainingStatusQuery } from '../types/personal-order-training-status.query';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -234,3 +239,36 @@ export const getFriends = createAsyncThunk<
   const { data } = await api.get<User[]>(APIRoute.UserFriends);
   return data;
 });
+
+export const getPersonalOrdersList = createAsyncThunk<
+  PersonalOrderTraining[],
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/getpersonalrderlist', async (_arg, { extra: api }) => {
+  const { data } = await api.get<PersonalOrderTraining[]>(
+    APIRoute.UserPersonalOrder
+  );
+  return data;
+});
+
+export const getPersonalOrderAprooving = createAsyncThunk<
+  PersonalOrderTraining[],
+  PersonalOrderTrainingStatusQuery,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'data/getpersonalorderapprooving',
+  async ({ orderId, newStatus }, { extra: api }) => {
+    const { data } = await api.patch<PersonalOrderTraining[]>(
+      getPersonalTrainingOrderApprovingUrl(orderId, newStatus)
+    );
+    return data;
+  }
+);

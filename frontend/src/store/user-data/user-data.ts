@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus, NameSpace } from '../../const';
+import { AuthorizationStatus, NameSpace } from '../../common/const';
 import { UserData } from '../../types/state';
 import {
   checkAuthAction,
   createUser,
   getFriends,
+  getPersonalOrderAprooving,
+  getPersonalOrdersList,
   getUserById,
   logInAction,
   logOutAction,
@@ -25,6 +27,7 @@ const initialState: UserData = {
   userAvatar: '',
   userSertificate: '',
   userFriends: [],
+  personalTrainingOrders: [],
 };
 
 export const userData = createSlice({
@@ -95,6 +98,20 @@ export const userData = createSlice({
       .addCase(getFriends.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.userFriends = Object.values(actions.payload);
+      })
+      .addCase(getPersonalOrdersList.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(getPersonalOrdersList.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.personalTrainingOrders = Object.values(actions.payload);
+      })
+      .addCase(getPersonalOrderAprooving.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(getPersonalOrderAprooving.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.personalTrainingOrders = Object.values(actions.payload);
       });
   },
 });

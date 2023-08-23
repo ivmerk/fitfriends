@@ -1,5 +1,6 @@
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus } from '../common/const';
 import { store } from '../store';
+import { PersonalOrderTraining } from './personal-order-training';
 import { Training } from './training';
 import { User, UserFormRegister } from './user';
 import { UserRole } from './user-role.enum';
@@ -16,6 +17,7 @@ export interface UserData {
   userAvatar: string;
   userSertificate: string;
   userFriends: User[];
+  personalTrainingOrders: PersonalOrderTraining[];
 }
 
 export interface UserProcess {

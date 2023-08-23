@@ -5,7 +5,7 @@ import { useAppSelector } from '../../hooks';
 import { getLoggedUserRole } from '../../store/user-data/selectors';
 import { UserRole } from '../../types/user-role.enum';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../common/const';
 
 function SignUpScreen(): JSX.Element{
   const loggedUserRole = useAppSelector(getLoggedUserRole);

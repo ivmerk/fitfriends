@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
+import { NameSpace } from '../../common/const';
 import { TrainingData } from '../../types/state';
 import { createTraining, getTrainerTrainingList } from '../api-action';
 

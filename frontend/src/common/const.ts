@@ -32,6 +32,8 @@ export enum APIRoute {
   UploadPdf = '/files/upload/pdf',
   UploadVideo = '/files/upload/video',
   UserFriends = '/user/friend',
+  UserPersonalOrder = '/user/personalorder',
+  PersonalOrderAprooving = '/user/personalorder?orderId={orderId}&newStatus={newStatus}',
 }
 
 export enum AuthorizationStatus {

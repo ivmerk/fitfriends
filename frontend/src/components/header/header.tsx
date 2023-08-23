@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import MainNav from '../main-nav/main-nav';
 import Search from '../search/search';
 import { HeaderLogo } from '../svg-const/svg-const';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../common/const';
 
 function Header():JSX.Element{
   const navigate = useNavigate();

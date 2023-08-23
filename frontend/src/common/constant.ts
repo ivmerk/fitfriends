@@ -18,11 +18,11 @@ export const typesOfOrder: string[] = ['абонемент'];
 
 export const typesOfPayment: string[] = ['visa', 'mir', 'umoney'];
 
-export const ordersCondition: string[] = [
-  'на рассмотрении',
-  'отклонён',
-  'принят',
-];
+export enum OrdersCondition {
+  Waiting = 'на рассмотрении',
+  Rejected = 'отклонён',
+  Aprooved = 'принят',
+}
 
 export const sortingType: string[] = ['asc', 'desc'];
 

@@ -1,4 +1,4 @@
-import { APIRoute } from '../const';
+import { APIRoute } from './const';
 
 export const getTreinerListQuery = (
   durations: string,
@@ -22,3 +22,12 @@ export const getTreinerListQuery = (
     .replace('{page}', page.toString())
     .replace('{limit}', limit.toString())
     .replace('{priceSortType}', priceSortType);
+
+export const getPersonalTrainingOrderApprovingUrl = (
+  orderId: number,
+  newStatus: string
+) =>
+  APIRoute.PersonalOrderAprooving.replace(
+    '{orderId}',
+    orderId.toString()
+  ).replace('{newStatus}', newStatus);

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { UserProcess } from '../../types/state';
-import { NameSpace } from '../../const';
+import { NameSpace } from '../../common/const';
 import { UserFormRegister } from '../../types/user';
 import { TrainingQtt } from '../../common/constant';
 

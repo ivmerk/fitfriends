@@ -53,8 +53,8 @@ Content-Type: application/json
 }
 ###
 # Order personal training
-POST http://localhost:3333/api/user/personalorder/17 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJlbWFpbCI6InNlcDNvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5NDA0NDUzLCJleHAiOjE2ODk0MDUzNTN9.iXP4o19RLvX2bzL0VSKk5GQOGH6S6nqoL1wOictlyOs
+POST http://localhost:3333/api/user/personalorder/66 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjY3LCJlbWFpbCI6ImNsaWVudG1hc2hhQGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6Ik1hc2ggQ2xpZW50IiwiaWF0IjoxNjkyNzIwOTQxLCJleHAiOjE2OTI3MjE4NDF9.qo62eJMXXDI6RBUQs2QbmGAVP3OHxXIbR9kJrHMylVc
 
 ###
 # Get personal order

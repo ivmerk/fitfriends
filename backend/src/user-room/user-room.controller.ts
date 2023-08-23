@@ -173,6 +173,21 @@ export class UserRoomController {
   @ApiResponse({
     type: PersonalOrderTrainingRdo,
     status: HttpStatus.OK,
+    description: 'The personal training order list successfully showed',
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get('personalorder')
+  public async checkTrainerPersonalOrders(
+    @Req() { user: payload }: RequestWithTokenPayload,
+  ) {
+    const personalOrders =
+      await this.userRoomService.getPersonalOrderTrainerList(payload.sub);
+    return fillObject(PersonalOrderTrainingRdo, personalOrders);
+  }
+
+  @ApiResponse({
+    type: PersonalOrderTrainingRdo,
+    status: HttpStatus.OK,
     description: 'The personal training order successfully changed',
   })
   @UseGuards(JwtAuthGuard)

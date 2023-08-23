@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { IconAdd, IconBag, IconFlash, IconFriend } from '../svg-const/svg-const';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../common/const';
 import AnnounceSpec from '../announce-spec/announce-spec';
 
 function TrainerNavigationList():JSX.Element{

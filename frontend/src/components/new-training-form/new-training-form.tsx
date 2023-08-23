@@ -13,7 +13,7 @@ import { getIsLoadingComplete, getLoggedUserId } from '../../store/user-data/sel
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../common/const';
 import { trainingCardsImage } from '../../common/constant';
 
 function NewTrainingForm():JSX.Element{

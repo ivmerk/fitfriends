@@ -7,7 +7,7 @@ import {useAppDispatch, useAppSelector } from '../../hooks';
 import { logInAction, updateUser } from '../../store/api-action';
 import { useNavigate } from 'react-router-dom';
 import { getIsLoadingComplete} from '../../store/user-data/selectors';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../common/const';
 import { getRegistredUser } from '../../store/user-process/selector';
 
 function QuestionnaireUser():JSX.Element{

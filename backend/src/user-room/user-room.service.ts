@@ -188,8 +188,17 @@ export class UserRoomService {
         orderCondition: newStatus,
       });
       entity.createdAt = order.createdAt;
-      return await this.personalOrderTrainingRepository.update(orderId, entity);
+      await this.personalOrderTrainingRepository.update(orderId, entity);
+      return await this.personalOrderTrainingRepository.findByTrainerId(
+        order.trainerId,
+      );
     }
+  }
+
+  public async getPersonalOrderTrainerList(trainerId: number) {
+    return await this.personalOrderTrainingRepository.findByTrainerId(
+      trainerId,
+    );
   }
 
   public async createTrainerTrainingList(

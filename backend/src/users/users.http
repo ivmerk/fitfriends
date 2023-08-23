@@ -44,8 +44,8 @@ POST http://localhost:3333/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "clienbbbdddt@gmail.cwm",
-  "password": "adsfaasdfadf"
+  "email": "clientmasha@gmail.cwm",
+  "password": "qwertyuiop"
 }
 ###
 # Get user  feed
