@@ -24,7 +24,7 @@ export enum OrdersCondition {
   Aprooved = 'принят',
 }
 
-export const sortingType: string[] = ['asc', 'desc'];
+export const sortingType: string[] = ['asc', 'desc', 'none'];
 
 export const SERTIFICATES_SCREEN_COUNT_MAX = 3;
 
@@ -32,9 +32,19 @@ export const DEFAULT_SCREEN_ITEMS_COUNT = 6;
 
 export const DEFAULT_MY_ORDER_ITEMS_COUNT = 4;
 
+export const DEFAULT_SPETIAL_OEFFERS_COUNT = 3;
+
+export const DEFAULT_SPETIAL_OEFFERS_COUN_MAX = 9;
+
 export enum NotificationTextLength {
   Min = 10,
   Max = 140,
+}
+
+export enum SortingType {
+  Asc = 'asc',
+  Desc = 'desc',
+  None = 'none',
 }
 
 export const typesOfNotification: string[] = [
@@ -80,7 +90,7 @@ export const trainingCardsImage = [
   },
   {
     name: 'stratching',
-    nameCyr: 'стретчинг',
+    nameCyr: 'стрейчинг',
     img: 'img/content/thumbnails/training-09',
   },
   {

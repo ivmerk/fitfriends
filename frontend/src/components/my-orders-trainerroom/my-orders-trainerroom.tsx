@@ -7,7 +7,7 @@ import { getIsLoadingTrainingComplete, getOrderedTrainingList } from '../../stor
 import OrderTrainingCard from '../order-training-card/order-training-card';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import { DEFAULT_MY_ORDER_ITEMS_COUNT } from '../../common/constant';
+import { DEFAULT_MY_ORDER_ITEMS_COUNT, SortingType } from '../../common/constant';
 
 function MyOrdersTrainerroom():JSX.Element{
   const dispatch = useAppDispatch();
@@ -16,8 +16,8 @@ function MyOrdersTrainerroom():JSX.Element{
   const isLoadingComplete = useAppSelector(getIsLoadingTrainingComplete);
   const navigate = useNavigate();
 
-  const [qttSortType, setQttSortType] = useState('asc');
-  const [totalMoneySortType, setTotalMoneySortType] = useState('asc');
+  const [qttSortType, setQttSortType] = useState('desc');
+  const [totalMoneySortType, setTotalMoneySortType] = useState('desc');
   const [ordersOnScreenCount, setOrdersOnScreenCount] = useState(DEFAULT_MY_ORDER_ITEMS_COUNT);
 
   function ShowMoreButton():JSX.Element{
@@ -33,22 +33,22 @@ function MyOrdersTrainerroom():JSX.Element{
 
   const onClickAmountSortButtonHandle = () =>{
     setOrdersOnScreenCount(DEFAULT_MY_ORDER_ITEMS_COUNT);
-    if (totalMoneySortType === 'asc') {
-      setTotalMoneySortType('desc');
-      dispatch(getOrderedListOfTraining({trainingQttSortingType:qttSortType,totalMoneySortingType:'asc'}));
+    if (totalMoneySortType === SortingType.Asc) {
+      setTotalMoneySortType(SortingType.Desc);
+      dispatch(getOrderedListOfTraining({trainingQttSortingType:SortingType.None,totalMoneySortingType:SortingType.Asc}));
     } else {
-      setTotalMoneySortType('asc');
-      dispatch(getOrderedListOfTraining({trainingQttSortingType:qttSortType,totalMoneySortingType:'desc'}));
+      setTotalMoneySortType(SortingType.Asc);
+      dispatch(getOrderedListOfTraining({trainingQttSortingType:SortingType.None,totalMoneySortingType:SortingType.Desc}));
     }};
 
   const onClickQttSortButtonHandle = () =>{
     setOrdersOnScreenCount(DEFAULT_MY_ORDER_ITEMS_COUNT);
-    if (qttSortType === 'asc') {
-      setQttSortType('desc');
-      dispatch(getOrderedListOfTraining({trainingQttSortingType:'asc',totalMoneySortingType:totalMoneySortType}));
+    if (qttSortType === SortingType.Asc) {
+      setQttSortType(SortingType.Desc);
+      dispatch(getOrderedListOfTraining({trainingQttSortingType:'asc',totalMoneySortingType:SortingType.None}));
     } else {
-      setQttSortType('asc');
-      dispatch(getOrderedListOfTraining({trainingQttSortingType:'desc',totalMoneySortingType:totalMoneySortType}));
+      setQttSortType(SortingType.Asc);
+      dispatch(getOrderedListOfTraining({trainingQttSortingType:SortingType.Desc,totalMoneySortingType:SortingType.None}));
     }};
   useEffect(() =>{
     dispatch(getOrderedListOfTraining({trainingQttSortingType:qttSortType,totalMoneySortingType:totalMoneySortType}));

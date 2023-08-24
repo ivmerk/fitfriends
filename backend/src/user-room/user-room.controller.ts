@@ -219,4 +219,21 @@ export class UserRoomController {
     );
     return { ...fillObject(TrainingOrderFeedRdo, trainings) };
   }
+
+  @ApiResponse({
+    type: TrainingRdo,
+    status: HttpStatus.OK,
+    description: 'The user recomendation training list successfully created',
+  })
+  @Roles(UserRole.Client)
+  @UseGuards(UserRolesGuard)
+  @Get('recomendations')
+  public async getRecomendationTraining(
+    @Req() { user: payload }: RequestWithTokenPayload,
+  ) {
+    const trainings = await this.userRoomService.createRecomandationList(
+      payload,
+    );
+    return { ...fillObject(TrainingRdo, trainings) };
+  }
 }

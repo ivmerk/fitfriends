@@ -71,7 +71,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpb
 PATCH http://localhost:3333/api/user/personalorder?orderId=2&newStatus=отклонён HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpbCI6InNlcDRvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoiY2xpZW50IiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5NDA3MzczLCJleHAiOjE2ODk0MDgyNzN9.LtAfFwpTuMIuO3tnTkdy9Jwp1EHEgsGUWoo6BpK99hA
 ###
-# Reciving list of training
+# Reciving trainerroom list of training
 GET http://localhost:3333/api/user/traininglist?trainingQttSortingType=asc&totalMoneySortingType=asc HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpbCI6InNlcDRvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoidHJhaW5lciIsIm5hbWUiOiLQktCw0YHQuNC70LjQuSIsImlhdCI6MTY4OTk0MzUwNywiZXhwIjoxNjg5OTQ0NDA3fQ.fYFoqatP9ZtErbZSdIeNna5FtK_S6eHOlmLS2BGTYfg
 ###
+
+# # Reciving recomendations userroom list of trainining
+# GET http://localhost:3333/api/user/recomendations HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpbCI6InNlcDRvb2NsaWVudGllbnFxMjMyM292QGdtYWlsLmN3bSIsInVzZXJSb2xlIjoidHJhaW5lciIsIm5hbWUiOiLQktCw0YHQuNC70LjQuSIsImlhdCI6MTY4OTk0MzUwNywiZXhwIjoxNjg5OTQ0NDA3fQ.fYFoqatP9ZtErbZSdIeNna5FtK_S6eHOlmLS2BGTYfg
+# {
+#   "typesOfTraining": [],
+#   "timeOfTraining": 1,
+#   "levelOfExperience": "",
+#   "caloryLosingPlanTotal": 1000
+# }
+# ###

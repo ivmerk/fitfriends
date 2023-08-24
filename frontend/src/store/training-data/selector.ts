@@ -11,3 +11,6 @@ export const getIsLoadingTrainingComplete = (state: State): boolean =>
 
 export const getOrderedTrainingList = (state: State): TrainingOrderFeed[] =>
   state[NameSpace.Training].trainerOrderedTrainingList;
+
+export const getRecomendationTrainingList = (state: State): Training[] =>
+  state[NameSpace.Training].recomendatedTrainingList;

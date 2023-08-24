@@ -16,6 +16,8 @@ export enum TrainingDescriptionLength {
   Max = 140,
 }
 
+export const PRICE_DISCOUNT = 0.8;
+
 export const typesOfTraining: string[] = [
   'йога',
   'бег',

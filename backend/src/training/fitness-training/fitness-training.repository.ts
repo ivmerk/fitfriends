@@ -103,4 +103,29 @@ export class FitnessTrainingRepository
       where: { trainerId },
     });
   }
+
+  public async findRecomend({
+    typesOfTraining,
+    caloriesQtt,
+    duration,
+    levelOfUser,
+  }): Promise<Training[] | null> {
+    console.log({
+      typesOfTraining,
+      caloriesQtt,
+      duration,
+      levelOfUser,
+    });
+    return await this.prisma.trainingEntity.findMany({
+      where: {
+        AND: [
+          { caloriesQtt: { gte: caloriesQtt } },
+          { duration },
+          { levelOfUser },
+          { typeOfTraining: { in: typesOfTraining } },
+        ],
+      },
+      orderBy: { rating: 'desc' },
+    });
+  }
 }

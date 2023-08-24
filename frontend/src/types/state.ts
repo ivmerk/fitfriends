@@ -33,6 +33,7 @@ export interface TrainingData {
   trainerTrainingList: Training[];
   isLoadingComplete: boolean;
   trainerOrderedTrainingList: TrainingOrderFeed[];
+  recomendatedTrainingList: Training[];
 }
 export type State = ReturnType<typeof store.getState>;
 

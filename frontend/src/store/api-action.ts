@@ -293,3 +293,16 @@ export const getOrderedListOfTraining = createAsyncThunk<
     return data;
   }
 );
+
+export const getRecomendationTrainings = createAsyncThunk<
+  Training[],
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/getrecomendations', async (_arg, { extra: api }) => {
+  const { data } = await api.get<Training[]>(APIRoute.TrainingRecomendations);
+  return data;
+});

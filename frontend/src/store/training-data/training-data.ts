@@ -4,6 +4,7 @@ import { TrainingData } from '../../types/state';
 import {
   createTraining,
   getOrderedListOfTraining,
+  getRecomendationTrainings,
   getTrainerTrainingList,
 } from '../api-action';
 
@@ -11,6 +12,7 @@ const initialState: TrainingData = {
   trainerTrainingList: [],
   isLoadingComplete: true,
   trainerOrderedTrainingList: [],
+  recomendatedTrainingList: [],
 };
 
 export const trainingData = createSlice({
@@ -38,6 +40,13 @@ export const trainingData = createSlice({
       .addCase(getOrderedListOfTraining.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.trainerOrderedTrainingList = Object.values(actions.payload);
+      })
+      .addCase(getRecomendationTrainings.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(getRecomendationTrainings.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.recomendatedTrainingList = Object.values(actions.payload);
       });
   },
 });

@@ -17,7 +17,7 @@ function TrainerRoomScreen():JSX.Element{
     if(userId){
       dispatch(getUserById(userId));
     }
-  }, [dispatch, userId]);
+  }, []);
 
   if (!isLoadingComplete && !user){
     return(

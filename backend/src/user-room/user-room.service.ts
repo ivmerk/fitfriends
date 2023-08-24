@@ -19,7 +19,7 @@ import {
 } from './user-room.constant';
 import { TokenPayload } from 'src/types/token-payload.interface';
 import { PersonalOrderTrainingEntity } from 'src/personal-order-training/personal-order-training.entity';
-import { ordersCondition } from 'src/common/constant';
+import { SortingType, ordersCondition } from 'src/common/constant';
 import { PersonalOrderTrainingRepository } from 'src/personal-order-training/personal-order-training.repository';
 import { TrainingListQuery } from './query/training-list.query';
 import { TrainingOrderFeed } from 'src/types/trraining-order-feed.interface';
@@ -212,14 +212,14 @@ export class UserRoomService {
     function compareByQtt(prev: TrainingOrderFeed, next: TrainingOrderFeed) {
       if (query.trainingQttSortingType === 'asc') {
         return prev.trainingQtt - next.trainingQtt;
-      } else {
+      } else if (query.trainingQttSortingType === 'desc') {
         return next.trainingQtt - prev.trainingQtt;
       }
     }
     function compareByAmount(prev: TrainingOrderFeed, next: TrainingOrderFeed) {
-      if (query.totalMoneySortingType === 'asc') {
+      if (query.totalMoneySortingType === SortingType.Asc) {
         return prev.totalPaymentAmount - next.totalPaymentAmount;
-      } else {
+      } else if (query.totalMoneySortingType === SortingType.Desc) {
         return next.totalPaymentAmount - prev.totalPaymentAmount;
       }
     }
@@ -250,5 +250,16 @@ export class UserRoomService {
         .sort(compareByQtt)
         .sort(compareByAmount);
     }
+  }
+
+  public async createRecomandationList(payload: TokenPayload) {
+    const client = await this.fitnessUserService.getUser(payload.sub);
+
+    return await this.fitnessTrainingRepository.findRecomend({
+      typesOfTraining: client.typesOfTraining,
+      caloriesQtt: client.clientBody.caloryLosingPlanTotal,
+      duration: client.clientBody.timeOfTraining,
+      levelOfUser: client.levelOfExperience,
+    });
   }
 }

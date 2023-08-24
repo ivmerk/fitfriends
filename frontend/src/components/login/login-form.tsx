@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthData } from '../../types/auth-data';
 import { logInAction } from '../../store/api-action';
 import { UserPasswordLength } from '../../common/constant.user';
-import { HelmetProvider } from 'react-helmet-async';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { getIsLoggingComplete, } from '../../store/user-data/selectors';
 
@@ -28,9 +28,9 @@ function LoginForm():JSX.Element{
     // if (validPass) {
     //   dispatch(logInAction(authData));
     // }
-    dispatch(logInAction({login: 'kolyatreiner@gmail.com',password: 'qwertyuiop'} ));
+    // dispatch(logInAction({login: 'kolyatreiner@gmail.com',password: 'qwertyuiop'} ));
     // if (true) {
-    //   dispatch(logInAction({login: 'client@gmail.cwm',password: 'adsfaasdfadf'} ));
+    dispatch(logInAction({login: 'cliffent@gmail.cwm',password: 'qwertyuiop'} ));
     // }
 
   };
@@ -55,52 +55,58 @@ function LoginForm():JSX.Element{
 
 
   return(
-    <div className="popup-form__content">
-      <div className="popup-form__title-wrapper">
-        <h1 className="popup-form__title">Вход</h1>
-      </div>
-      <div className="popup-form__form">
-        <form
-          action=""
-          onSubmit={handleSubmit}
-        >
-          <div className="sign-in">
-            <div className="custom-input sign-in__input">
-              <label>
-                <span className="custom-input__label">E-mail</span>
-                <span className="custom-input__wrapper">
-                  <input
-                    ref={loginRef}
-                    placeholder="Email address"
-                    type="email"
-                    name="email"
-                    id="email"
-                  />
+    <>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
+      <div className="popup-form__content">
 
-                </span>
-              </label>
+        <div className="popup-form__title-wrapper">
+          <h1 className="popup-form__title">Вход</h1>
+        </div>
+        <div className="popup-form__form">
+          <form
+            action=""
+            onSubmit={handleSubmit}
+          >
+            <div className="sign-in">
+              <div className="custom-input sign-in__input">
+                <label>
+                  <span className="custom-input__label">E-mail</span>
+                  <span className="custom-input__wrapper">
+                    <input
+                      ref={loginRef}
+                      placeholder="Email address"
+                      type="email"
+                      name="email"
+                      id="email"
+                    />
+
+                  </span>
+                </label>
+              </div>
+              <div className="custom-input sign-in__input">
+                <label>
+                  <span className="custom-input__label">Пароль</span>
+                  <span className="custom-input__wrapper">
+                    <input
+                      ref={passwordRef}
+                      placeholder="Password"
+                      onChange={onKeyDownCaptureHandle}
+                      style={(validPass) ? {borderColor:'green'} : {borderColor:'red'}}
+                      type="password"
+                      name="password"
+                      id="password"
+                    />
+                  </span>
+                </label>
+              </div>
+              <button className="btn sign-in__button" type="submit">Продолжить</button>
             </div>
-            <div className="custom-input sign-in__input">
-              <label>
-                <span className="custom-input__label">Пароль</span>
-                <span className="custom-input__wrapper">
-                  <input
-                    ref={passwordRef}
-                    placeholder="Password"
-                    onChange={onKeyDownCaptureHandle}
-                    style={(validPass) ? {borderColor:'green'} : {borderColor:'red'}}
-                    type="password"
-                    name="password"
-                    id="password"
-                  />
-                </span>
-              </label>
-            </div>
-            <button className="btn sign-in__button" type="submit">Продолжить</button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

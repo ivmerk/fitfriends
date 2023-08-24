@@ -13,75 +13,78 @@ import TrainersInfo from '../trainer-info/trainer-info';
 import MyTrainingListBlock from '../my-training-list-block/my-training-list-block';
 import MyFriendsTrainerroom from '../my-friends-trainerroom/my-friends-traineroom';
 import MyOrdersTrainerroom from '../my-orders-trainerroom/my-orders-trainerroom';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return(
-    <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.Intro} element={<IntroScreen/>}/>
-        <Route path={AppRoute.Main} element={
-          <PrivateRoute
-            authorizationStatus={authorizationStatus}
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path={AppRoute.Intro} element={<IntroScreen/>}/>
+          <Route path={AppRoute.Main} element={
+            <PrivateRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <MainScreen/>
+            </PrivateRoute>
+          }
+          />
+          <Route path={AppRoute.SingUp} element={<SignUpScreen/>}/>
+          <Route path={AppRoute.Registration} element={<RegistrationScreen/>}/>
+          <Route path={AppRoute.TrainerRoom} element={
+            <TrainerRoomScreen/>
+          }
           >
-            <MainScreen/>
-          </PrivateRoute>
-        }
-        />
-        <Route path={AppRoute.SingUp} element={<SignUpScreen/>}/>
-        <Route path={AppRoute.Registration} element={<RegistrationScreen/>}/>
-        <Route path={AppRoute.TrainerRoom} element={
-          <TrainerRoomScreen/>
-        }
-        >
-          <Route path={AppRoute.Info} element={
-            <PrivateRoute
-              authorizationStatus = {authorizationStatus}
-            >
-              <TrainersInfo/>
+            <Route path={AppRoute.Info} element={
+              <PrivateRoute
+                authorizationStatus = {authorizationStatus}
+              >
+                <TrainersInfo/>
 
-            </PrivateRoute>
-          }
-          />
-          <Route path={AppRoute.NewTraining} element={
-            <PrivateRoute
-              authorizationStatus={authorizationStatus}
-            >
-              <NewTrainingForm/>
-            </PrivateRoute>
-          }
-          />
-          <Route path={AppRoute.MyTrainings} element={
-            <PrivateRoute
-              authorizationStatus={authorizationStatus}
-            >
-              <MyTrainingListBlock/>
-            </PrivateRoute>
-          }
-          />
-          <Route path={AppRoute.MyFriendsTrainer} element={
-            <PrivateRoute
-              authorizationStatus = {authorizationStatus}
-            >
-              <MyFriendsTrainerroom/>
+              </PrivateRoute>
+            }
+            />
+            <Route path={AppRoute.NewTraining} element={
+              <PrivateRoute
+                authorizationStatus={authorizationStatus}
+              >
+                <NewTrainingForm/>
+              </PrivateRoute>
+            }
+            />
+            <Route path={AppRoute.MyTrainings} element={
+              <PrivateRoute
+                authorizationStatus={authorizationStatus}
+              >
+                <MyTrainingListBlock/>
+              </PrivateRoute>
+            }
+            />
+            <Route path={AppRoute.MyFriendsTrainer} element={
+              <PrivateRoute
+                authorizationStatus = {authorizationStatus}
+              >
+                <MyFriendsTrainerroom/>
 
-            </PrivateRoute>
-          }
-          />
-          <Route path={AppRoute.MyOrdersTrainer} element={
-            <PrivateRoute
-              authorizationStatus = {authorizationStatus}
-            >
-              <MyOrdersTrainerroom/>
+              </PrivateRoute>
+            }
+            />
+            <Route path={AppRoute.MyOrdersTrainer} element={
+              <PrivateRoute
+                authorizationStatus = {authorizationStatus}
+              >
+                <MyOrdersTrainerroom/>
 
-            </PrivateRoute>
-          }
-          />
-          <Route path='*' element={<h1>Страница не найдена</h1>}/>
-        </Route>
-        <Route path='*' element={<IntroScreen/>} />
-      </Routes>
-    </BrowserRouter>
+              </PrivateRoute>
+            }
+            />
+            <Route path='*' element={<h1>Страница не найдена</h1>}/>
+          </Route>
+          <Route path='*' element={<IntroScreen/>} />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );}
 
 export default App;

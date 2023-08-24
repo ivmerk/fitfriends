@@ -29,12 +29,13 @@ export function SertificateCard({item}:SertificateCardPropes):JSX.Element{
           dispatch(uploadFilePdf(newSertEvt.files[0]));
         } else if(newSertEvt.files){
           dispatch(uploadSertImg(newSertEvt.files[0]));
-        }} else
-      {
-        const newSertificates = [...allSertificates.filter((card) => card !== delSertUrl)];
-        dispatch(updateUser({trainerBody:{sertificates: newSertificates}}));
-      }
+        }}
+
+      const newSertificates = [...allSertificates.filter((card) => card !== delSertUrl)];
+      setDelSertUrl('');
+      dispatch(updateUser({trainerBody:{sertificates: newSertificates}}));
     }
+
   };
 
   function CardsMenu():JSX.Element{
@@ -45,7 +46,7 @@ export function SertificateCard({item}:SertificateCardPropes):JSX.Element{
             type="file" aria-label="next"
             id={item}
             accept="image/png, image/jpeg, image/pdf"
-            onChange={(evt)=>{ setNewSertEvt(evt.target);}}
+            onChange={(evt)=>{ setNewSertEvt(evt.target); setDelSertUrl(evt.currentTarget.id);}}
             hidden
           />
           <svg width="16" height="16" aria-hidden="true">
@@ -77,7 +78,7 @@ export function SertificateCard({item}:SertificateCardPropes):JSX.Element{
   };
 
   useEffect(() => {
-    if (newSertEvt && isLoadingComplete && sertUrl !== '' && allSertificates?.includes(sertUrl) === false && allSertificates?.includes(item) === true) {
+    if (newSertEvt && isLoadingComplete && sertUrl !== '' && allSertificates?.includes(sertUrl) === false && allSertificates?.includes(item) === true && delSertUrl !== '') {
       const newSertificates = [...allSertificates.map((card) => card === item ? sertUrl : card)];
       dispatch(updateUser({trainerBody:{sertificates: newSertificates}}));
     }
