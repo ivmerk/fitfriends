@@ -12,10 +12,10 @@ export enum AppRoute {
   ClientRoom = '/clientroom',
   MyOrdersUser = 'myorderuser',
   MeFriendsUser = 'myfriendsuser',
-  ClientsList = '/clientlist',
-  ClientCard = '/clientcard',
+  UserList = '/userlist',
+  ClientCard = '/clientcard/:id',
   TrainerCard = '/trainercard',
-  TrainingsLis = '/trainingslist',
+  TrainingsList = '/trainingslist',
   TrainingCard = '/trainingcard',
 }
 
@@ -36,6 +36,7 @@ export enum APIRoute {
   PersonalOrderAprooving = '/user/personalorder?orderId={orderId}&newStatus={newStatus}',
   ListOfTraining = '/user/traininglist?trainingQttSortingType={trainingQttSortingType}&totalMoneySortingType={totalMoneySortingType}',
   TrainingRecomendations = '/user/recomendations',
+  UsersList = '/auth/feed?limit={limit}&page={page}&levelOfExperience={levelOfExperience}&locations={locations}&typesOfTraining={typesOfTraining}',
 }
 
 export enum AuthorizationStatus {

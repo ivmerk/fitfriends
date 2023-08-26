@@ -1,4 +1,4 @@
-import { APIRoute } from './const';
+import { APIRoute, AppRoute } from './const';
 
 export const getTreinerListQuery = (
   durations: string,
@@ -40,3 +40,19 @@ export const getListOfTrainingUrl = (
     '{trainingQttSortingType}',
     trainingQttSortingType
   ).replace('{totalMoneySortingType}', totalMoneySortingType);
+
+export const getListOfUsersUrl = (
+  typesOfTraining: string,
+  locations: string,
+  levelOfExperience: string,
+  page: number,
+  limit: number
+) =>
+  APIRoute.UsersList.replace('{limit}', limit.toString())
+    .replace('{page}', page.toString())
+    .replace('{levelOfExperience}', levelOfExperience)
+    .replace('{locations}', locations)
+    .replace('{typesOfTraining}', typesOfTraining);
+
+export const getUserCardUrlByID = (userId: string): string =>
+  AppRoute.ClientCard.replace(':id', userId);

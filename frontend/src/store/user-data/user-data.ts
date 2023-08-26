@@ -8,6 +8,7 @@ import {
   getPersonalOrderAprooving,
   getPersonalOrdersList,
   getUserById,
+  getUserList,
   logInAction,
   logOutAction,
   updateUser,
@@ -28,6 +29,7 @@ const initialState: UserData = {
   userSertificate: '',
   userFriends: [],
   personalTrainingOrders: [],
+  userList: [],
 };
 
 export const userData = createSlice({
@@ -112,6 +114,13 @@ export const userData = createSlice({
       .addCase(getPersonalOrderAprooving.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.personalTrainingOrders = Object.values(actions.payload);
+      })
+      .addCase(getUserList.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(getUserList.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.userList = Object.values(actions.payload);
       });
   },
 });

@@ -12,7 +12,6 @@ export function ShowMoreButton():JSX.Element{
         onClick={ () => dispatch(getNextPage())}
       >Показать еще
       </button>
-      <button className="btn show-more__button show-more__button--to-top" type="button">Вернуться в начало</button>
     </div>
   );
 }

@@ -27,3 +27,5 @@ export const getUserFriends = (state: State): User[] =>
 export const getTrainingPersonalOrderList = (
   state: State
 ): PersonalOrderTraining[] => state[NameSpace.Data].personalTrainingOrders;
+export const getUsers = (state: State): User[] =>
+  state[NameSpace.Data].userList;

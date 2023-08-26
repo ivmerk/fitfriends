@@ -48,7 +48,7 @@ function UserInfo():JSX.Element{
     }
   };
 
-  const updateChoosingTypesOfTraining = (kindOfTraining:string) => {
+  function updateChoosingTypesOfTraining (kindOfTraining:string) {
     if(choosingTypesOfTraining){
       const newChoosingTypesOfTraining :string[] = [...choosingTypesOfTraining];
       newChoosingTypesOfTraining.includes(kindOfTraining) ?
@@ -56,7 +56,7 @@ function UserInfo():JSX.Element{
         newChoosingTypesOfTraining.push(kindOfTraining);
       setChoosingTypesOfTraining(newChoosingTypesOfTraining);
       setValidTypesOfTraining(newChoosingTypesOfTraining.length <= MAXIMUM_TRAINING_TYPES_CHOICE);
-    } };
+    } }
 
   const submit = () => {
     if(name.isValid && description.isValid && validTypesOfTraining){

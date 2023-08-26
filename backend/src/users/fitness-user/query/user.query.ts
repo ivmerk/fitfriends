@@ -1,7 +1,6 @@
 import { Transform } from 'class-transformer';
 import { DEFAULT_USER_COUNT_LIMIT } from '../fitness-user.constant';
 import { IsArray, IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
-import { UserRoleType, userRoleTypes } from 'src/types/user-role.enum';
 import { levelsOfExperience } from 'src/common/constant.user';
 
 export class UserQuery {
@@ -30,8 +29,4 @@ export class UserQuery {
   @IsString({ each: true })
   @Transform(({ value }) => value.toString().split(','))
   public typesOfTraining: string[];
-
-  @IsOptional()
-  @IsIn(userRoleTypes)
-  public userRole: UserRoleType;
 }

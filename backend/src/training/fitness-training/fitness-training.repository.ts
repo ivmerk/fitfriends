@@ -110,12 +110,6 @@ export class FitnessTrainingRepository
     duration,
     levelOfUser,
   }): Promise<Training[] | null> {
-    console.log({
-      typesOfTraining,
-      caloriesQtt,
-      duration,
-      levelOfUser,
-    });
     return await this.prisma.trainingEntity.findMany({
       where: {
         AND: [

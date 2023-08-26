@@ -178,6 +178,7 @@ export class FitnessUserRepository
     filter: UserFilter,
     page: number,
   ): Promise<User[]> | null {
+    console.log(filter);
     return this.prisma.userEntity.findMany({
       where: {
         location: { in: filter.locations },
@@ -185,8 +186,6 @@ export class FitnessUserRepository
         levelOfExperience: { contains: filter.levelOfExperience },
 
         typesOfTraining: { hasSome: filter.typesOfTraining },
-
-        userRole: filter.userRole !== null ? filter.userRole : { not: null },
       },
 
       take: limit,
@@ -197,7 +196,7 @@ export class FitnessUserRepository
         personalOrders: true,
         userBalance: true,
       },
-      orderBy: [{ userRole: 'asc' }],
+      orderBy: [{ createdAt: 'desc' }],
       skip: page > 0 ? limit * (page - 1) : undefined,
     });
   }

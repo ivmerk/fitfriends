@@ -19,6 +19,7 @@ export interface UserData {
   userSertificate: string;
   userFriends: User[];
   personalTrainingOrders: PersonalOrderTraining[];
+  userList: User[];
 }
 
 export interface UserProcess {

@@ -18,11 +18,13 @@ import {
   getPersonalTrainingOrderApprovingUrl,
   getListOfTrainingUrl,
   getTreinerListQuery,
+  getListOfUsersUrl,
 } from '../common/geturl';
 import { PersonalOrderTraining } from '../types/personal-order-training';
 import { PersonalOrderTrainingStatusQuery } from '../types/personal-order-training-status.query';
 import { TrainingListQuery } from '../types/training-list-query';
 import { TrainingOrderFeed } from '../types/training-order-feed';
+import { UserListFeedQuery } from '../types/users-list-feed.query';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -306,3 +308,30 @@ export const getRecomendationTrainings = createAsyncThunk<
   const { data } = await api.get<Training[]>(APIRoute.TrainingRecomendations);
   return data;
 });
+
+export const getUserList = createAsyncThunk<
+  User[],
+  UserListFeedQuery,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'user/getlist',
+  async (
+    { typesOfTraining, locations, levelOfExperience, page, limit },
+    { extra: api }
+  ) => {
+    const { data } = await api.get<User[]>(
+      getListOfUsersUrl(
+        typesOfTraining,
+        locations,
+        levelOfExperience,
+        page,
+        limit
+      )
+    );
+    return data;
+  }
+);

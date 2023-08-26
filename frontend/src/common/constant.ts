@@ -36,6 +36,10 @@ export const DEFAULT_SPETIAL_OEFFERS_COUNT = 3;
 
 export const DEFAULT_SPETIAL_OEFFERS_COUN_MAX = 9;
 
+export const DEFAULT_USER_MENU_ITEMS_COUNT = 5;
+
+export const DEFAULT_CARDS_COUNT = 50;
+
 export enum NotificationTextLength {
   Min = 10,
   Max = 140,

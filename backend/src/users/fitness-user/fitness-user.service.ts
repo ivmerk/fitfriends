@@ -97,7 +97,13 @@ export class FitnessUserService {
   public async getUsers(query: UserQuery): Promise<User[] | null> {
     const { limit, page } = query;
     const UserFilter: UserFilter = { ...query };
-    return await this.fitnessUserRepository.find(limit, UserFilter, page);
+    const users = await this.fitnessUserRepository.find(
+      limit,
+      UserFilter,
+      page,
+    );
+    console.log(await Promise.all(users));
+    return users;
   }
 
   public async updateUser(id: number, dto: UpdateUserDto) {

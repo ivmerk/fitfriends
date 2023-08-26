@@ -14,6 +14,11 @@ import MyTrainingListBlock from '../my-training-list-block/my-training-list-bloc
 import MyFriendsTrainerroom from '../my-friends-trainerroom/my-friends-traineroom';
 import MyOrdersTrainerroom from '../my-orders-trainerroom/my-orders-trainerroom';
 import { HelmetProvider } from 'react-helmet-async';
+import UserListScreen from '../../pages/user-list-screen/user-list-screen';
+import ClientCardScreen from '../../pages/client-card-screen/client-card-screen';
+import TrainerCardScreen from '../../pages/trainer-card-screen/trainer-card-screen';
+import TrainingsListScreen from '../../pages/training-list-screen/training-list-screen';
+import TrainingCardScreen from '../../pages/training-card-screen/training-card-screen';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -81,6 +86,12 @@ function App(): JSX.Element {
             />
             <Route path='*' element={<h1>Страница не найдена</h1>}/>
           </Route>
+          <Route path={AppRoute.UserList} element={<UserListScreen/>}/>
+          <Route path={AppRoute.ClientCard} element={<ClientCardScreen/>}/>
+          <Route path={AppRoute.TrainerCard} element={<TrainerCardScreen/>}/>
+          <Route path={AppRoute.TrainingsList} element={<TrainingsListScreen/>}/>
+          <Route path={AppRoute.TrainingCard} element={<TrainingCardScreen/>}/>
+
           <Route path='*' element={<IntroScreen/>} />
         </Routes>
       </BrowserRouter>
