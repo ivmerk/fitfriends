@@ -93,7 +93,7 @@ export const updateUser = createAsyncThunk<
 
 export const getUserById = createAsyncThunk<
   User,
-  number,
+  string,
   {
     dispatch: AppDispatch;
     state: State;
@@ -243,6 +243,31 @@ export const getFriends = createAsyncThunk<
 >('user/getfriends', async (_arg, { extra: api }) => {
   const { data } = await api.get<User[]>(APIRoute.UserFriends);
   return data;
+});
+
+export const addFriend = createAsyncThunk<
+  User[],
+  number,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/addfriend', async (id, { extra: api }) => {
+  const { data } = await api.post<User[]>(`${APIRoute.UserFriends}/${id}`);
+  return data;
+});
+
+export const delFriend = createAsyncThunk<
+  void,
+  number,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/delfriend', async (id, { extra: api }) => {
+  await api.delete<void>(`${APIRoute.UserFriends}/${id}`);
 });
 
 export const getPersonalOrdersList = createAsyncThunk<

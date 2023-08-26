@@ -3,7 +3,7 @@ import { HOST_PORT } from '../../common/constant';
 import { User } from '../../types/user';
 import { UserRole } from '../../types/user-role.enum';
 import { IconLocation } from '../svg-const/svg-const';
-import { getUserCardUrlByID } from '../../common/geturl';
+import { getUserCardAppUrlByID } from '../../common/geturl';
 
 type UserCardProps = {
   card:User;
@@ -49,7 +49,7 @@ function UserCard({card}:UserCardProps):JSX.Element {
         {userId ?
           <div
             className="btn btn--medium thumbnail-user__button"
-            onClick={() => {navigate(getUserCardUrlByID(userId.toString()));}}
+            onClick={() => {navigate(getUserCardAppUrlByID(userId.toString()));}}
           >Подробнее
           </div> : ''}
       </div>

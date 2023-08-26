@@ -8,7 +8,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getIsLoadingComplete, getLoggedUserId } from '../../store/user-data/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useEffect } from 'react';
-import { getRecomendationTrainings, getUserById } from '../../store/api-action';
+import { getRecomendationTrainings, getUserById, getUserList } from '../../store/api-action';
+import { DEFAULT_CARDS_COUNT } from '../../common/constant';
+import { levelsOfExperience, userLocations } from '../../common/constant.user';
+import { typesOfTraining } from '../../common/constant.training';
 
 function MainScreen(): JSX.Element{
   const dispatch = useAppDispatch();
@@ -17,8 +20,15 @@ function MainScreen(): JSX.Element{
 
   useEffect(()=>{
     if(userId){
-      dispatch(getUserById(userId));
+      dispatch(getUserById(userId.toString()));
       dispatch(getRecomendationTrainings());
+      dispatch(getUserList({
+        limit: DEFAULT_CARDS_COUNT,
+        page: 1,
+        locations:userLocations.join(','),
+        levelOfExperience: levelsOfExperience[0],
+        typesOfTraining:typesOfTraining.join(','),
+      }));
     }
   }, [dispatch, userId]);
 

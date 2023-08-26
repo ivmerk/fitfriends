@@ -2,8 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, NameSpace } from '../../common/const';
 import { UserData } from '../../types/state';
 import {
+  addFriend,
   checkAuthAction,
   createUser,
+  delFriend,
   getFriends,
   getPersonalOrderAprooving,
   getPersonalOrdersList,
@@ -22,6 +24,7 @@ const initialState: UserData = {
   loggedUserId: null,
   loggedUserRole: null,
   isLoadingComplete: true,
+  isDeletingComplete: true,
   isLogingComplete: true,
   hasError: false,
   loggedUser: null,
@@ -30,6 +33,7 @@ const initialState: UserData = {
   userFriends: [],
   personalTrainingOrders: [],
   userList: [],
+  user: null,
 };
 
 export const userData = createSlice({
@@ -79,6 +83,7 @@ export const userData = createSlice({
       .addCase(getUserById.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.loggedUser = actions.payload;
+        state.user = actions.payload;
       })
       .addCase(uploadFileImg.pending, (state) => {
         state.isLoadingComplete = false;
@@ -100,6 +105,19 @@ export const userData = createSlice({
       .addCase(getFriends.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
         state.userFriends = Object.values(actions.payload);
+      })
+      .addCase(addFriend.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(addFriend.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.userFriends = Object.values(actions.payload);
+      })
+      .addCase(delFriend.pending, (state) => {
+        state.isDeletingComplete = false;
+      })
+      .addCase(delFriend.fulfilled, (state) => {
+        state.isDeletingComplete = true;
       })
       .addCase(getPersonalOrdersList.pending, (state) => {
         state.isLoadingComplete = false;

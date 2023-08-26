@@ -8,6 +8,8 @@ export const getAuthorizationStatus = (state: State): AuthorizationStatus =>
   state[NameSpace.Data].authorizationStatus;
 export const getIsLoadingComplete = (state: State): boolean =>
   state[NameSpace.Data].isLoadingComplete;
+export const getIsDeletingComplete = (state: State): boolean =>
+  state[NameSpace.Data].isDeletingComplete;
 export const getIsLoggingComplete = (state: State): boolean =>
   state[NameSpace.Data].isLogingComplete;
 export const getLoggedUserRole = (state: State): UserRole | null =>
@@ -16,6 +18,8 @@ export const getLoggedUserId = (state: State): number | null =>
   state[NameSpace.Data].loggedUserId;
 export const getLoggedUser = (state: State): User | null =>
   state[NameSpace.Data].loggedUser;
+export const getUserCard = (state: State): User | null =>
+  state[NameSpace.Data].user;
 export const getAllTrainerSertificates = (state: State): string[] | undefined =>
   state[NameSpace.Data].loggedUser?.trainerBody?.sertificates;
 export const getUserAvatar = (state: State): string =>

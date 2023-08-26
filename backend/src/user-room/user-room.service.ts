@@ -55,7 +55,8 @@ export class UserRoomService {
         HttpStatus.FORBIDDEN,
       );
     } else {
-      return await this.userFriendRepository.create(userFrientEntity);
+      await this.userFriendRepository.create(userFrientEntity);
+      return await this.showFriends(userId);
     }
   }
 

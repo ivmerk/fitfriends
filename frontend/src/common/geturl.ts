@@ -54,5 +54,5 @@ export const getListOfUsersUrl = (
     .replace('{locations}', locations)
     .replace('{typesOfTraining}', typesOfTraining);
 
-export const getUserCardUrlByID = (userId: string): string =>
+export const getUserCardAppUrlByID = (userId: string): string =>
   AppRoute.ClientCard.replace(':id', userId);

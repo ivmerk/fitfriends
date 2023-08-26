@@ -12,6 +12,7 @@ export interface UserData {
   loggedUserId: number | null;
   isLoadingComplete: boolean;
   isLogingComplete: boolean;
+  isDeletingComplete: boolean;
   hasError: boolean;
   loggedUserRole: UserRole | null;
   loggedUser: User | null;
@@ -20,6 +21,7 @@ export interface UserData {
   userFriends: User[];
   personalTrainingOrders: PersonalOrderTraining[];
   userList: User[];
+  user: User | null;
 }
 
 export interface UserProcess {

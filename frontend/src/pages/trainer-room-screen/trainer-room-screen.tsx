@@ -15,7 +15,7 @@ function TrainerRoomScreen():JSX.Element{
 
   useEffect(()=>{
     if(userId){
-      dispatch(getUserById(userId));
+      dispatch(getUserById(userId.toString()));
     }
   }, []);
 
