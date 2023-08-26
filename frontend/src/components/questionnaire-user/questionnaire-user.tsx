@@ -24,7 +24,8 @@ function QuestionnaireUser():JSX.Element{
   const [levelExperience, setLevelExperience] = useState(levelsOfExperience[0]);
   const [validCaloriesLose, setValidCaloriesLose] = useState(false);
   const [validCaloriesWaste, setValidCaloriesWaste] = useState(false);
-  const [validTypesOfTraining, setValidTypesOfTraining] = useState(true);
+  const isChoosingTypesOfTrainingValid = (choosingTypesOfTraining.length <= MAXIMUM_TRAINING_TYPES_CHOICE) && choosingTypesOfTraining.length;
+
 
   useEffect( ()=>{
     if(isRegistrationComplete && registredUser) {
@@ -42,7 +43,7 @@ function QuestionnaireUser():JSX.Element{
 
   const handleSubmit = (evt: FormEvent<HTMLElement>) => {
     evt.preventDefault();
-    if (choosingTypesOfTraining.length && validCaloriesLose && validCaloriesWaste && caloriesLoseRef.current && caloriesWasteRef.current && validTypesOfTraining) {
+    if (choosingTypesOfTraining.length && validCaloriesLose && validCaloriesWaste && caloriesLoseRef.current && caloriesWasteRef.current && isChoosingTypesOfTrainingValid) {
       onSubmit({
         typesOfTraining: choosingTypesOfTraining,
         levelOfExperience: levelExperience,
@@ -81,7 +82,6 @@ function QuestionnaireUser():JSX.Element{
       newChoosingTypesOfTraining.splice(newChoosingTypesOfTraining.indexOf(kindOfTraining), 1) :
       newChoosingTypesOfTraining.push(kindOfTraining);
     setChoosingTypesOfTraining(newChoosingTypesOfTraining);
-    setValidTypesOfTraining(choosingTypesOfTraining.length <= MAXIMUM_TRAINING_TYPES_CHOICE);
   };
 
   const onChooseTrainingDurationHandle = (evt: ChangeEvent<HTMLInputElement>) =>{
@@ -173,6 +173,7 @@ function QuestionnaireUser():JSX.Element{
                   <div className="specialization-checkbox questionnaire-user__specializations">
                     {typesOfTraining.map((item: string) => (<ChooseTrainingType item={item} key={item}/>))}
                   </div>
+                  <p>{!isChoosingTypesOfTrainingValid ? `Выбрать не более ${MAXIMUM_TRAINING_TYPES_CHOICE} тренировок` : ''}</p>
                 </div>
                 <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Сколько времени вы готовы уделять на тренировку в день</span>
                   <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
@@ -198,6 +199,7 @@ function QuestionnaireUser():JSX.Element{
                           />
                           <span className="custom-input__text">ккал</span>
                         </span>
+                        <p>{!validCaloriesLose ? `От ${CaloriesQttDaily.Min} до ${CaloriesQttDaily.Max} ккалл` : ''}</p>
                       </label>
                     </div>
                   </div>
@@ -214,6 +216,7 @@ function QuestionnaireUser():JSX.Element{
                           />
                           <span className="custom-input__text">ккал</span>
                         </span>
+                        <p>{!validCaloriesWaste ? `От ${CaloriesQtt.Min} до ${CaloriesQtt.Max} ккалл` : ''}</p>
                       </label>
                     </div>
                   </div>

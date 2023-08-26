@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getIsLoadingComplete, getLoggedUser, getUserAvatar } from '../../store/user-data/selectors';
 import { ArrowCheck, ArrowDown, IconChange, IconEdit, IconTrash } from '../svg-const/svg-const';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { typesOfTraining } from '../../common/constant.training';
 import { MAXIMUM_TRAINING_TYPES_CHOICE, UserDescriptionLength, UserTitleLength, levelsOfExperience, userGenders, userLocations } from '../../common/constant.user';
 import { capitalizeFirst } from '../../common/utils';
@@ -24,11 +24,11 @@ function UserInfo():JSX.Element{
   const name = useInput(user?.userName || '', UserTitleLength.Min, UserTitleLength.Max);
   const description = useTextarea(user?.description || '', UserDescriptionLength.Min, UserDescriptionLength.Max);
 
-  const [readenessForPrivat, setReadenessForPrivat] = useState(user?.trainerBody?.readinessForPrivate);
-  const [choosingTypesOfTraining, setChoosingTypesOfTraining] = useState(user?.typesOfTraining);
-  const [location, setLocation] = useState(user?.location);
-  const [gender, setGender] = useState(user?.userGender);
-  const [levelOfExp, setLevelOfExp] = useState(user?.levelOfExperience);
+  const [readenessForPrivat, setReadenessForPrivat] = useState(false);
+  const [choosingTypesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
+  const [location, setLocation] = useState<string>('');
+  const [gender, setGender] = useState<string>('');
+  const [levelOfExp, setLevelOfExp] = useState<string>('');
 
   const [validTypesOfTraining, setValidTypesOfTraining] = useState(true);
   const [locationMenuOn, setLocationMenuOn] = useState(false);
@@ -157,7 +157,16 @@ function UserInfo():JSX.Element{
       </>
     );
   }
+  useEffect(()=>{
+    if(isLoadingComplete && user){
+      setReadenessForPrivat(user?.trainerBody?.readinessForPrivate || false);
+      setChoosingTypesOfTraining(user?.typesOfTraining);
+      setLocation(user?.location);
+      setGender(user?.userGender);
+      setLevelOfExp(user?.levelOfExperience);
 
+    }
+  }, [isLoadingComplete, user]);
   if (!isLoadingComplete){
     return(
       <HelmetProvider>

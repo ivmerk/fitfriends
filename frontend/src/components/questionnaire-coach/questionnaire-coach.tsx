@@ -5,8 +5,8 @@ import { MAXIMUM_TRAINING_TYPES_CHOICE, TrainerMeritLength, levelsOfExperience }
 import { ArrowCheck, IconImport } from '../svg-const/svg-const';
 import { UserFormRegisterDetailsTrainer, UserUpdateData } from '../../types/user';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logInAction, updateUser } from '../../store/api-action';
-import { getIsLoadingComplete} from '../../store/user-data/selectors';
+import { logInAction, updateUser, uploadFilePdf, uploadSertImg } from '../../store/api-action';
+import { getIsLoadingComplete, getNewUserSertificate} from '../../store/user-data/selectors';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../common/const';
 import { getRegistredUser } from '../../store/user-process/selector';
@@ -16,6 +16,7 @@ function QuestionnaireCoach():JSX.Element {
   const isRegistrationComplete = useAppSelector(getIsLoadingComplete);
   const registredUser = useAppSelector(getRegistredUser);
   const navigate = useNavigate();
+  const sertUrl = useAppSelector(getNewUserSertificate);
 
   const maritRef = useRef<HTMLTextAreaElement| null>(null);
 
@@ -23,7 +24,16 @@ function QuestionnaireCoach():JSX.Element {
   const [levelExperience, setLevelExperience] = useState(levelsOfExperience[0]);
   const [isPersonalTrainingAprooved, setIsPersonalTrainingAprooved] = useState(false);
   const [validMarit, setValidMarit] = useState(false);
-  const [validTypesOfTraining, setValidTypesOfTraining] = useState(true);
+  const isChoosingTypesOfTrainingValid = (choosedTypesOfTraining.length <= MAXIMUM_TRAINING_TYPES_CHOICE) && choosedTypesOfTraining.length;
+
+
+  const onFileHandle = (evt: ChangeEvent<HTMLInputElement>) => {
+    if(evt.target.files && evt.target.files[0].type === 'image/pdf' ) {
+      dispatch(uploadFilePdf(evt.target.files[0]));
+    } else if(evt.target.files){
+      dispatch(uploadSertImg(evt.target.files[0]));
+    }
+  };
 
   useEffect( ()=>{
     if(isRegistrationComplete && registredUser) {
@@ -34,19 +44,19 @@ function QuestionnaireCoach():JSX.Element {
     const updatedUser :UserUpdateData = {...user, trainerBody: {...user.trainerBody}};
     dispatch(updateUser(updatedUser));
     if(isRegistrationComplete) {
-      navigate(AppRoute.TrainerRoom);
+      navigate(`${AppRoute.TrainerRoom}/${AppRoute.Info}`);
     }
   };
 
 
   const handleSubmit = (evt: FormEvent<HTMLElement>) =>{
     evt.preventDefault();
-    if(choosedTypesOfTraining.length && validMarit && maritRef.current && validTypesOfTraining){
+    if( validMarit && maritRef.current && isChoosingTypesOfTrainingValid){
       onSubmit({
         typesOfTraining: choosedTypesOfTraining,
         levelOfExperience: levelExperience,
         trainerBody:{
-          sertificates: [],
+          sertificates: [sertUrl],
           merit: maritRef.current.value,
           readinessForPrivate: isPersonalTrainingAprooved,}
       });
@@ -64,7 +74,6 @@ function QuestionnaireCoach():JSX.Element {
       newChoosingTypesOfTraining.splice(newChoosingTypesOfTraining.indexOf(kindOfTraining), 1) :
       newChoosingTypesOfTraining.push(kindOfTraining);
     setChoosingTypesOfTraining(newChoosingTypesOfTraining);
-    setValidTypesOfTraining(choosedTypesOfTraining.length <= MAXIMUM_TRAINING_TYPES_CHOICE);
   };
   const onMeritKeyDownCaptureHandle = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     evt.preventDefault();
@@ -134,6 +143,7 @@ function QuestionnaireCoach():JSX.Element {
                   <div className="specialization-checkbox questionnaire-coach__specializations">
                     {typesOfTraining.map((item: string) => (<ChooseTrainingType item={item} key={item}/>))}
                   </div>
+                  <p>{!isChoosingTypesOfTrainingValid ? `Выбрать не более ${MAXIMUM_TRAINING_TYPES_CHOICE} тренировок` : ''}</p>
                 </div>
                 <div className="questionnaire-coach__block">
                   <span className="questionnaire-coach__legend">Ваш уровень</span>
@@ -150,7 +160,12 @@ function QuestionnaireCoach():JSX.Element {
                           <IconImport/>
                         </svg>
                       </span>
-                      <input type="file" name="import" accept=".pdf, .jpg, .png"/>
+                      <input
+                        className="visually-hidden"
+                        type="file"
+                        accept="image/png, image/jpeg, image/pdf"
+                        onChange={onFileHandle}
+                      />
                     </label>
                   </div>
                 </div>
@@ -162,8 +177,8 @@ function QuestionnaireCoach():JSX.Element {
                         placeholder=""
                         ref={maritRef}
                         onChange={onMeritKeyDownCaptureHandle}
-
                       />
+                      <p>{!validMarit ? `Описание от ${TrainerMeritLength.Min} до ${TrainerMeritLength.Max} символов` : ''}</p>
                     </label>
                   </div>
                   <div className="questionnaire-coach__checkbox">

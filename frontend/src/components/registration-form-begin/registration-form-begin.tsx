@@ -183,6 +183,7 @@ return(
                 ref={nameRef}
                 onChange={onNameKeyDownCaptureHandle}
               />
+              <p>{!validName ? `Имя от ${UserTitleLength.Min} до ${UserTitleLength.Max} символов` : ''}</p>
             </label>
           </div>
           <div className="custom-input">
@@ -238,6 +239,7 @@ return(
                 ref={passRef}
                 onChange={onPassKeyDownCaptureHandle}
               />
+              <p>{!validPass ? `Пароль от ${UserPasswordLength.Min} до ${UserPasswordLength.Max} символов` : ''}</p>
             </label>
           </div>
           <div className="sign-up__radio"><span className="sign-up__label">Пол</span>
