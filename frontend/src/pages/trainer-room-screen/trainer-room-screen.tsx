@@ -3,7 +3,7 @@ import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getIsLoadingComplete, getLoggedUser, getLoggedUserId } from '../../store/user-data/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { getUserById } from '../../store/api-action';
+import { getMyFriendsCards, getUserById } from '../../store/api-action';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ function TrainerRoomScreen():JSX.Element{
   useEffect(()=>{
     if(userId){
       dispatch(getUserById(userId.toString()));
+      dispatch(getMyFriendsCards());
     }
   }, []);
 

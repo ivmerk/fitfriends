@@ -4,7 +4,7 @@ import FriendCard from '../friend-card/friend-card';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFriends, getPersonalOrdersList } from '../../store/api-action';
-import { getIsLoadingComplete, getUserFriends } from '../../store/user-data/selectors';
+import { getIsLoadingComplete, getMyUserFriendsCards } from '../../store/user-data/selectors';
 import { User } from '../../types/user';
 import { DEFAULT_SCREEN_ITEMS_COUNT } from '../../common/constant';
 import { HelmetProvider } from 'react-helmet-async';
@@ -14,7 +14,7 @@ function MyFriendsTrainerroom():JSX.Element{
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const friends = useAppSelector<User[]>(getUserFriends);
+  const friends = useAppSelector<User[]>(getMyUserFriendsCards);
   const isLoadingComplete = useAppSelector(getIsLoadingComplete);
   const [friendsOnScreenCount, setFriendsOnScreenCount] = useState(DEFAULT_SCREEN_ITEMS_COUNT);
 

@@ -4,6 +4,7 @@ import { PersonalOrderTraining } from './personal-order-training';
 import { Training } from './training';
 import { TrainingOrderFeed } from './training-order-feed';
 import { User, UserFormRegister } from './user';
+import { UserFriendData } from './user-friend-data';
 import { UserRole } from './user-role.enum';
 
 export interface UserData {
@@ -18,7 +19,8 @@ export interface UserData {
   loggedUser: User | null;
   userAvatar: string;
   userSertificate: string;
-  userFriends: User[];
+  userFriends: UserFriendData[];
+  userMyFriendsCards: User[];
   personalTrainingOrders: PersonalOrderTraining[];
   userList: User[];
   user: User | null;

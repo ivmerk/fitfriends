@@ -7,6 +7,7 @@ import {
   createUser,
   delFriend,
   getFriends,
+  getMyFriendsCards,
   getPersonalOrderAprooving,
   getPersonalOrdersList,
   getUserById,
@@ -30,6 +31,7 @@ const initialState: UserData = {
   loggedUser: null,
   userAvatar: '',
   userSertificate: '',
+  userMyFriendsCards: [],
   userFriends: [],
   personalTrainingOrders: [],
   userList: [],
@@ -106,18 +108,28 @@ export const userData = createSlice({
         state.isLoadingComplete = true;
         state.userFriends = Object.values(actions.payload);
       })
+      .addCase(getMyFriendsCards.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(getMyFriendsCards.fulfilled, (state, actions) => {
+        state.isLoadingComplete = true;
+        state.userMyFriendsCards = Object.values(actions.payload);
+      })
       .addCase(addFriend.pending, (state) => {
         state.isLoadingComplete = false;
       })
       .addCase(addFriend.fulfilled, (state, actions) => {
         state.isLoadingComplete = true;
-        state.userFriends = Object.values(actions.payload);
+        state.userFriends.push(actions.payload);
       })
       .addCase(delFriend.pending, (state) => {
         state.isDeletingComplete = false;
       })
-      .addCase(delFriend.fulfilled, (state) => {
+      .addCase(delFriend.fulfilled, (state, actions) => {
         state.isDeletingComplete = true;
+        state.userFriends = state.userFriends.filter(
+          (item) => item.friendId !== actions.meta.arg
+        );
       })
       .addCase(getPersonalOrdersList.pending, (state) => {
         state.isLoadingComplete = false;

@@ -23,6 +23,7 @@ import { SortingType, ordersCondition } from 'src/common/constant';
 import { PersonalOrderTrainingRepository } from 'src/personal-order-training/personal-order-training.repository';
 import { TrainingListQuery } from './query/training-list.query';
 import { TrainingOrderFeed } from 'src/types/trraining-order-feed.interface';
+import { UserFriend } from 'src/types/user-friend';
 
 @Injectable()
 export class UserRoomService {
@@ -36,16 +37,21 @@ export class UserRoomService {
     private readonly personalOrderTrainingRepository: PersonalOrderTrainingRepository,
   ) {}
 
-  public async addFriend(payload: TokenPayload, friendId: number) {
+  public async addFriend(
+    payload: TokenPayload,
+    friendId: number,
+  ): Promise<UserFriend | null> {
     const userId = payload.sub;
     const friend = await this.fitnessUserService.getUser(friendId);
+    const isConfirmed = friend.userRole === payload.userRole ? true : false;
     const userFrientEntity = new UserFriendEntity({
       userId,
       friendId,
+      isConfirmed,
     });
     if (
-      friend.userRole === UserRole.Trainer &&
-      payload.userRole === UserRole.Client
+      friend.userRole === UserRole.Client &&
+      payload.userRole === UserRole.Trainer
     ) {
       throw new HttpException(
         {
@@ -55,12 +61,11 @@ export class UserRoomService {
         HttpStatus.FORBIDDEN,
       );
     } else {
-      await this.userFriendRepository.create(userFrientEntity);
-      return await this.showFriends(userId);
+      return await this.userFriendRepository.create(userFrientEntity);
     }
   }
 
-  public async delFriend(userId: number, friendId: number) {
+  public async delFriend(userId: number, friendId: number): Promise<void> {
     const friend = await this.userFriendRepository.findByUserIdAndFriendId(
       userId,
       friendId,
@@ -70,7 +75,11 @@ export class UserRoomService {
     }
   }
 
-  public async showFriends(userId: number): Promise<User[] | null> {
+  public async showFriends(userId: number): Promise<UserFriend[] | null> {
+    return await this.userFriendRepository.findByUserId(userId);
+  }
+
+  public async showMyFriendsList(userId: number): Promise<User[] | null> {
     const userFriends = await this.userFriendRepository.findByUserId(userId);
     let friends: User[] = [];
     if (userFriends) {

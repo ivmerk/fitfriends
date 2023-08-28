@@ -32,6 +32,7 @@ export enum APIRoute {
   UploadPdf = '/files/upload/pdf',
   UploadVideo = '/files/upload/video',
   UserFriends = '/user/friend',
+  MyUserFriendsCards = '/user/myfriendcards',
   UserPersonalOrder = '/user/personalorder',
   PersonalOrderAprooving = '/user/personalorder?orderId={orderId}&newStatus={newStatus}',
   ListOfTraining = '/user/traininglist?trainingQttSortingType={trainingQttSortingType}&totalMoneySortingType={totalMoneySortingType}',

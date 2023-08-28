@@ -2,6 +2,7 @@ import { AuthorizationStatus, NameSpace } from '../../common/const';
 import { PersonalOrderTraining } from '../../types/personal-order-training';
 import { State } from '../../types/state';
 import { User } from '../../types/user';
+import { UserFriendData } from '../../types/user-friend-data';
 import { UserRole } from '../../types/user-role.enum';
 
 export const getAuthorizationStatus = (state: State): AuthorizationStatus =>
@@ -26,8 +27,10 @@ export const getUserAvatar = (state: State): string =>
   state[NameSpace.Data].userAvatar;
 export const getNewUserSertificate = (state: State): string =>
   state[NameSpace.Data].userSertificate;
-export const getUserFriends = (state: State): User[] =>
+export const getUserFriends = (state: State): UserFriendData[] =>
   state[NameSpace.Data].userFriends;
+export const getMyUserFriendsCards = (state: State): User[] =>
+  state[NameSpace.Data].userMyFriendsCards;
 export const getTrainingPersonalOrderList = (
   state: State
 ): PersonalOrderTraining[] => state[NameSpace.Data].personalTrainingOrders;

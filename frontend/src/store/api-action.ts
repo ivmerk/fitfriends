@@ -25,6 +25,7 @@ import { PersonalOrderTrainingStatusQuery } from '../types/personal-order-traini
 import { TrainingListQuery } from '../types/training-list-query';
 import { TrainingOrderFeed } from '../types/training-order-feed';
 import { UserListFeedQuery } from '../types/users-list-feed.query';
+import { UserFriendData } from '../types/user-friend-data';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -233,7 +234,7 @@ export const uploadFileVideo = createAsyncThunk<
 });
 
 export const getFriends = createAsyncThunk<
-  User[],
+  UserFriendData[],
   undefined,
   {
     dispatch: AppDispatch;
@@ -241,12 +242,25 @@ export const getFriends = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/getfriends', async (_arg, { extra: api }) => {
-  const { data } = await api.get<User[]>(APIRoute.UserFriends);
+  const { data } = await api.get<UserFriendData[]>(APIRoute.UserFriends);
+  return data;
+});
+
+export const getMyFriendsCards = createAsyncThunk<
+  User[],
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/getmyfriendscards', async (_arg, { extra: api }) => {
+  const { data } = await api.get<User[]>(APIRoute.MyUserFriendsCards);
   return data;
 });
 
 export const addFriend = createAsyncThunk<
-  User[],
+  UserFriendData,
   number,
   {
     dispatch: AppDispatch;
@@ -254,7 +268,9 @@ export const addFriend = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/addfriend', async (id, { extra: api }) => {
-  const { data } = await api.post<User[]>(`${APIRoute.UserFriends}/${id}`);
+  const { data } = await api.post<UserFriendData>(
+    `${APIRoute.UserFriends}/${id}`
+  );
   return data;
 });
 

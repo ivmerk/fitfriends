@@ -5,11 +5,11 @@ import { UserRole } from '../../types/user-role.enum';
 import { IconLocation } from '../svg-const/svg-const';
 import { getUserCardAppUrlByID } from '../../common/geturl';
 
-type UserCardProps = {
+type SmallUserCardProps = {
   card:User;
 }
 
-function UserCard({card}:UserCardProps):JSX.Element {
+function SmallUserCard({card}:SmallUserCardProps):JSX.Element {
   const navigate = useNavigate();
   const{userName, location, userRole, typesOfTraining, userAvatar, userId} = card;
 
@@ -57,4 +57,4 @@ function UserCard({card}:UserCardProps):JSX.Element {
   );
 }
 
-export default UserCard;
+export default SmallUserCard;

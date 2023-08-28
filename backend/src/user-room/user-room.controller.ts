@@ -32,6 +32,7 @@ import { PersonalOrderTrainingRdo } from './rdo/personal-order-training.rdo';
 import { TrainingRdo } from 'src/training/fitness-training/rdo/training.rdo';
 import { ApiResponse } from '@nestjs/swagger';
 import { TrainingOrderFeedRdo } from './rdo/training-order-feed.rdo';
+import { UserFriendRdo } from './rdo/user-friend.rdo';
 
 @Controller('user')
 export class UserRoomController {
@@ -48,8 +49,8 @@ export class UserRoomController {
     @Param('id', ParseIntPipe) id: number,
     @Req() { user: payload }: RequestWithTokenPayload,
   ) {
-    const user = await this.userRoomService.addFriend(payload, id);
-    return fillObject(UserRdo, user);
+    const userFriend = await this.userRoomService.addFriend(payload, id);
+    return fillObject(UserFriendRdo, userFriend);
   }
 
   @ApiResponse({
@@ -69,12 +70,26 @@ export class UserRoomController {
   @ApiResponse({
     type: UserRdo,
     status: HttpStatus.OK,
-    description: 'The friend list has been successfully created.',
+    description: 'The friends list obj  has been successfully created.',
   })
   @UseGuards(JwtAuthGuard)
   @Get('friend')
   public async friends(@Req() { user: payload }: RequestWithTokenPayload) {
     const users = await this.userRoomService.showFriends(payload.sub);
+    return { ...fillObject(UserFriendRdo, users) };
+  }
+
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.OK,
+    description: 'The friends list obj  has been successfully created.',
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get('myfriendcards')
+  public async myFriendsCards(
+    @Req() { user: payload }: RequestWithTokenPayload,
+  ) {
+    const users = await this.userRoomService.showMyFriendsList(payload.sub);
     return { ...fillObject(UserRdo, users) };
   }
 

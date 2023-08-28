@@ -144,6 +144,7 @@ model UserFriend {
   user         UserEntity @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
   userId       Int        @map("user_id")
   friendId     Int        @map("friend_id")
+  isConfirmed  Boolean    @default(false) @map("is_confirmed")
 
   @@map("user_friend")
 }
