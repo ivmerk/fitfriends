@@ -17,8 +17,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import UserListScreen from '../../pages/user-list-screen/user-list-screen';
 import ClientCardScreen from '../../pages/client-card-screen/client-card-screen';
 import TrainerCardScreen from '../../pages/trainer-card-screen/trainer-card-screen';
-import TrainingsListScreen from '../../pages/training-list-screen/training-list-screen';
 import TrainingCardScreen from '../../pages/training-card-screen/training-card-screen';
+import TrainingsCatalogScreen from '../../pages/training-catalog-screen/training-catalog-screen';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -89,7 +89,7 @@ function App(): JSX.Element {
           <Route path={AppRoute.UserList} element={<UserListScreen/>}/>
           <Route path={AppRoute.ClientCard} element={<ClientCardScreen/>}/>
           <Route path={AppRoute.TrainerCard} element={<TrainerCardScreen/>}/>
-          <Route path={AppRoute.TrainingsList} element={<TrainingsListScreen/>}/>
+          <Route path={AppRoute.TrainingsCatalog} element={<TrainingsCatalogScreen/>}/>
           <Route path={AppRoute.TrainingCard} element={<TrainingCardScreen/>}/>
 
           <Route path='*' element={<IntroScreen/>} />

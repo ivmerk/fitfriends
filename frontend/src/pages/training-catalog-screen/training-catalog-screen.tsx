@@ -1,6 +1,6 @@
 import Header from '../../components/header/header';
 
-function TrainingsListScreen ():JSX.Element{
+function TrainingsCatalogScreen ():JSX.Element{
   return(
     <div className="wrapper">
       <Header/>
@@ -653,4 +653,4 @@ function TrainingsListScreen ():JSX.Element{
   );
 }
 
-export default TrainingsListScreen;
+export default TrainingsCatalogScreen;

@@ -15,7 +15,7 @@ export enum AppRoute {
   UserList = '/userlist',
   ClientCard = '/clientcard/:id',
   TrainerCard = '/trainercard',
-  TrainingsList = '/trainingslist',
+  TrainingsCatalog = '/trainingscatalog',
   TrainingCard = '/trainingcard',
 }
 

@@ -26,6 +26,7 @@ import { TrainingListQuery } from '../types/training-list-query';
 import { TrainingOrderFeed } from '../types/training-order-feed';
 import { UserListFeedQuery } from '../types/users-list-feed.query';
 import { UserFriendData } from '../types/user-friend-data';
+import { PersonalOrderTrainingData } from '../types/personal-order-training-data';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -391,3 +392,18 @@ export const getUserList = createAsyncThunk<
     return data;
   }
 );
+
+export const askPersonalTraining = createAsyncThunk<
+  PersonalOrderTrainingData,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/askpersonaltraining', async (trainerId: string, { extra: api }) => {
+  const { data } = await api.post<PersonalOrderTrainingData>(
+    `${APIRoute.UserPersonalOrder}/${trainerId}`
+  );
+  return data;
+});

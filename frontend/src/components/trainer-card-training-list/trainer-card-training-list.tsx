@@ -4,15 +4,17 @@ import { ArrowCheck, ArrowLeft, ArrowRight} from '../svg-const/svg-const';
 import { getIsLoadingTrainingComplete, getTrainingList } from '../../store/training-data/selector';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import { getTrainingListForUserFromTrainerWithId } from '../../store/api-action';
+import { askPersonalTraining, getTrainingListForUserFromTrainerWithId } from '../../store/api-action';
 import { useParams } from 'react-router-dom';
 import { DEFAULT_TRAININ_CARDS_COUNT } from '../../common/constant';
 import SmallTrainingCard from '../small-training-card/small-training-card';
+import { getUserFriends } from '../../store/user-data/selectors';
 
 function TrainerCardTrainingList():JSX.Element{
   const params = useParams();
   const dispatch = useAppDispatch();
   const trainingList = useAppSelector(getTrainingList);
+  const friendsList = useAppSelector(getUserFriends);
   const isLoadingTrainings = useAppSelector(getIsLoadingTrainingComplete);
   const trainerId = params.id;
   const [trainingCardsForScreen, setTrainingCardsForScreen] = useState(0);
@@ -66,11 +68,24 @@ function TrainerCardTrainingList():JSX.Element{
         {(trainingList) ? trainingList.slice(trainingCardsForScreen, trainingCardsForScreen + DEFAULT_TRAININ_CARDS_COUNT).map((item) => <SmallTrainingCard selectedCard={item} itemType='user-card-coach__training-item' key={item.trainingId}/>) : ''}
       </ul>
       <form className="user-card-coach__training-form">
-        <button className="btn user-card-coach__btn-training" type="button">Хочу персональную тренировку</button>
+        { trainerId && (friendsList?.find((item) => item.friendId === parseInt(trainerId, 10) && item.isConfirmed === true)) ?
+          (
+            <button
+              className="btn user-card-coach__btn-training"
+              type="button"
+              onClick={() => {dispatch(askPersonalTraining(trainerId));}}
+            >
+            Хочу персональную тренировку
+            </button>) : ''}
+
         <div className="user-card-coach__training-check">
           <div className="custom-toggle custom-toggle--checkbox">
             <label>
-              <input type="checkbox" value="user-agreement-1" name="user-agreement" checked/>
+              <input
+                type="checkbox"
+                value="user-agreement-1"
+                name="user-agreement"
+              />
               <span className="custom-toggle__icon">
                 <svg width="9" height="6" aria-hidden="true">
                   <ArrowCheck/>
