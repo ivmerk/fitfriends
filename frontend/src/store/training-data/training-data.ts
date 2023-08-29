@@ -6,6 +6,7 @@ import {
   getOrderedListOfTraining,
   getRecomendationTrainings,
   getTrainerTrainingList,
+  getTrainingListForUserFromTrainerWithId,
 } from '../api-action';
 
 const initialState: TrainingData = {
@@ -34,6 +35,16 @@ export const trainingData = createSlice({
         state.isLoadingComplete = true;
         state.trainerTrainingList = Object.values(actions.payload);
       })
+      .addCase(getTrainingListForUserFromTrainerWithId.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
+      .addCase(
+        getTrainingListForUserFromTrainerWithId.fulfilled,
+        (state, actions) => {
+          state.isLoadingComplete = true;
+          state.trainerTrainingList = Object.values(actions.payload);
+        }
+      )
       .addCase(getOrderedListOfTraining.pending, (state) => {
         state.isLoadingComplete = false;
       })

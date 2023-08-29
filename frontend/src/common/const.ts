@@ -27,6 +27,7 @@ export enum APIRoute {
   User = '/auth/user',
   Training = '/training',
   TrainingCreate = '/training/register',
+  TrainindFromTrainer = '/training/bytrainer',
   TrainingFeed = '/training/feed?durations={durations}&priceMin={priceMin}&priceMax={priceMax}&caloriesQttMin={caloriesQttMin}&caloriesQttMax={caloriesQttMax}&ratingMin={ratingMin}&ratingMax={ratingMax}&page={page}&limit={limit}&priceSortType={priceSortType}',
   UploadImg = '/files/upload/img',
   UploadPdf = '/files/upload/pdf',

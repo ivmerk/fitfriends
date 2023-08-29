@@ -45,4 +45,8 @@ export default class FitnessTrainingService {
     const filter: TrainingFilter = { ...query };
     return await this.fitnessTrainingRepository.find(filter, trainerId);
   }
+
+  public async getTrainingsFromTrainer(trainerId: number) {
+    return await this.fitnessTrainingRepository.findFromTrainer(trainerId);
+  }
 }

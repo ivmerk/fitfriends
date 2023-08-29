@@ -1,6 +1,6 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from '../../../hooks';
-import TrainingCard from '../../small-training-card/small-training-card';
+import SmallTrainingCard from '../../small-training-card/small-training-card';
 import LoadingScreen from '../../../pages/loading-screen/loading-screen';
 import { getIsLoadingTrainingComplete, getTrainingList } from '../../../store/training-data/selector';
 import { Training } from '../../../types/training';
@@ -22,7 +22,7 @@ function MyTrainingList():JSX.Element{
   return(
     <div className="my-trainings">
       <ul className="my-trainings__list">
-        {(trainingList.length !== 0) ? trainingList.map((item:Training) => (<TrainingCard selectedCard={item} key={item.trainingId} />)) : ''}
+        {(trainingList.length !== 0) ? trainingList.map((item:Training) => (<SmallTrainingCard selectedCard={item} itemType='my-trainings__item' key={item.trainingId} />)) : ''}
       </ul>
       {trainingList.length === listLimit ? <ShowMoreButton/> : ''}
     </div>

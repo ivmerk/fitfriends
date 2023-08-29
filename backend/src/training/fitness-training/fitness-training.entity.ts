@@ -12,6 +12,7 @@ export class FitnessTrainingEntity
   public duration: string;
   public price: number;
   public caloriesQtt: number;
+  public createdAt: Date;
   public description: string;
   public trainingGender: string;
   public video: string;
@@ -32,6 +33,7 @@ export class FitnessTrainingEntity
     this.duration = entity.duration;
     this.price = entity.price;
     this.caloriesQtt = entity.caloriesQtt;
+    this.createdAt = new Date();
     this.description = entity.description;
     this.trainingGender = entity.trainingGender;
     this.video = entity.video;

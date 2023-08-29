@@ -24,6 +24,10 @@ import { UserRole } from 'src/types/user-role.enum';
 import { TrainingQuery } from './query/training.query';
 import { Roles } from 'src/users/fitness-user/decorators/user-roles.decorator';
 import { UserRolesGuard } from 'src/users/fitness-user/guards/user-roles.quard';
+import { MAXIMUMPRICE, durationOfTraining } from 'src/common/constant.training';
+import { CaloriesQtt } from 'src/common/constant.user';
+import { Rating } from 'src/common/constant';
+import { DEFAULT_USER_COUNT_LIMIT } from 'src/users/fitness-user/fitness-user.constant';
 
 @Controller('training')
 export class FitnessTrainingController {
@@ -78,6 +82,15 @@ export class FitnessTrainingController {
     const trainings = await this.fitnessTrainingService.getTrainings(
       query,
       payload.sub,
+    );
+    return { ...fillObject(TrainingRdo, trainings) };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/bytrainer/:id')
+  public async showByTrainer(@Param('id', ParseIntPipe) id: number) {
+    const trainings = await this.fitnessTrainingService.getTrainingsFromTrainer(
+      id,
     );
     return { ...fillObject(TrainingRdo, trainings) };
   }

@@ -71,6 +71,7 @@ model TrainingEntity {
   price             Int        @default(0)
   caloriesQtt       Int        @default(0) @map("calories_qtt")
   description       String     @default("")
+  createdAt         DateTime   @default(now()) @map("created_at")
   trainingGender    String     @default("") @map("training_gender")
   video             String     @default("")
   rating            Float      @default(0)

@@ -10,6 +10,7 @@ export interface Training {
   price: number;
   caloriesQtt: number;
   description: string;
+  createdAt?: Date;
   trainingGender: string;
   video: string;
   rating?: number;

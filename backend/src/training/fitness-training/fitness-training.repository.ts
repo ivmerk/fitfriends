@@ -122,4 +122,13 @@ export class FitnessTrainingRepository
       orderBy: { rating: 'desc' },
     });
   }
+
+  public async findFromTrainer(trainerId: number): Promise<Training[] | null> {
+    return await this.prisma.trainingEntity.findMany({
+      where: {
+        trainerId,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
 }

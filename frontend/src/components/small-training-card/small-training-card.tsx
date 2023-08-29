@@ -2,13 +2,14 @@ import { Training } from '../../types/training';
 import { IconStart } from '../svg-const/svg-const';
 
 type SmallTrainingCardPropes = {
+  itemType: string;
   selectedCard: Training;
 }
 
-function SmallTrainingCard({selectedCard}:SmallTrainingCardPropes):JSX.Element{
+function SmallTrainingCard({selectedCard, itemType}:SmallTrainingCardPropes):JSX.Element{
   const {price, title, backgroundPicture, typeOfTraining, caloriesQtt, rating, description} = selectedCard;
   return(
-    <li className="my-trainings__item">
+    <li className={itemType}>
       <div className="thumbnail-training">
         <div className="thumbnail-training__inner">
           <div className="thumbnail-training__image">

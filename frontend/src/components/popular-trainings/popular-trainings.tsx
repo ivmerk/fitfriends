@@ -54,7 +54,7 @@ function PopularTrainings():JSX.Element{
             </div>
           </div>
           <ul className="popular-trainings__list">
-            {(recomendedTraining) ? recomendedTraining.slice(screenItemCount, screenItemCount + DEFAULT_MY_ORDER_ITEMS_COUNT).map((item) => <SmallTrainingCard selectedCard={item} key={item.trainingId}/>) : ''}
+            {(recomendedTraining) ? recomendedTraining.slice(screenItemCount, screenItemCount + DEFAULT_MY_ORDER_ITEMS_COUNT).map((item) => <SmallTrainingCard selectedCard={item} itemType='my-trainings__item' key={item.trainingId}/>) : ''}
           </ul>
         </div>
       </div>

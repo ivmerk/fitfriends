@@ -161,6 +161,21 @@ export const getTrainerTrainingList = createAsyncThunk<
   }
 );
 
+export const getTrainingListForUserFromTrainerWithId = createAsyncThunk<
+  Training[],
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('training/getByTreinerIdForUser', async (trainerId, { extra: api }) => {
+  const { data } = await api.get<Training[]>(
+    `${APIRoute.TrainindFromTrainer}/${trainerId}`
+  );
+  return data;
+});
+
 export const uploadFileImg = createAsyncThunk<
   string,
   File,
