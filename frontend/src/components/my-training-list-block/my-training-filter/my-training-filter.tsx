@@ -7,7 +7,7 @@ import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import useDigitalInput from '../../../hooks/use-digital-input';
 import { ArrowCheck, ArrowLeft } from '../../svg-const/svg-const';
-import { Rating } from '../../../common/constant';
+import { Rating, SortingType } from '../../../common/constant';
 import { useNavigate } from 'react-router-dom';
 import { getListLimit, getListPageNumber, getListSortingAscType } from '../../../store/user-process/selector';
 import { resetPaging } from '../../../store/user-process/user-process';
@@ -28,12 +28,12 @@ function MyTrainingFilter():JSX.Element {
   const [ratingMin, setRatingMin] = useState(Rating.Min.toString());
   const [ratingMax, setRatingMax] = useState(Rating.Max.toString());
   const filterData = {durations:durations ,
-    priceMin: priceMin,
-    priceMax: priceMax,
+    priceMin: priceMin.value,
+    priceMax: priceMax.value,
     ratingMin: ratingMin,
     ratingMax: ratingMax,
-    caloriesQttMin: caloriesQttMin,
-    caloriesQttMax: caloriesQttMax};
+    caloriesQttMin: caloriesQttMin.value,
+    caloriesQttMax: caloriesQttMax.value};
 
   useEffect(() => {
     if(filterData){
@@ -46,7 +46,7 @@ function MyTrainingFilter():JSX.Element {
         ratingMax: ratingMax,
         page:page,
         limit:limit,
-        priceSortType: (listSortingAscType ? 'acs' : 'decs'),
+        priceSortType: (listSortingAscType ? SortingType.Asc : SortingType.Desc),
       }));}
     dispatch(resetPaging());
   }, [priceMin, priceMax, caloriesQttMin, caloriesQttMax, ratingMin, ratingMax, durations, page, listSortingAscType, limit, dispatch]);

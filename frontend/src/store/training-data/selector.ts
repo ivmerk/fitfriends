@@ -14,3 +14,6 @@ export const getOrderedTrainingList = (state: State): TrainingOrderFeed[] =>
 
 export const getRecomendationTrainingList = (state: State): Training[] =>
   state[NameSpace.Training].recomendatedTrainingList;
+
+export const getTrainingListCardsForCatalog = (state: State): Training[] =>
+  state[NameSpace.Training].traningListForCatalog;

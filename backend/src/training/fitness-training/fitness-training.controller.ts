@@ -28,6 +28,7 @@ import { MAXIMUMPRICE, durationOfTraining } from 'src/common/constant.training';
 import { CaloriesQtt } from 'src/common/constant.user';
 import { Rating } from 'src/common/constant';
 import { DEFAULT_USER_COUNT_LIMIT } from 'src/users/fitness-user/fitness-user.constant';
+import { TrainingForCatalogQuery } from './query/training-for-catalog.query';
 
 @Controller('training')
 export class FitnessTrainingController {
@@ -66,7 +67,17 @@ export class FitnessTrainingController {
     );
     return fillObject(TrainingRdo, updatedTraiding);
   }
-
+  @UseGuards(JwtAuthGuard)
+  @Get('/catalog')
+  public async showTrainingsForCatalog(
+    @Query(new ValidationPipe({ transform: true }))
+    query: TrainingForCatalogQuery,
+  ) {
+    const trainings = await this.fitnessTrainingService.getTrainingsForCatalog(
+      query,
+    );
+    return { ...fillObject(TrainingRdo, trainings) };
+  }
   @ApiResponse({
     type: TrainingRdo,
     status: HttpStatus.OK,

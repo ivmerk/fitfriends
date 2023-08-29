@@ -40,10 +40,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJlbWFpb
 
 # Get training feed
 
-GET  http://localhost:3333/api/training/feed?durations=10-30%20мин&priceMin=1&priceMax=12&caloriesQttMin=1000&caloriesQttMax=2000 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE4LCJlbWFpbCI6InRyYWluZXJAZ21haWwuY3dtIiwidXNlclJvbGUiOiJ0cmFpbmVyIiwibmFtZSI6ItCS0LDRgdC40LvQuNC5IiwiaWF0IjoxNjg5Nzg3NjU3LCJleHAiOjE2ODk3ODg1NTd9.pADKvcVIdHU32bGVICkzqy5h0ALL4rlLOGTOicHGVVA
+GET  http://localhost:3333/api/training/feed?durations=10-30%20мин&priceMin=1&priceMax=1200&caloriesQttMin=1000&caloriesQttMax=2000 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjY1LCJlbWFpbCI6Iml2YW5UcmVpbmVyQGdtYWlsLmNvbSIsInVzZXJSb2xlIjoidHJhaW5lciIsIm5hbWUiOiJWYW55YSBUcmVpbmVyIiwiaWF0IjoxNjkzMzE5MzA5LCJleHAiOjE2OTMzMjAyMDl9.AaZa3ZntRZd9SShr5L70mHNzBvnKh-9ahtE2S07wDMY
 
 
 ####
 
-GET  http://localhost:3333/api/training/feed?durations=10-30%20мин&priceMin=1&priceMax=12&caloriesQttMin=1000&caloriesQttMax=2000 HTTP/1.1
+# Get training feed for catalog
+
+GET  http://localhost:3333/api/training/catalog?typesOfTraining=йога&priceMin=1&priceMax=12&ratingMin=0&ratingMax=5&caloriesQttMin=1000&caloriesQttMax=2000&page=1&limit=50&priceSortType=none HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjY1LCJlbWFpbCI6Iml2YW5UcmVpbmVyQGdtYWlsLmNvbSIsInVzZXJSb2xlIjoidHJhaW5lciIsIm5hbWUiOiJWYW55YSBUcmVpbmVyIiwiaWF0IjoxNjkzMzIzNTM2LCJleHAiOjE2OTMzMjQ0MzZ9.GTI9eIkrCqmNNM6iDY7QAvwceOFVvK_AkaDPx85yMwo

@@ -98,6 +98,44 @@ export class FitnessTrainingRepository
     });
   }
 
+  public async findForCatalog({
+    limit,
+    page,
+    priceMin,
+    priceMax,
+    caloriesQttMin,
+    caloriesQttMax,
+    ratingMin,
+    ratingMax,
+    typesOfTraining,
+    priceSortType,
+  }): Promise<Training[] | null> {
+    return await this.prisma.trainingEntity.findMany({
+      where: {
+        AND: [
+          {
+            price: { gte: priceMin },
+          },
+          { price: { lte: priceMax } },
+          { caloriesQtt: { gte: caloriesQttMin } },
+          { caloriesQtt: { lte: caloriesQttMax } },
+          { rating: { gte: ratingMin } },
+          { rating: { lte: ratingMax } },
+          { typeOfTraining: { in: typesOfTraining } },
+        ],
+      },
+
+      orderBy:
+        priceSortType !== 'none'
+          ? priceSortType === 'asc'
+            ? { price: 'asc' }
+            : { price: 'desc' }
+          : { createdAt: 'desc' },
+      include: { feedbacks: true },
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+  }
+
   public async findByTranerId(trainerId: number): Promise<Training[] | null> {
     return await this.prisma.trainingEntity.findMany({
       where: { trainerId },

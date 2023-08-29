@@ -10,12 +10,12 @@ import {
 } from 'class-validator';
 import { CaloriesQttDaily } from 'src/common/constant.user';
 
-export class TrainingQuery {
+export class TrainingForCatalogQuery {
   @IsOptional()
   @Transform(({ value }) => value.toString().split(','))
   @IsArray()
   @IsString({ each: true })
-  durations: string[];
+  public typesOfTraining: string[];
 
   @Transform(({ value }) => +value)
   @IsOptional()
@@ -63,6 +63,6 @@ export class TrainingQuery {
 
   @IsOptional()
   @IsString()
-  @IsIn(['asc', 'desc'])
+  @IsIn(['asc', 'desc', 'none'])
   public priceSortType: string;
 }

@@ -19,6 +19,7 @@ import {
   getListOfTrainingUrl,
   getTreinerListQuery,
   getListOfUsersUrl,
+  getListOfTrainingForCatalogUrl,
 } from '../common/geturl';
 import { PersonalOrderTraining } from '../types/personal-order-training';
 import { PersonalOrderTrainingStatusQuery } from '../types/personal-order-training-status.query';
@@ -27,6 +28,7 @@ import { TrainingOrderFeed } from '../types/training-order-feed';
 import { UserListFeedQuery } from '../types/users-list-feed.query';
 import { UserFriendData } from '../types/user-friend-data';
 import { PersonalOrderTrainingData } from '../types/personal-order-training-data';
+import { TrainingListForCatalogQuery } from '../types/training-list-for-catalog-query';
 
 export const checkAuthAction = createAsyncThunk<
   number,
@@ -176,6 +178,49 @@ export const getTrainingListForUserFromTrainerWithId = createAsyncThunk<
   );
   return data;
 });
+
+export const getTrainingListForCatalog = createAsyncThunk<
+  Training[],
+  TrainingListForCatalogQuery,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'training/getlistforcatalog',
+  async (
+    {
+      typesOfTraining,
+      priceMin,
+      priceMax,
+      caloriesQttMin,
+      caloriesQttMax,
+      ratingMin,
+      ratingMax,
+      page,
+      limit,
+      priceSortType,
+    },
+    { extra: api }
+  ) => {
+    const { data } = await api.get<Training[]>(
+      getListOfTrainingForCatalogUrl(
+        typesOfTraining,
+        priceMin,
+        priceMax,
+        caloriesQttMin,
+        caloriesQttMax,
+        ratingMin,
+        ratingMax,
+        page,
+        limit,
+        priceSortType
+      )
+    );
+    return data;
+  }
+);
 
 export const uploadFileImg = createAsyncThunk<
   string,
