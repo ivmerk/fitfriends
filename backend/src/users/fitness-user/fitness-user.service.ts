@@ -102,7 +102,6 @@ export class FitnessUserService {
       UserFilter,
       page,
     );
-    console.log(await Promise.all(users));
     return users;
   }
 

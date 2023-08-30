@@ -16,7 +16,7 @@ export enum AppRoute {
   ClientCard = '/clientcard/:id',
   TrainerCard = '/trainercard',
   TrainingsCatalog = '/trainingscatalog',
-  TrainingCard = '/trainingcard',
+  TrainingCard = '/trainingcard/:id',
 }
 
 export enum APIRoute {

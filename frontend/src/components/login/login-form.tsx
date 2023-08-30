@@ -25,14 +25,9 @@ function LoginForm():JSX.Element{
 
 
   const onSubmit = (authData: AuthData) => {
-    // if (validPass) {
-    //   dispatch(logInAction(authData));
-    // }
-    // dispatch(logInAction({login: 'kolyatreiner@gmail.com',password: 'qwertyuiop'} ));
-    // if (true) {
-    dispatch(logInAction({login: 'cliffent@gmail.cwm',password: 'qwertyuiop'} ));
-    // }
-
+    if (validPass) {
+      dispatch(logInAction(authData));
+    }
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {

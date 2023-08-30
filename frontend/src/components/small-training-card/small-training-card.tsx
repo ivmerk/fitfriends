@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import { Training } from '../../types/training';
 import { IconStart } from '../svg-const/svg-const';
+import { AppRoute } from '../../common/const';
 
 type SmallTrainingCardPropes = {
   itemType: string;
@@ -7,7 +9,8 @@ type SmallTrainingCardPropes = {
 }
 
 function SmallTrainingCard({selectedCard, itemType}:SmallTrainingCardPropes):JSX.Element{
-  const {price, title, backgroundPicture, typeOfTraining, caloriesQtt, rating, description} = selectedCard;
+  const navigate = useNavigate();
+  const {price, title, backgroundPicture, typeOfTraining, caloriesQtt, rating, description, trainingId} = selectedCard;
   return(
     <li className={itemType}>
       <div className="thumbnail-training">
@@ -40,7 +43,11 @@ function SmallTrainingCard({selectedCard, itemType}:SmallTrainingCardPropes):JSX
             <p className="thumbnail-training__text">{description}</p>
           </div>
           <div className="thumbnail-training__button-wrapper">
-            <a className="btn btn--small thumbnail-training__button-catalog" href="#">Подробнее</a>
+            <button
+              className="btn btn--small thumbnail-training__button-catalog"
+              onClick={() => {if(trainingId){navigate(AppRoute.TrainingCard.replace(':id', trainingId?.toString()));}}}
+            >Подробнее
+            </button>
             <a className="btn btn--small btn--outlined thumbnail-training__button-catalog" href="#">Отзывы</a>
           </div>
         </div>

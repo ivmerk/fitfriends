@@ -1,20 +1,36 @@
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { getLoggedUserRole } from '../../store/user-data/selectors';
+import { UserRole } from '../../types/user-role.enum';
+import { AppRoute } from '../../common/const';
+
 function MainNav():JSX.Element {
+  const userRole = useAppSelector(getLoggedUserRole);
+  const navigate = useNavigate();
   return(
     <nav className="main-nav">
       <ul className="main-nav__list">
         <li className="main-nav__item">
-          <a className="main-nav__link is-active" aria-label="На главную">
+          <button
+            className="main-nav__link is-active"
+            aria-label="На главную"
+            onClick={()=>{navigate(userRole === UserRole.Trainer ? AppRoute.TrainerRoom : AppRoute.Main);}}
+          >
             <svg id="icon-home" viewBox="0 0 18 18" width="18" height="18">
               <path fillRule="evenodd" clipRule="evenodd" d="M11.0499 0.709047L16.2288 4.33646C17.2178 5.02953 18 6.5237 18 7.73884V13.8415C18 16.1368 16.1389 18 13.8462 18H4.15385C1.86114 18 0 16.1278 0 13.8325V7.62183C0 6.4877 0.71029 5.04754 1.60939 4.34546L6.11389 0.82606C7.47153 -0.227059 9.63836 -0.281065 11.0499 0.709047ZM9.00001 12.5992C9.99313 12.5992 10.7982 11.7932 10.7982 10.799C10.7982 9.8048 9.99313 8.99882 9.00001 8.99882C8.00689 8.99882 7.20181 9.8048 7.20181 10.799C7.20181 11.7932 8.00689 12.5992 9.00001 12.5992Z" fill="currentColor"></path>
             </svg>
-          </a>
+          </button>
         </li>
         <li className="main-nav__item">
-          <a className="main-nav__link " href="#" aria-label="Личный кабинет">
+          <button
+            className="main-nav__link "
+            aria-label="Личный кабинет"
+            onClick={()=>{navigate(userRole === UserRole.Trainer ? AppRoute.TrainerRoom : AppRoute.ClientRoom);}}
+          >
             <svg id="icon-user" width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 8.78049C10.4303 8.78049 12.4004 6.81491 12.4004 4.39024C12.4004 1.96558 10.4303 0 8 0C5.5697 0 3.59956 1.96558 3.59956 4.39024C3.59956 6.81491 5.5697 8.78049 8 8.78049Z" fill="currentColor"/><path d="M8 10.9756C3.59076 10.9756 0 13.9259 0 17.561C0 17.8068 0.193619 18 0.440044 18H15.56C15.8064 18 16 17.8068 16 17.561C16 13.9259 12.4092 10.9756 8 10.9756Z" fill="currentColor"/>
             </svg>
-          </a>
+          </button>
         </li>
         <li className="main-nav__item">
           <a className="main-nav__link" href="#" aria-label="Друзья">

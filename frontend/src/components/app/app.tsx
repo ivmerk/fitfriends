@@ -19,6 +19,7 @@ import ClientCardScreen from '../../pages/client-card-screen/client-card-screen'
 import TrainerCardScreen from '../../pages/trainer-card-screen/trainer-card-screen';
 import TrainingCardScreen from '../../pages/training-card-screen/training-card-screen';
 import TrainingsCatalogScreen from '../../pages/training-catalog-screen/training-catalog-screen';
+import ClientRoomScreen from '../../pages/client-room-screen/client-room-screen';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -90,6 +91,7 @@ function App(): JSX.Element {
           <Route path={AppRoute.ClientCard} element={<ClientCardScreen/>}/>
           <Route path={AppRoute.TrainerCard} element={<TrainerCardScreen/>}/>
           <Route path={AppRoute.TrainingsCatalog} element={<TrainingsCatalogScreen/>}/>
+          <Route path={AppRoute.ClientRoom} element={<ClientRoomScreen/>}/>
           <Route path={AppRoute.TrainingCard} element={<TrainingCardScreen/>}/>
 
           <Route path='*' element={<IntroScreen/>} />
