@@ -10,7 +10,7 @@ import { DEFAULT_SCREEN_ITEMS_COUNT } from '../../common/constant';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
-function MyFriendsTrainerroom():JSX.Element{
+function MyFriends():JSX.Element{
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -67,4 +67,4 @@ function MyFriendsTrainerroom():JSX.Element{
     </main>);
 }
 
-export default MyFriendsTrainerroom;
+export default MyFriends;

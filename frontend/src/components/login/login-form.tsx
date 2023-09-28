@@ -25,18 +25,20 @@ function LoginForm():JSX.Element{
 
 
   const onSubmit = (authData: AuthData) => {
-    if (validPass) {
-      dispatch(logInAction(authData));
-    }
+    // if (validPass) {
+    dispatch(logInAction(authData));
+    // }
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    onSubmit({login: 'clientmasha@gmail.cwm', password: 'qwertyuiop'});
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value
-      });
+
+      // onSubmit({
+      //   login: loginRef.current.value,
+      //   password: passwordRef.current.value
+      // });
     }
   };
 

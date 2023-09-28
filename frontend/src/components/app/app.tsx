@@ -11,7 +11,6 @@ import { getAuthorizationStatus } from '../../store/user-data/selectors';
 import NewTrainingForm from '../new-training-form/new-training-form';
 import TrainersInfo from '../trainer-info/trainer-info';
 import MyTrainingListBlock from '../my-training-list-block/my-training-list-block';
-import MyFriendsTrainerroom from '../my-friends-trainerroom/my-friends-traineroom';
 import MyOrdersTrainerroom from '../my-orders-trainerroom/my-orders-trainerroom';
 import { HelmetProvider } from 'react-helmet-async';
 import UserListScreen from '../../pages/user-list-screen/user-list-screen';
@@ -20,6 +19,9 @@ import TrainerCardScreen from '../../pages/trainer-card-screen/trainer-card-scre
 import TrainingCardScreen from '../../pages/training-card-screen/training-card-screen';
 import TrainingsCatalogScreen from '../../pages/training-catalog-screen/training-catalog-screen';
 import ClientRoomScreen from '../../pages/client-room-screen/client-room-screen';
+import ClientRoomInfo from '../client-room-info/client-room-info';
+import MyFriends from '../my-friends/my-friends';
+import ClientPurchases from '../client-purchases/client-purchases';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -67,11 +69,11 @@ function App(): JSX.Element {
               </PrivateRoute>
             }
             />
-            <Route path={AppRoute.MyFriendsTrainer} element={
+            <Route path={AppRoute.MyFriends} element={
               <PrivateRoute
                 authorizationStatus = {authorizationStatus}
               >
-                <MyFriendsTrainerroom/>
+                <MyFriends/>
 
               </PrivateRoute>
             }
@@ -91,7 +93,35 @@ function App(): JSX.Element {
           <Route path={AppRoute.ClientCard} element={<ClientCardScreen/>}/>
           <Route path={AppRoute.TrainerCard} element={<TrainerCardScreen/>}/>
           <Route path={AppRoute.TrainingsCatalog} element={<TrainingsCatalogScreen/>}/>
-          <Route path={AppRoute.ClientRoom} element={<ClientRoomScreen/>}/>
+          <Route path={AppRoute.ClientRoom} element={<ClientRoomScreen/>}>
+            <Route path={AppRoute.Info} element={
+              <PrivateRoute
+                authorizationStatus = {authorizationStatus}
+              >
+                <ClientRoomInfo/>
+
+              </PrivateRoute>
+            }
+            />
+            <Route path={AppRoute.MyFriends} element={
+              <PrivateRoute
+                authorizationStatus = {authorizationStatus}
+              >
+                <MyFriends/>
+
+              </PrivateRoute>
+            }
+            />
+            <Route path={AppRoute.MyPurchases} element={
+              <PrivateRoute
+                authorizationStatus = {authorizationStatus}
+              >
+                <ClientPurchases/>
+
+              </PrivateRoute>
+            }
+            />
+          </Route>
           <Route path={AppRoute.TrainingCard} element={<TrainingCardScreen/>}/>
 
           <Route path='*' element={<IntroScreen/>} />

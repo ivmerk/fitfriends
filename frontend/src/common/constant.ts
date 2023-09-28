@@ -46,6 +46,8 @@ export const DEFAULT_USER_MENU_ITEMS_COUNT = 5;
 
 export const DEFAULT_CARDS_COUNT = 50;
 
+export const DAYS_IN_WEEK_QTT = 7;
+
 export enum NotificationTextLength {
   Min = 10,
   Max = 140,
