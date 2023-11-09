@@ -11,7 +11,7 @@ type UserCardTrainerRolePropes ={
 
 function UserCardTrainerRole({card}: UserCardTrainerRolePropes):JSX.Element {
   const dispatch = useAppDispatch();
-  const{userName, location, typesOfTraining, description, userId} = card;
+  const{userName, location, typesOfTraining, description, userId, trainerBody} = card;
   const friendsList = useAppSelector(getUserFriends);
   type TypeItemPropes = {
     type: string;
@@ -30,7 +30,7 @@ function UserCardTrainerRole({card}: UserCardTrainerRolePropes):JSX.Element {
     if(friendsList?.find((item) => item.friendId === card.userId && item.isConfirmed === true)) {
       return (
         <button
-          className="btn user-card__btn"
+          className="btn user-card__btn btn btn--outlined"
           type="button"
           onClick={() => {if(userId){dispatch(delFriend(userId));}}}
         >
@@ -76,8 +76,13 @@ function UserCardTrainerRole({card}: UserCardTrainerRolePropes):JSX.Element {
                   <IconCup/>
                 </svg><span>Тренер</span>
               </div>
-              {}
-              <div className="user-card-coach__status user-card-coach__status--check"><span>Готов тренировать</span></div>
+              <div
+                className={trainerBody?.readinessForPrivate ? 'user-card-coach__status user-card-coach__status--check' : 'user-card-coach-2__status user-card-coach-2__status--check'}
+              >
+                <span>
+                  {trainerBody?.readinessForPrivate ? 'Готов тренировать' : 'Не готов тренировать'}
+                </span>
+              </div>
             </div>
             <div className="user-card-coach__text">
               {description}

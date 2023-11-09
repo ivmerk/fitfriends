@@ -6,6 +6,7 @@ import { PersonalOrderTraining } from '../../types/personal-order-training';
 import { User } from '../../types/user';
 import { IconLocation } from '../svg-const/svg-const';
 import { getPersonalOrderAprooving } from '../../store/api-action';
+import { UserRole } from '../../types/user-role.enum';
 
 type FriendCardPropes = {
   card: User;
@@ -14,7 +15,7 @@ type FriendCardPropes = {
 function FriendCard({card} :FriendCardPropes):JSX.Element{
   const dispatch = useAppDispatch();
 
-  const {userName, location, typesOfTraining, clientBody, userAvatar, userId} = card;
+  const {userName, location, typesOfTraining, clientBody, userAvatar, userId, userRole} = card;
   const trainings = useAppSelector<PersonalOrderTraining[]>(getTrainingPersonalOrderList);
   const personalTraining = trainings.find((item) => item.userId === userId);
 
@@ -47,7 +48,8 @@ function FriendCard({card} :FriendCardPropes):JSX.Element{
   return(
     <li className="friends-list__item">
       <div className="thumbnail-friend">
-        <div className="thumbnail-friend__info thumbnail-friend__info--theme-light">
+        <div className={`thumbnail-friend__info thumbnail-friend__info--theme-${userRole === UserRole.Client ? 'light' : 'dark'}`}>
+
           <div className="thumbnail-friend__image-status">
             <div className="thumbnail-friend__image">
               <picture>

@@ -90,7 +90,8 @@ function TrainerCardTrainingList():JSX.Element{
                 <svg width="9" height="6" aria-hidden="true">
                   <ArrowCheck/>
                 </svg>
-              </span><span className="custom-toggle__label">Получать уведомление на почту о новой тренировке</span>
+              </span>
+              <span className="custom-toggle__label">Получать уведомление на почту о новой тренировке</span>
             </label>
           </div>
         </div>
