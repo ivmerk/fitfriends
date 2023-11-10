@@ -26,13 +26,12 @@ export class JwtRefreshStrategy extends PassportStrategy(
   }
 
   public async validate(payload: RefreshTokenPayload) {
-    if (!(await this.refreshTokenService.isExists(parseInt(payload.tokenId)))) {
+    console.log(payload);
+    if (!(await this.refreshTokenService.isExists(payload.tokenId))) {
       throw new TokenNotExistsException(payload.tokenId);
     }
 
-    await this.refreshTokenService.deleteRefreshSession(
-      parseInt(payload.tokenId),
-    );
+    await this.refreshTokenService.deleteRefreshSession(payload.tokenId);
     await this.refreshTokenService.deleteExpiredRefreshTokens();
     return this.fitnessUserService.getUser(payload.sub);
   }

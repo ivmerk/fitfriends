@@ -16,20 +16,18 @@ export class RefreshTokenRepository {
     });
   }
 
-  public async deleteByTokenId(refreshTokenId: number) {
-    return this.prisma.refreshToken.delete({
+  public async deleteByTokenId(tokenId: string) {
+    return this.prisma.refreshToken.deleteMany({
       where: {
-        refreshTokenId,
+        tokenId,
       },
     });
   }
 
-  public async findByTokenId(
-    refreshTokenId: number,
-  ): Promise<RefreshToken | null> {
+  public async findByTokenId(tokenId: string): Promise<RefreshToken | null> {
     return this.prisma.refreshToken.findFirst({
       where: {
-        refreshTokenId,
+        tokenId,
       },
     });
   }
