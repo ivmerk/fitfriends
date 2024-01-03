@@ -74,7 +74,7 @@ function ClientPurchases ():JSX.Element {
                       <p className="thumbnail-training__text">Упражнения укрепляют мышечный корсет, делают суставы более гибкими, улучшают осанку и&nbsp;координацию.</p>
                     </div>
                     <div className="thumbnail-training__button-wrapper">
-                      <a className="btn btn--small thumbnail-training__button-catalog" href="#">Подробнее</a>
+                      <a className="btn btn--small thumbnail-training__button-catalog" >Подробнее</a>
                       <a className="btn btn--small btn--outlined thumbnail-training__button-catalog" href="#">Отзывы</a>
                     </div>
                   </div>

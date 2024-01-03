@@ -20,8 +20,10 @@ export enum AppRoute {
 
 export enum APIRoute {
   Login = '/auth/login',
-  Logout = '/logout',
+  Logout = '/auth/logout',
   Register = '/auth/register',
+  Check = '/auth/check',
+  Refresh = '/auth/refresh',
   UpdateUser = '/auth/update',
   User = '/auth/user',
   Training = '/training',

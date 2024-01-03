@@ -1,3 +1,8 @@
+export const AUTH_TOKEN_KEY_NAME = 'fitness-friend-token';
+export const REFRESH_TOKEN_KEY_NAME = 'fitness-friend-refreshtoken';
+
+export type Token = string;
+
 export const SALT_ROUNDS = 10;
 
 export enum Rating {

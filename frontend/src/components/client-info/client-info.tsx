@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getIsLoadingComplete, getLoggedUser, getUserAvatar } from '../../store/user-data/selectors';
-import { ArrowCheck, ArrowDown, IconChange, IconEdit, IconTrash } from '../svg-const/svg-const';
+import { ArrowCheck, IconChange, IconEdit, IconTrash } from '../svg-const/svg-const';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { typesOfTraining } from '../../common/constant.training';
 import { MAXIMUM_TRAINING_TYPES_CHOICE, UserDescriptionLength, UserTitleLength, levelsOfExperience, userGenders, userLocations } from '../../common/constant.user';
@@ -13,6 +13,7 @@ import { updateUser, uploadFileImg } from '../../store/api-action';
 import { HOST_PORT } from '../../common/constant';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import UserMenuButton from '../user-menu-button/user-menu-button';
 
 function ClientInfo():JSX.Element{
   const user = useAppSelector(getLoggedUser);
@@ -260,50 +261,26 @@ function ClientInfo():JSX.Element{
           </div>
           <p>{!validTypesOfTraining ? `Не более ${MAXIMUM_TRAINING_TYPES_CHOICE} тренеровок` : ''}</p>
         </div>
-        <div className={isEdit ? `custom-select${locationMenuOn ? ' is-open not-empty' : ' not-empty'} user-info-edit__select` : 'custom-select is-disabled not-empty user-info-edit__select'}
+        <div className={`custom-select${locationMenuOn ? ' is-open' : ''} user-info-edit__select`}
           onClick={()=>{if (isEdit) {setLocationMenuOn(!locationMenuOn);}}}
         >
-          <span className="custom-select__label">Локация</span>
-          <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-            <span className="custom-select__text">ст. м. {location}</span>
-            <span className="custom-select__icon">
-              <svg width="15" height="6" aria-hidden="true">
-                {isEdit ? <ArrowDown/> : ''}
-              </svg>
-            </span>
-          </button>
+          <UserMenuButton label={'Локация'} menu={`ст. м. ${location}`} isEdit={isEdit}/>
           <ul className="custom-select__list" role="listbox">
             {userLocations.map((item:string) => (<ChooseLocation item={item} key={item}/>))}
           </ul>
         </div>
-        <div className={isEdit ? `custom-select${genderMenuOn ? ' is-open not-empty' : ' not-empty'} user-info-edit__select` : 'custom-select is-disabled not-empty user-info-edit__select'}
+        <div className={`custom-select${genderMenuOn ? ' is-open' : ''} user-info-edit__select`}
           onClick={()=>{if (isEdit) {setGenderMenuOn(!genderMenuOn);}}}
         >
-          <span className="custom-select__label">Пол</span>
-          <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-            <span className="custom-select__text">{gender ? capitalizeFirst(gender) : ''}</span>
-            <span className="custom-select__icon">
-              <svg width="15" height="6" aria-hidden="true">
-                {isEdit ? <ArrowDown/> : ''}
-              </svg>
-            </span>
-          </button>
+          <UserMenuButton label={'Пол'} menu={gender ? capitalizeFirst(gender) : ''} isEdit={isEdit}/>
           <ul className="custom-select__list" role="listbox">
             {userGenders.map((item:string) => (<ChooseGender item={item} key={item}/>))}
           </ul>
         </div>
-        <div className={isEdit ? `custom-select${profLevelMenuOn ? ' is-open not-empty' : ' not-empty'} user-info-edit__select` : 'custom-select is-disabled not-empty user-info-edit__select'}
+        <div className={`custom-select${profLevelMenuOn ? ' is-open' : ''} user-info-edit__select`}
           onClick={()=>{if (isEdit) {setProfLevelMenuOn(!profLevelMenuOn);}}}
         >
-          <span className="custom-select__label">Уровень</span>
-          <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-            <span className="custom-select__text">{levelOfExp ? capitalizeFirst(levelOfExp) : ''}</span>
-            <span className="custom-select__icon">
-              <svg width="15" height="6" aria-hidden="true">
-                {isEdit ? <ArrowDown/> : ''}
-              </svg>
-            </span>
-          </button>
+          <UserMenuButton label={'Уровень'} menu={levelOfExp ? capitalizeFirst(levelOfExp) : ''} isEdit={isEdit}/>
           <ul className="custom-select__list" role="listbox">
             {levelsOfExperience.map((item:string) => (<ChooseLevelOfExp item={item} key={item}/>))}
           </ul>

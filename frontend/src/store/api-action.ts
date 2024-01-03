@@ -4,7 +4,7 @@ import { AppDispatch, State } from '../types/state';
 import { APIRoute } from '../common/const';
 import { User, UserUpdateData } from '../types/user';
 import { AuthData } from '../types/auth-data';
-import { dropToken, saveToken } from '../services/token';
+import { dropToken, getRefreshToken, saveToken } from '../services/token';
 import { TokenData } from '../types/token-data';
 import { UserData } from '../types/user-data';
 import { CreateUserData } from '../types/create-user-data';
@@ -43,6 +43,20 @@ export const checkAuthAction = createAsyncThunk<
   return data.userId;
 });
 
+export const refreshTokenAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/refreshToken', async (_arg, { extra: api }) => {
+  const refreshToken = getRefreshToken();
+  const { data } = await api.post<TokenData>(APIRoute.Refresh, refreshToken);
+  saveToken(data.accessToken, data.refreshToken);
+});
+
 export const logInAction = createAsyncThunk<
   MyToken,
   AuthData,
@@ -56,7 +70,7 @@ export const logInAction = createAsyncThunk<
     email,
     password,
   });
-  saveToken(data.accessToken);
+  saveToken(data.accessToken, data.refreshToken);
   return jwtDecode(data.accessToken);
 });
 
