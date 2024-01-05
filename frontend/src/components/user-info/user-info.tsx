@@ -1,10 +1,10 @@
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector} from '../../hooks';
+import useSelectListWithComponent from '../../hooks/use-select-list-with-component';
 import { getIsLoadingComplete, getLoggedUser, getUserAvatar } from '../../store/user-data/selectors';
-import { ArrowCheck, ArrowDown, IconChange, IconEdit, IconTrash } from '../svg-const/svg-const';
+import { ArrowCheck, IconChange, IconEdit, IconTrash } from '../svg-const/svg-const';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { typesOfTraining } from '../../common/constant.training';
 import { MAXIMUM_TRAINING_TYPES_CHOICE, UserDescriptionLength, UserTitleLength, levelsOfExperience, userGenders, userLocations } from '../../common/constant.user';
-import { capitalizeFirst } from '../../common/utils';
 import { getIsEdit } from '../../store/user-process/selector';
 import { setToEdit } from '../../store/user-process/user-process';
 import useInput from '../../hooks/use-input';
@@ -26,14 +26,12 @@ function UserInfo():JSX.Element{
 
   const [readenessForPrivat, setReadenessForPrivat] = useState(false);
   const [choosingTypesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
-  const [location, setLocation] = useState<string>('');
-  const [gender, setGender] = useState<string>('');
-  const [levelOfExp, setLevelOfExp] = useState<string>('');
+
+  const locationListMenu = useSelectListWithComponent(user?.location ? `ст. ${user.location}` : '', 'локация', userLocations.map((item) => `ст. ${item}`), isEdit);
+  const genderListMenu = useSelectListWithComponent(user?.userGender ? user.userGender : '', 'пол', userGenders, isEdit);
+  const levelOfExpListMenu = useSelectListWithComponent(user?.levelOfExperience ? user.levelOfExperience : '', 'уровень', levelsOfExperience, isEdit);
 
   const [validTypesOfTraining, setValidTypesOfTraining] = useState(true);
-  const [locationMenuOn, setLocationMenuOn] = useState(false);
-  const [genderMenuOn, setGenderMenuOn] = useState(false);
-  const [profLevelMenuOn, setProfLevelMenuOn] = useState(false);
 
   const onSaveRedoButtonClickHandle = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
@@ -65,9 +63,9 @@ function UserInfo():JSX.Element{
           readinessForPrivate: readenessForPrivat},
         userName: name.value,
         description: description.value,
-        location: location,
-        userGender: gender,
-        levelOfExperience: levelOfExp,
+        location: locationListMenu.selectedOption.replace('ст. ', ''),
+        userGender: genderListMenu.selectedOption,
+        levelOfExperience: levelOfExpListMenu.selectedOption,
         typesOfTraining: choosingTypesOfTraining
 
       };
@@ -93,44 +91,6 @@ function UserInfo():JSX.Element{
           <span className="btn-checkbox__btn">{item}</span>
         </label>
       </div>
-    );
-  }
-
-  type ChooseLocationPrope = {
-    item:string;
-  }
-  function ChooseLocation({item}: ChooseLocationPrope): JSX.Element{
-    return(
-      <li
-        className="custom-select__item"
-        value={item}
-        onClick={()=>setLocation(item)}
-      >{item}
-      </li>
-    );
-
-  }
-
-  type ChooseGenderPrope = {item:string}
-  function ChooseGender({item}: ChooseGenderPrope): JSX.Element {
-    return(
-      <li
-        className="custom-select__item"
-        value={item}
-        onClick={()=>setGender(item)}
-      >{capitalizeFirst(item)}
-      </li>
-    );
-  }
-  type ChooseLevelOfExpPrope = {item:string}
-  function ChooseLevelOfExp({item} : ChooseLevelOfExpPrope): JSX.Element {
-    return(
-      <li
-        className="custom-select__item"
-        value={item}
-        onClick={()=>setLevelOfExp(item)}
-      >{capitalizeFirst(item)}
-      </li>
     );
   }
 
@@ -161,10 +121,6 @@ function UserInfo():JSX.Element{
     if(isLoadingComplete && user){
       setReadenessForPrivat(user?.trainerBody?.readinessForPrivate || false);
       setChoosingTypesOfTraining(user?.typesOfTraining);
-      setLocation(user?.location);
-      setGender(user?.userGender);
-      setLevelOfExp(user?.levelOfExperience);
-
     }
   }, [isLoadingComplete, user]);
   if (!isLoadingComplete){
@@ -260,54 +216,9 @@ function UserInfo():JSX.Element{
           </div>
           <p>{!validTypesOfTraining ? `Не более ${MAXIMUM_TRAINING_TYPES_CHOICE} тренеровок` : ''}</p>
         </div>
-        <div className={isEdit ? `custom-select${locationMenuOn ? ' is-open not-empty' : ' not-empty'} user-info-edit__select` : 'custom-select is-disabled not-empty user-info-edit__select'}
-          onClick={()=>{if (isEdit) {setLocationMenuOn(!locationMenuOn);}}}
-        >
-          <span className="custom-select__label">Локация</span>
-          <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-            <span className="custom-select__text">ст. м. {location}</span>
-            <span className="custom-select__icon">
-              <svg width="15" height="6" aria-hidden="true">
-                {isEdit ? <ArrowDown/> : ''}
-              </svg>
-            </span>
-          </button>
-          <ul className="custom-select__list" role="listbox">
-            {userLocations.map((item:string) => (<ChooseLocation item={item} key={item}/>))}
-          </ul>
-        </div>
-        <div className={isEdit ? `custom-select${genderMenuOn ? ' is-open not-empty' : ' not-empty'} user-info-edit__select` : 'custom-select is-disabled not-empty user-info-edit__select'}
-          onClick={()=>{if (isEdit) {setGenderMenuOn(!genderMenuOn);}}}
-        >
-          <span className="custom-select__label">Пол</span>
-          <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-            <span className="custom-select__text">{gender ? capitalizeFirst(gender) : ''}</span>
-            <span className="custom-select__icon">
-              <svg width="15" height="6" aria-hidden="true">
-                {isEdit ? <ArrowDown/> : ''}
-              </svg>
-            </span>
-          </button>
-          <ul className="custom-select__list" role="listbox">
-            {userGenders.map((item:string) => (<ChooseGender item={item} key={item}/>))}
-          </ul>
-        </div>
-        <div className={isEdit ? `custom-select${profLevelMenuOn ? ' is-open not-empty' : ' not-empty'} user-info-edit__select` : 'custom-select is-disabled not-empty user-info-edit__select'}
-          onClick={()=>{if (isEdit) {setProfLevelMenuOn(!profLevelMenuOn);}}}
-        >
-          <span className="custom-select__label">Уровень</span>
-          <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-            <span className="custom-select__text">{levelOfExp ? capitalizeFirst(levelOfExp) : ''}</span>
-            <span className="custom-select__icon">
-              <svg width="15" height="6" aria-hidden="true">
-                {isEdit ? <ArrowDown/> : ''}
-              </svg>
-            </span>
-          </button>
-          <ul className="custom-select__list" role="listbox">
-            {levelsOfExperience.map((item:string) => (<ChooseLevelOfExp item={item} key={item}/>))}
-          </ul>
-        </div>
+        {locationListMenu.SelectComponent}
+        {genderListMenu.SelectComponent}
+        {levelOfExpListMenu.SelectComponent}
       </form>
     </section>
   );

@@ -4,7 +4,6 @@ import { ArrowCheck, IconChange, IconEdit, IconTrash } from '../svg-const/svg-co
 import { ChangeEvent, useEffect, useState } from 'react';
 import { typesOfTraining } from '../../common/constant.training';
 import { MAXIMUM_TRAINING_TYPES_CHOICE, UserDescriptionLength, UserTitleLength, levelsOfExperience, userGenders, userLocations } from '../../common/constant.user';
-import { capitalizeFirst } from '../../common/utils';
 import { getIsEdit } from '../../store/user-process/selector';
 import { setToEdit } from '../../store/user-process/user-process';
 import useInput from '../../hooks/use-input';
@@ -13,7 +12,7 @@ import { updateUser, uploadFileImg } from '../../store/api-action';
 import { HOST_PORT } from '../../common/constant';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import UserMenuButton from '../user-menu-button/user-menu-button';
+import useSelectListWithComponent from '../../hooks/use-select-list-with-component';
 
 function ClientInfo():JSX.Element{
   const user = useAppSelector(getLoggedUser);
@@ -27,14 +26,12 @@ function ClientInfo():JSX.Element{
 
   const [readenessForTraining, setReadenessForTraining] = useState(false);
   const [choosingTypesOfTraining, setChoosingTypesOfTraining] = useState<string[]>([]);
-  const [location, setLocation] = useState<string>('');
-  const [gender, setGender] = useState<string>('');
-  const [levelOfExp, setLevelOfExp] = useState<string>('');
 
   const [validTypesOfTraining, setValidTypesOfTraining] = useState(true);
-  const [locationMenuOn, setLocationMenuOn] = useState(false);
-  const [genderMenuOn, setGenderMenuOn] = useState(false);
-  const [profLevelMenuOn, setProfLevelMenuOn] = useState(false);
+
+  const locationListMenu = useSelectListWithComponent(user?.location ? `ст. ${user.location}` : '', 'локация', userLocations.map((item) => `ст. ${item}`), isEdit);
+  const genderListMenu = useSelectListWithComponent(user?.userGender ? user.userGender : '', 'пол', userGenders, isEdit);
+  const levelOfExpListMenu = useSelectListWithComponent(user?.levelOfExperience ? user.levelOfExperience : '', 'уровень', levelsOfExperience, isEdit);
 
   const onSaveRedoButtonClickHandle = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
@@ -66,9 +63,9 @@ function ClientInfo():JSX.Element{
           readinessForPrivate: readenessForTraining},
         userName: name.value,
         description: description.value,
-        location: location,
-        userGender: gender,
-        levelOfExperience: levelOfExp,
+        location: locationListMenu.selectedOption.replace('ст. ', ''),
+        userGender: genderListMenu.selectedOption,
+        levelOfExperience: levelOfExpListMenu.selectedOption,
         typesOfTraining: choosingTypesOfTraining
 
       };
@@ -94,44 +91,6 @@ function ClientInfo():JSX.Element{
           <span className="btn-checkbox__btn">{item}</span>
         </label>
       </div>
-    );
-  }
-
-  type ChooseLocationPrope = {
-    item:string;
-  }
-  function ChooseLocation({item}: ChooseLocationPrope): JSX.Element{
-    return(
-      <li
-        className="custom-select__item"
-        value={item}
-        onClick={()=>setLocation(item)}
-      >{item}
-      </li>
-    );
-
-  }
-
-  type ChooseGenderPrope = {item:string}
-  function ChooseGender({item}: ChooseGenderPrope): JSX.Element {
-    return(
-      <li
-        className="custom-select__item"
-        value={item}
-        onClick={()=>setGender(item)}
-      >{capitalizeFirst(item)}
-      </li>
-    );
-  }
-  type ChooseLevelOfExpPrope = {item:string}
-  function ChooseLevelOfExp({item} : ChooseLevelOfExpPrope): JSX.Element {
-    return(
-      <li
-        className="custom-select__item"
-        value={item}
-        onClick={()=>setLevelOfExp(item)}
-      >{capitalizeFirst(item)}
-      </li>
     );
   }
 
@@ -162,10 +121,6 @@ function ClientInfo():JSX.Element{
     if(isLoadingComplete && user){
       setReadenessForTraining(user?.clientBody?.readinessForTraining || false);
       setChoosingTypesOfTraining(user?.typesOfTraining);
-      setLocation(user?.location);
-      setGender(user?.userGender);
-      setLevelOfExp(user?.levelOfExperience);
-
     }
   }, [isLoadingComplete, user]);
   if (!isLoadingComplete){
@@ -174,9 +129,7 @@ function ClientInfo():JSX.Element{
         <LoadingScreen/>
       </HelmetProvider>);}
 
-
   return(
-
     <section className="user-info-edit">
       <div className="user-info-edit__header">
         <div className="input-load-avatar">
@@ -261,30 +214,9 @@ function ClientInfo():JSX.Element{
           </div>
           <p>{!validTypesOfTraining ? `Не более ${MAXIMUM_TRAINING_TYPES_CHOICE} тренеровок` : ''}</p>
         </div>
-        <div className={`custom-select${locationMenuOn ? ' is-open' : ''} user-info-edit__select`}
-          onClick={()=>{if (isEdit) {setLocationMenuOn(!locationMenuOn);}}}
-        >
-          <UserMenuButton label={'Локация'} menu={`ст. м. ${location}`} isEdit={isEdit}/>
-          <ul className="custom-select__list" role="listbox">
-            {userLocations.map((item:string) => (<ChooseLocation item={item} key={item}/>))}
-          </ul>
-        </div>
-        <div className={`custom-select${genderMenuOn ? ' is-open' : ''} user-info-edit__select`}
-          onClick={()=>{if (isEdit) {setGenderMenuOn(!genderMenuOn);}}}
-        >
-          <UserMenuButton label={'Пол'} menu={gender ? capitalizeFirst(gender) : ''} isEdit={isEdit}/>
-          <ul className="custom-select__list" role="listbox">
-            {userGenders.map((item:string) => (<ChooseGender item={item} key={item}/>))}
-          </ul>
-        </div>
-        <div className={`custom-select${profLevelMenuOn ? ' is-open' : ''} user-info-edit__select`}
-          onClick={()=>{if (isEdit) {setProfLevelMenuOn(!profLevelMenuOn);}}}
-        >
-          <UserMenuButton label={'Уровень'} menu={levelOfExp ? capitalizeFirst(levelOfExp) : ''} isEdit={isEdit}/>
-          <ul className="custom-select__list" role="listbox">
-            {levelsOfExperience.map((item:string) => (<ChooseLevelOfExp item={item} key={item}/>))}
-          </ul>
-        </div>
+        {locationListMenu.SelectComponent}
+        {genderListMenu.SelectComponent}
+        {levelOfExpListMenu.SelectComponent}
       </form>
     </section>
   );
