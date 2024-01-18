@@ -7,7 +7,7 @@ import TrainerRoomScreen from '../../pages/trainer-room-screen/trainer-room-scre
 import IntroScreen from '../../pages/intro-screen/intro-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user-data/selectors';
+import { getAuthorizationStatus, getIsLoggingComplete } from '../../store/user-data/selectors';
 import NewTrainingForm from '../new-training-form/new-training-form';
 import TrainersInfo from '../trainer-info/trainer-info';
 import MyTrainingListBlock from '../my-training-list-block/my-training-list-block';
@@ -23,21 +23,32 @@ import ClientRoomInfo from '../client-room-info/client-room-info';
 import MyFriends from '../my-friends/my-friends';
 import ClientPurchases from '../client-purchases/client-purchases';
 import { useEffect } from 'react';
-import { REFRESH_TOKEN_KEY_NAME } from '../../common/constant';
+import { AUTH_TOKEN_KEY_NAME, REFRESH_TOKEN_KEY_NAME } from '../../common/constant';
 import { refreshTokenAction } from '../../store/api-action';
-import { dropToken } from '../../services/token';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 export function App(): JSX.Element {
   const dispatch = useAppDispatch();
-
+  const isLoggingComplete = useAppSelector(getIsLoggingComplete);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
-    if (localStorage.getItem(REFRESH_TOKEN_KEY_NAME)) {
-      dispatch(refreshTokenAction());
+    const storedAuthToken = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+
+    if (storedAuthToken !== null) {
+      const storedRefreshToken = localStorage.getItem(REFRESH_TOKEN_KEY_NAME);
+
+      if (storedRefreshToken) {
+        dispatch(refreshTokenAction());
+      }
     }
-    return () => dropToken();
-  }, []);
+  }, [dispatch]);
+
+  if (!isLoggingComplete){
+    return(
+      <HelmetProvider>
+        <LoadingScreen/>
+      </HelmetProvider>);}
   return(
     <HelmetProvider>
       <BrowserRouter>

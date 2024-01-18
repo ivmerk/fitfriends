@@ -14,6 +14,7 @@ import {
   getUserList,
   logInAction,
   logOutAction,
+  refreshTokenAction,
   updateUser,
   uploadFileImg,
   uploadSertImg,
@@ -25,6 +26,7 @@ const initialState: UserData = {
   loggedUserId: null,
   loggedUserRole: null,
   isLoadingComplete: true,
+  isAuthTokenValid: false,
   isDeletingComplete: true,
   isLogingComplete: true,
   hasError: false,
@@ -44,16 +46,33 @@ export const userData = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(refreshTokenAction.pending, (state) => {
+        state.isLogingComplete = false;
+      })
+      .addCase(refreshTokenAction.fulfilled, (state) => {
+        state.isAuthTokenValid = true;
+        state.isLogingComplete = true;
+      })
+      .addCase(refreshTokenAction.rejected, (state) => {
+        state.isLogingComplete = true;
+      })
+      .addCase(checkAuthAction.pending, (state) => {
+        state.isLoadingComplete = false;
+      })
       .addCase(checkAuthAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.isLoadingComplete = true;
       })
       .addCase(checkAuthAction.rejected, (state) => {
+        state.isAuthTokenValid = false;
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.isLoadingComplete = true;
       })
       .addCase(logInAction.pending, (state) => {
         state.isLogingComplete = false;
       })
       .addCase(logInAction.fulfilled, (state, actions) => {
+        state.isAuthTokenValid = true;
         state.isLogingComplete = true;
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.loggedUserRole = actions.payload.userRole;

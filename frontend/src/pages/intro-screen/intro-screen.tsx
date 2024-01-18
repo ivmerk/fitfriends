@@ -1,6 +1,36 @@
+import { useEffect } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { AUTH_TOKEN_KEY_NAME } from '../../common/constant';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { checkAuthAction } from '../../store/api-action';
+import { getIsLoadingComplete, getIsLoggingComplete } from '../../store/user-data/selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function IntroScreen() :JSX.Element {
+
+  const dispatch = useAppDispatch();
+  const isLoadingCompelete = useAppSelector(getIsLoadingComplete);
+  const isLoggingComplete = useAppSelector(getIsLoggingComplete);
+  const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (isLoggingComplete) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        dispatch(checkAuthAction());
+      }
+    };
+
+    fetchData();
+  }, [isLoggingComplete, token, dispatch]);
+
+  if (!isLoadingCompelete){
+    return(
+      <HelmetProvider>
+        <LoadingScreen/>
+      </HelmetProvider>);}
+
   return(
     <div className="intro">
       <div className="intro__background">

@@ -14,6 +14,7 @@ export interface UserData {
   isLoadingComplete: boolean;
   isLogingComplete: boolean;
   isDeletingComplete: boolean;
+  isAuthTokenValid: boolean,
   hasError: boolean;
   loggedUserRole: UserRole | null;
   loggedUser: User | null;

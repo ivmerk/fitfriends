@@ -39,7 +39,7 @@ export const checkAuthAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/checkAuth', async (_arg, { extra: api }) => {
-  const { data } = await api.get<UserData>(APIRoute.Login);
+  const { data } = await api.get<UserData>(APIRoute.Check);
   return data.userId;
 });
 
@@ -53,6 +53,7 @@ export const refreshTokenAction = createAsyncThunk<
   }
 >('user/refreshToken', async (_arg, { extra: api }) => {
   const refreshToken = getRefreshToken();
+  saveToken(refreshToken, refreshToken);
   const { data } = await api.post<TokenData>(APIRoute.Refresh, refreshToken);
   saveToken(data.accessToken, data.refreshToken);
 });
