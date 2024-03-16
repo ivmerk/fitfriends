@@ -34,9 +34,6 @@ function IntroScreen() :JSX.Element {
   useEffect(() => {
     if(authorizationStatus === AuthorizationStatus.Auth){
       loggedUserRole === UserRole.Trainer ? navigate(AppRoute.TrainerRoom) : navigate(AppRoute.Main);
-      console.log(authorizationStatus);
-
-      console.log(loggedUserRole);
     }
   },[authorizationStatus]);
 
