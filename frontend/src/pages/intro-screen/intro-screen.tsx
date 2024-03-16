@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { AuthorizationStatus } from '../../common/const';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../common/const';
 import { AUTH_TOKEN_KEY_NAME } from '../../common/constant';
 import { IntroIcon } from '../../components/svg-const/svg-const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { checkAuthAction } from '../../store/api-action';
-import { getAuthorizationStatus, getIsLoadingComplete, getIsLoggingComplete } from '../../store/user-data/selectors';
-import { getRegistredUser } from '../../store/user-process/selector';
+import { getAuthorizationStatus, getIsLoadingComplete, getIsLoggingComplete, getLoggedUserRole } from '../../store/user-data/selectors';
+import { UserRole } from '../../types/user-role.enum';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function IntroScreen() :JSX.Element {
@@ -17,7 +18,8 @@ function IntroScreen() :JSX.Element {
   const isLoggingComplete = useAppSelector(getIsLoggingComplete);
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const user = useAppSelector(getRegistredUser);
+  const loggedUserRole = useAppSelector(getLoggedUserRole);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,8 +33,10 @@ function IntroScreen() :JSX.Element {
 
   useEffect(() => {
     if(authorizationStatus === AuthorizationStatus.Auth){
+      loggedUserRole === UserRole.Trainer ? navigate(AppRoute.TrainerRoom) : navigate(AppRoute.Main);
       console.log(authorizationStatus);
-      console.log(user);
+
+      console.log(loggedUserRole);
     }
   },[authorizationStatus]);
 
