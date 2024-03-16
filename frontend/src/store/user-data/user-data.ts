@@ -59,9 +59,11 @@ export const userData = createSlice({
       .addCase(checkAuthAction.pending, (state) => {
         state.isLoadingComplete = false;
       })
-      .addCase(checkAuthAction.fulfilled, (state) => {
+      .addCase(checkAuthAction.fulfilled, (state, actions) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.isLoadingComplete = true;
+        state.loggedUserId = actions.payload.sub;
+        state.loggedUserRole = actions.payload.userRole;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.isAuthTokenValid = false;

@@ -187,6 +187,18 @@ export const IconWeight = () => (
   </svg>
 );
 
+export const IntroIcon = () => (
+  <svg className="intro__icon" width="60" height="60" aria-hidden="true">
+    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 30C16.5667 30 30 43.4333 30 60V30H60C43.4333 30 30 16.5667 30 0C30 16.5667 16.5667 30 0 30Z" fill="#181818"/>
+      <path d="M30 60C30 43.4333 16.5667 30 0 30V60H30Z" fill="#C5EC2A"/>
+      <path d="M30 60C46.5667 60 60 46.5667 60 30H30V60Z" fill="#C5EC2A"/>
+      <path d="M30 0C30 16.5667 16.5667 30 0 30V0H30Z" fill="#C5EC2A"/>
+      <path d="M60 30C43.4333 30 30 16.5667 30 0H60V30Z" fill="#C5EC2A"/>
+    </svg>
+  </svg>
+);
+
 export const LogoType = () => (
   <svg width="100%" height="100%" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 37C20.4322 37 37 53.5678 37 74V37H74C53.5678 37 37 20.4322 37 0C37 20.4322 20.4322 37 0 37Z" fill="#181818"/>

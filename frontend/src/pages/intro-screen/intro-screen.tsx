@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { AuthorizationStatus } from '../../common/const';
 import { AUTH_TOKEN_KEY_NAME } from '../../common/constant';
+import { IntroIcon } from '../../components/svg-const/svg-const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { checkAuthAction } from '../../store/api-action';
-import { getIsLoadingComplete, getIsLoggingComplete } from '../../store/user-data/selectors';
+import { getAuthorizationStatus, getIsLoadingComplete, getIsLoggingComplete } from '../../store/user-data/selectors';
+import { getRegistredUser } from '../../store/user-process/selector';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function IntroScreen() :JSX.Element {
@@ -13,6 +16,8 @@ function IntroScreen() :JSX.Element {
   const isLoadingCompelete = useAppSelector(getIsLoadingComplete);
   const isLoggingComplete = useAppSelector(getIsLoggingComplete);
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getRegistredUser);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,9 +26,15 @@ function IntroScreen() :JSX.Element {
         dispatch(checkAuthAction());
       }
     };
-
     fetchData();
   }, [isLoggingComplete, token, dispatch]);
+
+  useEffect(() => {
+    if(authorizationStatus === AuthorizationStatus.Auth){
+      console.log(authorizationStatus);
+      console.log(user);
+    }
+  },[authorizationStatus]);
 
   if (!isLoadingCompelete){
     return(
@@ -40,15 +51,7 @@ function IntroScreen() :JSX.Element {
         </picture>
       </div>
       <div className="intro__wrapper">
-        <svg className="intro__icon" width="60" height="60" aria-hidden="true">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 30C16.5667 30 30 43.4333 30 60V30H60C43.4333 30 30 16.5667 30 0C30 16.5667 16.5667 30 0 30Z" fill="#181818"/>
-            <path d="M30 60C30 43.4333 16.5667 30 0 30V60H30Z" fill="#C5EC2A"/>
-            <path d="M30 60C46.5667 60 60 46.5667 60 30H30V60Z" fill="#C5EC2A"/>
-            <path d="M30 0C30 16.5667 16.5667 30 0 30V0H30Z" fill="#C5EC2A"/>
-            <path d="M60 30C43.4333 30 30 16.5667 30 0H60V30Z" fill="#C5EC2A"/>
-          </svg>
-        </svg>
+        <IntroIcon/>
         <div className="intro__title-logo">
           <picture>
             <source type="image/webp" srcSet="img/content/sitemap//title-logo.webp, img/content/sitemap//title-logo@2x.webp 2x"></source>

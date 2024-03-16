@@ -16,8 +16,6 @@ export default registerAs('jwt', (): JWTConfig => {
     refreshTokenExpiresIn: process.env.JW_RT_EXPIRES_IN,
   };
 
-  console.log(config, process.env);
-
   const validationSchema = Joi.object<JWTConfig>({
     accessTokenSecret: Joi.string().required(),
     accessTokenExpiresIn: Joi.string().required(),

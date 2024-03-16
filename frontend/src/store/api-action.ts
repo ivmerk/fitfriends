@@ -6,7 +6,6 @@ import { User, UserUpdateData } from '../types/user';
 import { AuthData } from '../types/auth-data';
 import { dropToken, getRefreshToken, saveToken } from '../services/token';
 import { TokenData } from '../types/token-data';
-import { UserData } from '../types/user-data';
 import { CreateUserData } from '../types/create-user-data';
 import jwtDecode from 'jwt-decode';
 import { MyToken } from '../types/my-token.interfafe';
@@ -29,9 +28,10 @@ import { UserListFeedQuery } from '../types/users-list-feed.query';
 import { UserFriendData } from '../types/user-friend-data';
 import { PersonalOrderTrainingData } from '../types/personal-order-training-data';
 import { TrainingListForCatalogQuery } from '../types/training-list-for-catalog-query';
+import { JWTPayload } from '../types/jwt-payload';
 
 export const checkAuthAction = createAsyncThunk<
-  number,
+  JWTPayload,
   undefined,
   {
     dispatch: AppDispatch;
@@ -39,8 +39,8 @@ export const checkAuthAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/checkAuth', async (_arg, { extra: api }) => {
-  const { data } = await api.get<UserData>(APIRoute.Check);
-  return data.userId;
+  const { data } = await api.get<JWTPayload>(APIRoute.Check);
+  return data;
 });
 
 export const refreshTokenAction = createAsyncThunk<
