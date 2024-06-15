@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { UserRoomController } from './user-room.controller';
 import { UserRoomService } from './user-room.service';
 import { FitnessUserModule } from 'src/users/fitness-user/fitness-user.module';
 import { UserFriendModule } from 'src/user-friend/user-friend.module';
@@ -11,6 +10,7 @@ import { PersonalOrderTrainingModule } from 'src/personal-order-training/persona
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { getJwtOptions } from 'src/common/get-jwt-options';
+import { UserRoomController } from './user-room.controller';
 
 @Module({
   imports: [
